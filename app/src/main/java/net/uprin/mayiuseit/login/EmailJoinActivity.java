@@ -1,5 +1,6 @@
 package net.uprin.mayiuseit.login;
 
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
 
 
 public class EmailJoinActivity extends AppCompatActivity {
@@ -88,8 +90,18 @@ public class EmailJoinActivity extends AppCompatActivity {
                 {
                     buff.append(line + "\n");
                 }
+
                 data    = buff.toString().trim();
                 Log.e("RECV DATA",data);
+
+                if(data.equals("0"))
+                {
+                    Log.e("RESULT","성공적으로 처리되었습니다!");
+                }
+                else
+                {
+                    Log.e("RESULT","에러 발생! ERRCODE = " + data);
+                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -98,6 +110,47 @@ public class EmailJoinActivity extends AppCompatActivity {
             }
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        /* 서버에서 응답 */
+            Log.e("RECV DATA",data);
+
+            if(data.equals("0"))
+            {
+                Log.e("RESULT","성공적으로 처리되었습니다!");
+                alertBuilder
+                        .setTitle("알림")
+                        .setMessage("성공적으로 등록되었습니다!")
+                        .setCancelable(true)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                AlertDialog dialog = alertBuilder.create();
+                dialog.show();
+            }
+            else
+            {
+                Log.e("RESULT","에러 발생! ERRCODE = " + data);
+                alertBuilder
+                        .setTitle("알림")
+                        .setMessage("등록중 에러가 발생했습니다! errcode : "+ data)
+                        .setCancelable(true)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        });
+                AlertDialog dialog = alertBuilder.create();
+                dialog.show();
+            }
         }
     }
 

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">써도 돼?</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">리콜 제품은 알람으로!</string>
+    <string name="slide_1_desc">리콜/회수 된 제품을 알람으로 받아보세요!</string>
+
+    <string name="slide_2_title">랭킹이 궁금해!</string>
+    <string name="slide_2_desc">다른 이용자들의 패턴을 카테고리별로 보여줍니다</string>
+
+    <string name="slide_3_title">모르는건 찾아보세요</string>
+    <string name="slide_3_desc">내가 가진것이 위험한지 안전한지 직접 찾아보세요</string>
+
+    <string name="slide_4_title">회원가입은 클릭 한번으로</string>
+    <string name="slide_4_desc">소셜 로그인으로 간편하게 회원가입이 가능하답니다.</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="tab_1">홈</string>
+    <string name="tab_2">카테고리</string>
+    <string name="tab_3">공지사항</string>
+    <string name="tab_4">마이페이지</string>
+
+</resources>

@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"아직 준비중 입니다",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), EmailJoinActivity.class));
             }
         });
 

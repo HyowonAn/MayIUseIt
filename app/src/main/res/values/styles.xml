@@ -30,12 +30,18 @@
         <item name="backgroundTint">@color/facebook_button_color</item>
 
     </style>
-    <style name="emailTheme" parent="Widget.AppCompat.Button.Colored">
-        <item name="backgroundTint">@color/email_button_color</item>
+    <style name="defaultButtonTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="backgroundTint">@color/colorAccent</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="naverTheme" parent="Widget.AppCompat.Button.Colored">
         <item name="backgroundTint">@color/naver_button_color</item>
+    </style>
+
+
+    <style name="CharacterOverflow">
+        <item name="android:textColor">@color/colorError</item>
     </style>
 
 

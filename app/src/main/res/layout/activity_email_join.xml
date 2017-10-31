@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_email_join"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <!-- focusable은 처음부터 텍스트필드가 선택되지 않도록 하는 옵션 바깥에 포커스를 주게 한다. -->
+
+    <include layout="@layout/toolbar_layout" android:id="@+id/email_join_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_below="@id/email_join_toolbar"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="이메일로 회원가입"
+            android:textColor="@android:color/black"
+            android:textSize="25dp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:id="@+id/email_TextInputLayout">
+
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email_TextField"
+                android:hint="이메일 주소"
+                android:inputType="text"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/password_TextInputLayout"
+            app:passwordToggleEnabled="true"
+            app:counterOverflowTextAppearance="@style/CharacterOverflow">
+
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password_TextField"
+                android:hint="비밀번호"
+                android:inputType="textPassword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/password_check_TextInputLayout"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:passwordToggleEnabled="true"
+            app:counterOverflowTextAppearance="@style/CharacterOverflow">
+
+
+            <android.support.v7.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password_check_TextField"
+                android:hint="비밀번호 확인"
+                android:inputType="textPassword"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/email_Join_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/defaultButtonTheme"
+            android:text="회원가입하기" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

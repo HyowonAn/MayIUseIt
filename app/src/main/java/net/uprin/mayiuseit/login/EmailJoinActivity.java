@@ -2,14 +2,21 @@ package net.uprin.mayiuseit.login;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import net.uprin.mayiuseit.R;
@@ -28,41 +35,112 @@ import java.net.URL;
 public class EmailJoinActivity extends AppCompatActivity {
 
     public static final String UPRINKEY = "$2Y$10$IMT5G4U9FP1KDOM5S7EPWU/08FFNFZMME/9JF4AQ99P";
-    EditText et_id, et_pw, et_pw_chk;
     String sId, sPw, sPw_chk;
+
+    AppCompatEditText et_id, et_pw, et_pw_chk;
+    RelativeLayout relativeLayout;
+    TextInputLayout emailLayout,passLayout,passchkLayout;
+    Toolbar toolbar;
+    AppCompatButton joinBtn;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_login);
+        setContentView(R.layout.activity_email_join);
 
-        et_id = (EditText) findViewById(R.id.et_Id);
-        et_pw = (EditText) findViewById(R.id.et_Password);
-        et_pw_chk = (EditText) findViewById(R.id.et_Password_chk);
+        et_id = (AppCompatEditText) findViewById(R.id.email_TextField);
+        et_pw = (AppCompatEditText) findViewById(R.id.password_TextField);
+        et_pw_chk = (AppCompatEditText) findViewById(R.id.password_check_TextField);
+        emailLayout = (TextInputLayout) findViewById(R.id.email_TextInputLayout);
+        passLayout = (TextInputLayout) findViewById(R.id.password_TextInputLayout);
+        passchkLayout = (TextInputLayout) findViewById(R.id.password_check_TextInputLayout);
+        toolbar = (Toolbar) findViewById(R.id.email_join_toolbar);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_join);
+        joinBtn = (AppCompatButton)findViewById(R.id.email_Join_Button);
 
-        sId = et_id.getText().toString();
-        sPw = et_pw.getText().toString();
-        sPw_chk = et_pw_chk.getText().toString();
-    }
+        setSupportActionBar(toolbar);
+        // ↓툴바에 홈버튼을 활성화
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-    public void bt_Join(View view){
-        sId = et_id.getText().toString();
-        sPw = et_pw.getText().toString();
-        sPw_chk = et_pw_chk.getText().toString();
+        //빈공간에 클릭 시 키보드가 사라지게 할 수 있음
+        relativeLayout.setOnClickListener(null);
+        emailLayout.setCounterEnabled(true);
+        emailLayout.setCounterMaxLength(20);
+        //비밀번호 크기 제한
+        passLayout.setCounterEnabled(true);
+        passLayout.setCounterMaxLength(15);
+        passchkLayout.setCounterEnabled(true);
+        passchkLayout.setCounterMaxLength(15);
 
-        if(sPw.equals(sPw_chk))
-        {
-            registDB rdb = new registDB();
-            rdb.execute();
-        }
-        else
-        {
+        et_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (et_id.getText().toString().isEmpty()){
+                    emailLayout.setErrorEnabled(true);
+                    emailLayout.setError("이메일 주소를 입력 해 주세요");
+                }else{
+                    emailLayout.setErrorEnabled(false);
+                }
+            }
+        });
+
+        et_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //작성중에 Error 지우기 위해
+                if (et_id.getText().toString().isEmpty()){
+                    emailLayout.setErrorEnabled(true);
+                    emailLayout.setError("이메일 주소를 입력 해 주세요");
+                }else{
+                    emailLayout.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sId = et_id.getText().toString();
+                sPw = et_pw.getText().toString();
+                sPw_chk = et_pw_chk.getText().toString();
+
+                if(sPw.equals(sPw_chk))
+                {
+                    registDB rdb = new registDB();
+                    rdb.execute();
+                }
+                else
+                {
             /* 패스워드 불일치*/
-            Toast.makeText(getApplicationContext(),"패스워드가 불일치합니다",Toast.LENGTH_LONG).show();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "패스워드가 불일치합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            
+                        }
+                    }).show(); // show 까먹지 마세요!
+                    //Toast.makeText(getApplicationContext(),"패스워드가 불일치합니다",Toast.LENGTH_LONG).show();
 
-        }
+                }
+            }
+        });
+
+
+
+
+
     }
 
     public class registDB extends AsyncTask<Void, Integer, Void> {

@@ -48,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
     private SessionCallback callback;
 
     LoginButton kakaologinButton;
-    AppCompatButton fakeKakaoButton, facebookButton, naverButton, emailButton;
+    AppCompatButton fakeKakaoButton, facebookButton, naverButton ;
 
 
 
 
     private PrefManager prefManager;
-    TextView welcome_reset_txtbtn, login_txtbtn, forgot_txtbtn;
+    TextView welcome_reset_txtbtn, login_txtbtn, email_join_txtbtn;
 
 
     @Override
@@ -88,9 +88,8 @@ public class LoginActivity extends AppCompatActivity {
         fakeKakaoButton = (AppCompatButton)findViewById(R.id.fake_com_kakao_login);
         facebookButton = (AppCompatButton)findViewById(R.id.com_facebook_login);
         naverButton = (AppCompatButton)findViewById(R.id.com_naver_login);
-        emailButton = (AppCompatButton)findViewById(R.id.com_email_login);
-        login_txtbtn = (TextView)findViewById(R.id.login) ;
-        forgot_txtbtn = (TextView) findViewById(R.id.forgot_password);
+        email_join_txtbtn = (TextView)findViewById(R.id.email_join);
+        login_txtbtn = (TextView)findViewById(R.id.email_login) ;
 
         fakeKakaoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //email
-        emailButton.setOnClickListener(new View.OnClickListener() {
+        email_join_txtbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), EmailJoinActivity.class));
@@ -145,12 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        forgot_txtbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"아직 준비중 입니다",Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
 

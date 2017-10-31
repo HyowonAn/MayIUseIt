@@ -3,6 +3,7 @@ package net.uprin.mayiuseit.login;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -21,6 +22,8 @@ import android.widget.Toast;
 
 import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,11 +34,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EmailLoginActivity extends AppCompatActivity {
 
-    public static final String UPRINKEY = "$2Y$10$IMT5G4U9FP1KDOM5S7EPWU/08FFNFZMME/9JF4AQ99P";
+    public static final String UPRINKEY = "IMT5G4U9FP1KDOM5S7EPWU08FFNFZMME9JF4AQ99P1";
     String sId, sPw;
 
     AppCompatEditText et_id, et_pw;
@@ -113,8 +119,9 @@ public class EmailLoginActivity extends AppCompatActivity {
                 sId = et_id.getText().toString();
                 sPw = et_pw.getText().toString();
 
-                loginDB lDB = new loginDB();
+               loginDB lDB = new loginDB();
                 lDB.execute();
+
             }
         });
 

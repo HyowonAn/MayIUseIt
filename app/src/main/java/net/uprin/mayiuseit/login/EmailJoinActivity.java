@@ -12,28 +12,22 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.text.TextWatcher;;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiInterface;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class EmailJoinActivity extends AppCompatActivity {
 
-    public static final String UPRINKEY = "$2Y$10$IMT5G4U9FP1KDOM5S7EPWU/08FFNFZMME/9JF4AQ99P";
+    public static final String UPRINKEY = "IMT5G4U9FP1KDOM5S7EPWU08FFNFZMME9JF4AQ99P1";
     String sId, sPw, sPw_chk;
 
     AppCompatEditText et_id, et_pw, et_pw_chk;
@@ -73,7 +67,28 @@ public class EmailJoinActivity extends AppCompatActivity {
         passLayout.setCounterMaxLength(15);
         passchkLayout.setCounterEnabled(true);
         passchkLayout.setCounterMaxLength(15);
+        et_pw_chk.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
 
+            }
+        });
+        et_pw_chk.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         et_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -107,6 +122,8 @@ public class EmailJoinActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
 
             }
+
+
         });
 
         joinBtn.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +135,41 @@ public class EmailJoinActivity extends AppCompatActivity {
 
                 if(sPw.equals(sPw_chk))
                 {
-                    registDB rdb = new registDB();
-                    rdb.execute();
+
+                    //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
+                    ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                    Call<JoinResponse> call = apiService.postEmailLogin(new JoinRequest(sId,sPw,UPRINKEY));
+                    call.enqueue(new Callback<JoinResponse>() {
+                        @Override
+                        public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
+                            JoinResponse joinResponse = response.body();
+                            if (joinResponse.getState()==1){
+                                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                                alertBuilder
+                                        .setTitle("환영합니다")
+                                        .setMessage(joinResponse.getDescription())
+                                        .setCancelable(true)
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        });
+                                AlertDialog dialog = alertBuilder.create();
+                                dialog.show();
+                            }
+                            Snackbar.make(getWindow().getDecorView().getRootView(), joinResponse.getDescription(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            }).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<JoinResponse> call, Throwable t) {
+                        }
+                    });
                 }
                 else
                 {
@@ -127,7 +177,7 @@ public class EmailJoinActivity extends AppCompatActivity {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "패스워드가 불일치합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            
+
                         }
                     }).show();
                 }
@@ -135,97 +185,6 @@ public class EmailJoinActivity extends AppCompatActivity {
         });
 
 
-
-
-
-    }
-
-    public class registDB extends AsyncTask<Void, Integer, Void> {
-        String data         = "";
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            String param = "uprinkey="+UPRINKEY+"&u_id="+sId+"&u_pw="+sPw+"";
-            try{
-                URL url = new URL(
-                        "http://dev.uprin.net/mayiuseit/join.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.connect();
-
-            /* 안드로이드 -> 서버 파라메터값 전달 */
-                OutputStream outs = conn.getOutputStream();
-                outs.write(param.getBytes("UTF-8"));
-                outs.flush();
-                outs.close();
-
-            /* 서버 -> 안드로이드 파라메터값 전달 */
-                InputStream is      = null;
-                BufferedReader in   = null;
-
-
-                is  = conn.getInputStream();
-                in  = new BufferedReader(new InputStreamReader(is), 8 * 1024);
-                String line = null;
-                StringBuffer buff   = new StringBuffer();
-                while ( ( line = in.readLine() ) != null )
-                {
-                    buff.append(line + "\n");
-                }
-
-                data    = buff.toString().trim();
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch(IOException e){
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);//이거 넣어줘야 builder을 사용가능
-            Log.e("RECV DATA",data);
-
-            if(data.equals("0"))
-            {
-                Log.e("RESULT","성공적으로 처리되었습니다!");
-                alertBuilder
-                        .setTitle("알림")
-                        .setMessage("성공적으로 등록되었습니다!")
-                        .setCancelable(true)
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        });
-                AlertDialog dialog = alertBuilder.create();
-                dialog.show();
-            } else if (data.equals("1062")){
-                Snackbar.make(getWindow().getDecorView().getRootView(), "동일한 ID가 존재합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
-            }else
-            {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "잘못된 이메일 형식입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
-            }
-        }
 
     }
 

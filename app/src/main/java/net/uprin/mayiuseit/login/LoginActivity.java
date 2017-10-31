@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         login_txtbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"아직 준비중 입니다",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), EmailLoginActivity.class));
             }
         });
 

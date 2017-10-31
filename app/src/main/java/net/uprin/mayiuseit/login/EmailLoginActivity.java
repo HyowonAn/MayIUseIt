@@ -2,6 +2,7 @@ package net.uprin.mayiuseit.login;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
 
 import java.io.BufferedReader;
@@ -31,33 +33,31 @@ import java.net.URL;
 
 
 
-public class EmailJoinActivity extends AppCompatActivity {
+public class EmailLoginActivity extends AppCompatActivity {
 
     public static final String UPRINKEY = "$2Y$10$IMT5G4U9FP1KDOM5S7EPWU/08FFNFZMME/9JF4AQ99P";
-    String sId, sPw, sPw_chk;
+    String sId, sPw;
 
-    AppCompatEditText et_id, et_pw, et_pw_chk;
+    AppCompatEditText et_id, et_pw;
     RelativeLayout relativeLayout;
-    TextInputLayout emailLayout,passLayout,passchkLayout;
+    TextInputLayout emailLayout,passLayout;
     Toolbar toolbar;
-    AppCompatButton joinBtn;
+    AppCompatButton loginBtn;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_join);
+        setContentView(R.layout.activity_email_login);
 
         et_id = (AppCompatEditText) findViewById(R.id.email_TextField);
         et_pw = (AppCompatEditText) findViewById(R.id.password_TextField);
-        et_pw_chk = (AppCompatEditText) findViewById(R.id.password_check_TextField);
         emailLayout = (TextInputLayout) findViewById(R.id.email_TextInputLayout);
         passLayout = (TextInputLayout) findViewById(R.id.password_TextInputLayout);
-        passchkLayout = (TextInputLayout) findViewById(R.id.password_check_TextInputLayout);
         toolbar = (Toolbar) findViewById(R.id.email_login_toolbar);
-        relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_join);
-        joinBtn = (AppCompatButton)findViewById(R.id.email_Join_Button);
+        relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_login);
+        loginBtn = (AppCompatButton)findViewById(R.id.email_Login_Button);
 
         setSupportActionBar(toolbar);
         // ↓툴바에 홈버튼을 활성화
@@ -71,8 +71,6 @@ public class EmailJoinActivity extends AppCompatActivity {
         //비밀번호 크기 제한
         passLayout.setCounterEnabled(true);
         passLayout.setCounterMaxLength(15);
-        passchkLayout.setCounterEnabled(true);
-        passchkLayout.setCounterMaxLength(15);
 
         et_id.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -109,28 +107,14 @@ public class EmailJoinActivity extends AppCompatActivity {
             }
         });
 
-        joinBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sId = et_id.getText().toString();
                 sPw = et_pw.getText().toString();
-                sPw_chk = et_pw_chk.getText().toString();
 
-                if(sPw.equals(sPw_chk))
-                {
-                    registDB rdb = new registDB();
-                    rdb.execute();
-                }
-                else
-                {
-            /* 패스워드 불일치*/
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "패스워드가 불일치합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            
-                        }
-                    }).show();
-                }
+                loginDB lDB = new loginDB();
+                lDB.execute();
             }
         });
 
@@ -140,15 +124,17 @@ public class EmailJoinActivity extends AppCompatActivity {
 
     }
 
-    public class registDB extends AsyncTask<Void, Integer, Void> {
-        String data         = "";
+    public class loginDB extends AsyncTask<Void, Integer, Void> {
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(Void... unused) {
+        /* 인풋 파라메터값 생성 */
             String param = "uprinkey="+UPRINKEY+"&u_id="+sId+"&u_pw="+sPw+"";
-            try{
+            Log.e("POST",param);
+            try {
+            /* 서버연결 */
                 URL url = new URL(
-                        "http://dev.uprin.net/mayiuseit/join.php");
+                        "http://dev.uprin.net/mayiuseit/login.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
@@ -164,7 +150,7 @@ public class EmailJoinActivity extends AppCompatActivity {
             /* 서버 -> 안드로이드 파라메터값 전달 */
                 InputStream is      = null;
                 BufferedReader in   = null;
-
+                String data         = "";
 
                 is  = conn.getInputStream();
                 in  = new BufferedReader(new InputStreamReader(is), 8 * 1024);
@@ -174,61 +160,34 @@ public class EmailJoinActivity extends AppCompatActivity {
                 {
                     buff.append(line + "\n");
                 }
-
                 data    = buff.toString().trim();
 
+            /* 서버에서 응답 */
+                Log.e("RECV DATA",data);
+
+                if(data.equals("0"))
+                {
+                    Log.e("RESULT","성공적으로 처리되었습니다!");
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+
+                }
+                else
+                {
+                    Log.e("RESULT","에러 발생! ERRCODE = " + data);
+                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
 
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);//이거 넣어줘야 builder을 사용가능
-            Log.e("RECV DATA",data);
 
-            if(data.equals("0"))
-            {
-                Log.e("RESULT","성공적으로 처리되었습니다!");
-                alertBuilder
-                        .setTitle("알림")
-                        .setMessage("성공적으로 등록되었습니다!")
-                        .setCancelable(true)
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        });
-                AlertDialog dialog = alertBuilder.create();
-                dialog.show();
-            } else if (data.equals("1062")){
-                Snackbar.make(getWindow().getDecorView().getRootView(), "동일한 ID가 존재합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
-            }else
-            {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "잘못된 이메일 형식입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
-            }
-        }
 
     }
-
 }
-
-

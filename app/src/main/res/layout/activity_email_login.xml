@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_email_join"
+    android:id="@+id/activity_email_login"
     android:focusable="true"
     android:focusableInTouchMode="true">
     <!-- focusable은 처음부터 텍스트필드가 선택되지 않도록 하는 옵션 바깥에 포커스를 주게 한다. -->
@@ -23,9 +23,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="이메일로 회원가입"
+            android:text="이메일로 로그인"
             android:textColor="@android:color/black"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -44,28 +44,9 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/password_TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:counterOverflowTextAppearance="@style/CharacterOverflow"
-            app:passwordToggleEnabled="true">
-
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/password_TextField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="비밀번호"
-                android:inputType="textPassword" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/password_check_TextInputLayout"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             app:passwordToggleEnabled="true"
             app:counterOverflowTextAppearance="@style/CharacterOverflow">
 
@@ -73,18 +54,18 @@
             <android.support.v7.widget.AppCompatEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/password_check_TextField"
-                android:hint="비밀번호 확인"
+                android:id="@+id/password_TextField"
+                android:hint="비밀번호"
                 android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/email_Join_Button"
+            android:id="@+id/email_Login_Button"
+            style="@style/defaultButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/defaultButtonTheme"
-            android:text="회원가입하기" />
+            android:text="로그인하기" />
 
     </LinearLayout>
 

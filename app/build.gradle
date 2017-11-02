@@ -42,4 +42,12 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
+
+
+// stetho
+    compile 'com.facebook.stetho:stetho:1.5.0'
+
+// for OkHttp3, if you're using an older version,
+// check the stetho website
+    compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 }

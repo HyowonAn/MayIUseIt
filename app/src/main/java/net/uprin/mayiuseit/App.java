@@ -12,6 +12,7 @@ import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
 
+import com.facebook.stetho.Stetho;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;
@@ -76,6 +77,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
         KakaoSDK.init(new KakaoSDKAdapter());
         Log.e("Key Hash : ", getKeyHash(this));
     }

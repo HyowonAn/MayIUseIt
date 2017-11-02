@@ -119,82 +119,46 @@ public class EmailLoginActivity extends AppCompatActivity {
                 sId = et_id.getText().toString();
                 sPw = et_pw.getText().toString();
 
-               loginDB lDB = new loginDB();
-                lDB.execute();
+                //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
+                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                Call<LoginResponse> call = apiService.postEmailLogin(new JoinRequest(sId,sPw,UPRINKEY));
+                call.enqueue(new Callback<LoginResponse>() {
+                    @Override
+                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                        LoginResponse loginResponse = response.body();
+                        if (loginResponse.getState()==1){
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+                            alertBuilder
+                                    .setTitle("환영합니다")
+                                    .setMessage(loginResponse.getDescription())
+                                    .setCancelable(true)
+                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                finish();
+                                            }
+                                        });
+                            AlertDialog dialog = alertBuilder.create();
+                            dialog.show();
+                        }
+                        else
+                        {
+                            Snackbar.make(getWindow().getDecorView().getRootView(), "ID 또는 비밀번호가 일치하지 않습니다.", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            }).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    }
+                });
 
             }
         });
-
-
-
-
-
-    }
-
-    public class loginDB extends AsyncTask<Void, Integer, Void> {
-
-        @Override
-        protected Void doInBackground(Void... unused) {
-        /* 인풋 파라메터값 생성 */
-            String param = "uprinkey="+UPRINKEY+"&u_id="+sId+"&u_pw="+sPw+"";
-            Log.e("POST",param);
-            try {
-            /* 서버연결 */
-                URL url = new URL(
-                        "http://dev.uprin.net/mayiuseit/login.php");
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.connect();
-
-            /* 안드로이드 -> 서버 파라메터값 전달 */
-                OutputStream outs = conn.getOutputStream();
-                outs.write(param.getBytes("UTF-8"));
-                outs.flush();
-                outs.close();
-
-            /* 서버 -> 안드로이드 파라메터값 전달 */
-                InputStream is      = null;
-                BufferedReader in   = null;
-                String data         = "";
-
-                is  = conn.getInputStream();
-                in  = new BufferedReader(new InputStreamReader(is), 8 * 1024);
-                String line = null;
-                StringBuffer buff   = new StringBuffer();
-                while ( ( line = in.readLine() ) != null )
-                {
-                    buff.append(line + "\n");
-                }
-                data    = buff.toString().trim();
-
-            /* 서버에서 응답 */
-                Log.e("RECV DATA",data);
-
-                if(data.equals("0"))
-                {
-                    Log.e("RESULT","성공적으로 처리되었습니다!");
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
-
-                }
-                else
-                {
-                    Log.e("RESULT","에러 발생! ERRCODE = " + data);
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-
-
-
     }
 }

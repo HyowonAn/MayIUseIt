@@ -138,7 +138,7 @@ public class EmailJoinActivity extends AppCompatActivity {
 
                     //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
                     ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-                    Call<JoinResponse> call = apiService.postEmailLogin(new JoinRequest(sId,sPw,UPRINKEY));
+                    Call<JoinResponse> call = apiService.postEmailJoin(new JoinRequest(sId,sPw,UPRINKEY));
                     call.enqueue(new Callback<JoinResponse>() {
                         @Override
                         public void onResponse(Call<JoinResponse> call, Response<JoinResponse> response) {
@@ -158,12 +158,15 @@ public class EmailJoinActivity extends AppCompatActivity {
                                 AlertDialog dialog = alertBuilder.create();
                                 dialog.show();
                             }
-                            Snackbar.make(getWindow().getDecorView().getRootView(), joinResponse.getDescription(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                            else
+                            {
+                                Snackbar.make(getWindow().getDecorView().getRootView(), joinResponse.getDescription(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
 
-                                }
-                            }).show();
+                                    }
+                                }).show();
+                            }
                         }
 
                         @Override

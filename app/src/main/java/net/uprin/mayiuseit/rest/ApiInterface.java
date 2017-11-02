@@ -2,6 +2,7 @@ package net.uprin.mayiuseit.rest;
 
 import net.uprin.mayiuseit.login.JoinRequest;
 import net.uprin.mayiuseit.login.JoinResponse;
+import net.uprin.mayiuseit.login.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,8 +17,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
     @POST("join.php")
-    Call<JoinResponse> postEmailLogin (@Body JoinRequest joinRequest);
-
-    @GET("join.php")
-    Call<JoinResponse> getEmailLogin (@Query("email") String email, @Query("password") String password , @Query("uprinkey") String apiKey);
+    Call<JoinResponse> postEmailJoin (@Body JoinRequest joinRequest);
+    @POST("login.php")
+    Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
 }

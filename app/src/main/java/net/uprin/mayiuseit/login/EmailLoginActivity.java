@@ -127,7 +127,6 @@ public class EmailLoginActivity extends AppCompatActivity {
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         LoginResponse loginResponse = response.body();
                         if (loginResponse.getState()==1){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
                             alertBuilder
                                     .setTitle("환영합니다")
@@ -136,6 +135,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                                     .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                                 finish();
                                             }
                                         });
@@ -144,7 +144,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Snackbar.make(getWindow().getDecorView().getRootView(), "ID 또는 비밀번호가 일치하지 않습니다.", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                            Snackbar.make(getWindow().getDecorView().getRootView(), loginResponse.getDescription(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
 

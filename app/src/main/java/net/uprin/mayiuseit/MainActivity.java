@@ -12,14 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidquery.AQuery;
-import com.kakao.auth.Session;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
@@ -28,11 +22,16 @@ import net.uprin.mayiuseit.login.LoginActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+
+    private int[] tabIcons = {
+            R.drawable.home,
+            R.drawable.category,
+            R.drawable.notice,
+            R.drawable.account
+    };
 
     //TextView user_nickname,user_email;
     //CircleImageView user_img;
@@ -73,20 +72,30 @@ public class MainActivity extends AppCompatActivity {
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        setTitle(getString(R.string.app_name));
+        //setTitle(getString(R.string.app_name));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        mToolbar.setLogo(R.drawable.toolbar_logo);
     }
 
     private void initViewPagerAndTabs() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(MainActivityFragment.createInstance(20), getString(R.string.tab_1));
-        pagerAdapter.addFragment(MainActivityFragment.createInstance(4), getString(R.string.tab_2));
+        pagerAdapter.addFragment(HomeFragment.createInstance(), "홈");
+        pagerAdapter.addFragment(CategoryFragment.createInstance(), "카테고리");
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_3));
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_4));
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+    }
+
+    private void setupTabIcons() {
+
     }
 
     static class PagerAdapter extends FragmentPagerAdapter {
@@ -115,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             return fragmentTitleList.get(position);
+            //return null타이틀을 보여주기 싫은 경우 실행;
         }
     }
 

@@ -116,4 +116,14 @@
     </string>
     <string name="action_settings">Settings</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ohsorry">
+        "아직 카테고리를 설정하지 않으셨네요.\n\n"
+        "아래의 +버튼을 눌러 가장 먼저 보고싶은 카테고리를"
+        "선택 해 주세요.\n\n"
+
+        "구독하시면 홈 화면에서 먼저 볼 수 있고, 푸시 알림 으로도 만나 보실 수 있어요."
+    </string>
+
 </resources>

@@ -18,12 +18,16 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.ScrollingActivity;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,6 +53,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     TextInputLayout emailLayout,passLayout;
     Toolbar toolbar;
     AppCompatButton loginBtn;
+    TextView findmypassword_button;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
 
@@ -64,6 +69,16 @@ public class EmailLoginActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.email_login_toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_login);
         loginBtn = (AppCompatButton)findViewById(R.id.email_Login_Button);
+        findmypassword_button = (TextView) findViewById(R.id.findmypassword_button) ;
+
+        findmypassword_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ScrollingActivity.class));
+                finish();
+            }
+        });
+
 
         setSupportActionBar(toolbar);
         // ↓툴바에 홈버튼을 활성화

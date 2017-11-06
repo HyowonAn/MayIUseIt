@@ -14,7 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.rest.ApiClient;
@@ -35,6 +37,8 @@ public class EmailJoinActivity extends AppCompatActivity {
     TextInputLayout emailLayout,passLayout,passchkLayout;
     Toolbar toolbar;
     AppCompatButton joinBtn;
+    InputMethodManager imm;
+    TextView progresstxt;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
 
@@ -52,6 +56,8 @@ public class EmailJoinActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.email_login_toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_join);
         joinBtn = (AppCompatButton)findViewById(R.id.email_Join_Button);
+        progresstxt = (TextView) findViewById(R.id.progress_join_txt);
+        progresstxt.setVisibility(View.INVISIBLE);
 
         setSupportActionBar(toolbar);
         // ↓툴바에 홈버튼을 활성화
@@ -60,6 +66,8 @@ public class EmailJoinActivity extends AppCompatActivity {
 
         //빈공간에 클릭 시 키보드가 사라지게 할 수 있음
         relativeLayout.setOnClickListener(null);
+        //키보드 강제로 내리기
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         emailLayout.setCounterEnabled(true);
         emailLayout.setCounterMaxLength(20);
         //비밀번호 크기 제한
@@ -129,6 +137,9 @@ public class EmailJoinActivity extends AppCompatActivity {
         joinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                hideKeyboard();
+                joinBtn.setEnabled(false);
+                progresstxt.setVisibility(View.VISIBLE);
                 sId = et_id.getText().toString();
                 sPw = et_pw.getText().toString();
                 sPw_chk = et_pw_chk.getText().toString();
@@ -166,6 +177,9 @@ public class EmailJoinActivity extends AppCompatActivity {
 
                                     }
                                 }).show();
+                               // joinBtn.setClickable(true);
+                                joinBtn.setEnabled(true);
+                                progresstxt.setVisibility(View.INVISIBLE);
                             }
                         }
 
@@ -180,15 +194,31 @@ public class EmailJoinActivity extends AppCompatActivity {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "패스워드가 불일치합니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                           // joinBtn.setClickable(true);
                         }
                     }).show();
+                    joinBtn.setEnabled(true);
+                    progresstxt.setVisibility(View.INVISIBLE);
+
+
                 }
+
             }
+
         });
 
 
 
+
+
+
+
+    }
+
+    private void hideKeyboard()
+    {
+        imm.hideSoftInputFromWindow(et_id.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(et_pw.getWindowToken(), 0);
     }
 
 }

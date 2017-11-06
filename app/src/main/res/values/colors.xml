@@ -44,5 +44,6 @@
     <color name="facebook_button_color">#3b5998</color>
     <color name="email_button_color">#9E9E9E</color>
     <color name="naver_button_color">#2DB400</color>
+    <color name="disable_button_color">#9E9E9E</color>
 
 </resources>

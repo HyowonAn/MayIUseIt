@@ -52,6 +52,7 @@ public class CategoryFragment extends Fragment {
         Glide.with(this).load(R.drawable.medical_background).into(medical);
         Glide.with(this).load(R.drawable.vehicle_background).into(vehicle);
         Glide.with(this).load(R.drawable.water_background).into(water);
+
         visit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

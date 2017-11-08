@@ -59,7 +59,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                intent.putExtra("category", 216);
+                intent.putExtra("category", 0);
                 startActivity(intent);
             }
         });
@@ -88,6 +88,7 @@ public class CategoryFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getActivity().getApplicationContext(), "Custom Toast From Fragment", Toast.LENGTH_LONG).show();
+
             }
         });
 

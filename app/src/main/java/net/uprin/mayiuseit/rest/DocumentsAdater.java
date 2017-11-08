@@ -5,8 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import net.uprin.mayiuseit.R;
 
@@ -25,30 +28,28 @@ public class DocumentsAdater extends RecyclerView.Adapter<DocumentsAdater.Docume
 
     public static class DocumentViewHolder extends RecyclerView.ViewHolder {
         LinearLayout documentsLayout;
-        TextView document_slr;
         TextView category_id;
         TextView Title;
         TextView reason;
         TextView company;
-        TextView img_slr;
         TextView original_from;
         TextView rgsde;
         TextView readed_count;
         TextView rated_count;
+        ImageView imageView;
 
         public DocumentViewHolder(View v) {
             super(v);
             documentsLayout = (LinearLayout) v.findViewById(R.id.documents_layout);
-            document_slr = (TextView) v.findViewById(R.id.document_slr);
             category_id = (TextView) v.findViewById(R.id.category_id);
             reason = (TextView) v.findViewById(R.id.reason);
             Title = (TextView) v.findViewById(R.id.title);
             company = (TextView) v.findViewById(R.id.company);
-            img_slr = (TextView) v.findViewById(R.id.img_slr);
             original_from = (TextView) v.findViewById(R.id.original_from);
             rgsde = (TextView) v.findViewById(R.id.rgsde);
             readed_count = (TextView) v.findViewById(R.id.readed_count);
             rated_count = (TextView) v.findViewById(R.id.rated_count);
+            imageView = (ImageView) v.findViewById(R.id.cardimage);
         }
     }
 
@@ -66,16 +67,18 @@ public class DocumentsAdater extends RecyclerView.Adapter<DocumentsAdater.Docume
 
     @Override
     public void onBindViewHolder(DocumentViewHolder holder, final int position) {
-        holder.document_slr.setText(""+documentLists.get(position).getDocument_slr());
         holder.category_id.setText(""+documentLists.get(position).getCategory_id());
         holder.reason.setText(documentLists.get(position).getReason());
         holder.Title.setText(documentLists.get(position).getTitle());
         holder.company.setText(documentLists.get(position).getCompany());
-        holder.img_slr.setText(documentLists.get(position).getImg_slr());
         holder.original_from.setText(documentLists.get(position).getOriginal_from());
         holder.rgsde.setText(documentLists.get(position).getRgsde());
         holder.readed_count.setText(""+documentLists.get(position).getReaded_count());
         holder.rated_count.setText(""+documentLists.get(position).getRated_count());
+       // Glide.with(context).load(R.drawable.visit_background).into(visit);
+
+        Glide.with(context).load(documentLists.get(position).getImg_slr()).into(holder.imageView);
+
     }
 
     @Override

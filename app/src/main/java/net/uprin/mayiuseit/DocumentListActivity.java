@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class DocumentListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document_list);
+        initToolbar();
 
         Intent intent = getIntent();
         category = intent.getExtras().getInt("category");
@@ -60,5 +62,16 @@ public class DocumentListActivity extends AppCompatActivity {
                 Log.e(TAG, t.toString());
             }
         });
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        setTitle("뒤로가기");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //mToolbar.setLogo(R.drawable.toolbar_logo);
+        // ↓툴바에 홈버튼을 활성화
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 }

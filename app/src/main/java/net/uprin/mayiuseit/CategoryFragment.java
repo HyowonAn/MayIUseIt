@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -52,6 +53,36 @@ public class CategoryFragment extends Fragment {
         Glide.with(this).load(R.drawable.medical_background).into(medical);
         Glide.with(this).load(R.drawable.vehicle_background).into(vehicle);
         Glide.with(this).load(R.drawable.water_background).into(water);
+
+        all.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 216);
+                startActivity(intent);
+            }
+        });
+
+        food.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 216);
+                startActivity(intent);
+            }
+        });
+
+        machine.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 217);
+                startActivity(intent);
+            }
+        });
 
         visit.setOnClickListener(new View.OnClickListener() {
             @Override

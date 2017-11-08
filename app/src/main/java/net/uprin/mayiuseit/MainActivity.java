@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
 
             return fragmentTitleList.get(position);
-            //return null타이틀을 보여주기 싫은 경우 실행;
+            //return null; 타이틀을 보여주기 싫은 경우 실행;
         }
     }
 

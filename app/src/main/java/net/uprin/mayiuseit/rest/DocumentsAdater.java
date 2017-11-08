@@ -74,7 +74,7 @@ public class DocumentsAdater extends RecyclerView.Adapter<DocumentsAdater.Docume
         holder.original_from.setText(documentLists.get(position).getOriginal_from());
         holder.rgsde.setText(documentLists.get(position).getRgsde());
         holder.readed_count.setText(""+documentLists.get(position).getReaded_count());
-        holder.rated_count.setText(""+documentLists.get(position).getRated_count());
+        holder.rated_count.setText(String.format("%.1f",documentLists.get(position).getRated_count()));
        // Glide.with(context).load(R.drawable.visit_background).into(visit);
 
         Glide.with(context).load(documentLists.get(position).getImg_slr()).into(holder.imageView);

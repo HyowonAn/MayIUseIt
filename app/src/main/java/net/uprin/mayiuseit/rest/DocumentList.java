@@ -31,9 +31,9 @@ public class DocumentList {
     @SerializedName("readed_count")
     private int readed_count;
     @SerializedName("rated_count")
-    private int rated_count;
+    private float rated_count;
 
-    public DocumentList(int document_slr, int category_id, String title, String reason, String company, String img_slr, String original_from, String rgsde, int readed_count, int rated_count) {
+    public DocumentList(int document_slr, int category_id, String title, String reason, String company, String img_slr, String original_from, String rgsde, int readed_count, float rated_count) {
         this.document_slr = document_slr;
         this.category_id = category_id;
         this.title = title;
@@ -118,11 +118,11 @@ public class DocumentList {
         this.readed_count = readed_count;
     }
 
-    public int getRated_count() {
+    public float getRated_count() {
         return rated_count;
     }
 
-    public void setRated_count(int rated_count) {
+    public void setRated_count(float rated_count) {
         this.rated_count = rated_count;
     }
 }

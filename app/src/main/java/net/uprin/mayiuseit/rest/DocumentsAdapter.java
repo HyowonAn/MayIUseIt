@@ -1,6 +1,8 @@
 package net.uprin.mayiuseit.rest;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,8 +94,10 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView readed_count;
         TextView rated_count;
         ImageView imageView;
+        CardView cardView;
         public DocumentListsHolder(View v) {
             super(v);
+            cardView = (CardView) v.findViewById(R.id.list_item_document_cardview);
             documentsLayout = (LinearLayout) v.findViewById(R.id.documents_layout);
             category_id = (TextView) v.findViewById(R.id.category_id);
             reason = (TextView) v.findViewById(R.id.reason);
@@ -106,7 +110,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             imageView = (ImageView) v.findViewById(R.id.cardimage);
         }
 
-        void bindData(DocumentList documentLists){
+        void bindData(final DocumentList documentLists){
             category_id.setText(""+documentLists.getCategory_id());
             reason.setText(documentLists.getReason());
             Title.setText(documentLists.getTitle());
@@ -119,6 +123,18 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             Glide.with(context).load(documentLists.getImg_slr())
                     .into(imageView);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "클릭한 slr num : " + documentLists.getDocument_slr(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
+                }
+            });
         }
     }
 

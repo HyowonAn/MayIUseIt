@@ -2,12 +2,14 @@ package net.uprin.mayiuseit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import net.uprin.mayiuseit.rest.ApiClient;
@@ -118,7 +120,12 @@ public class DocumentListActivity extends AppCompatActivity {
                     }else{//result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
                         //telling adapter to stop calling load more as no more server data available
-                        Toast.makeText(context,"No More Data Available",Toast.LENGTH_LONG).show();
+                        Snackbar.make(getWindow().getDecorView().getRootView(), "마지막 페이지입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).show();
                     }
                     adapter.notifyDataChanged();
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status

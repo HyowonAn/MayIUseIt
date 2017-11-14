@@ -25,7 +25,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public final int TYPE_LOAD = 1;
 
     static Context context;
-    List<DocumentList> movies;
+    List<DocumentList> documentLists;
     OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
 
@@ -36,16 +36,16 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     * */
 
 
-    public DocumentsAdapter(Context context, List<DocumentList> movies) {
+    public DocumentsAdapter(Context context, List<DocumentList> documentLists) {
         this.context = context;
-        this.movies = movies;
+        this.documentLists = documentLists;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         if(viewType== TYPE_DOCUMENTS){
-            return new MovieHolder(inflater.inflate(R.layout.list_item_document,parent,false));
+            return new DocumentListsHolder(inflater.inflate(R.layout.list_item_document,parent,false));
         }else{
             return new LoadHolder(inflater.inflate(R.layout.row_load,parent,false));
         }
@@ -60,14 +60,14 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
 
         if(getItemViewType(position)== TYPE_DOCUMENTS){
-            ((MovieHolder)holder).bindData(movies.get(position));
+            ((DocumentListsHolder)holder).bindData(documentLists.get(position));
         }
         //No else part needed as load holder doesn't bind any data
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(movies.get(position).getCategory_id() !=999){
+        if(documentLists.get(position).getCategory_id() !=999){
             return TYPE_DOCUMENTS;
         }else{
             return TYPE_LOAD;
@@ -76,12 +76,12 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return documentLists.size();
     }
 
     /* VIEW HOLDERS */
 
-    static class MovieHolder extends RecyclerView.ViewHolder{
+    static class DocumentListsHolder extends RecyclerView.ViewHolder{
         LinearLayout documentsLayout;
         TextView category_id;
         TextView Title;
@@ -92,7 +92,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView readed_count;
         TextView rated_count;
         ImageView imageView;
-        public MovieHolder(View v) {
+        public DocumentListsHolder(View v) {
             super(v);
             documentsLayout = (LinearLayout) v.findViewById(R.id.documents_layout);
             category_id = (TextView) v.findViewById(R.id.category_id);

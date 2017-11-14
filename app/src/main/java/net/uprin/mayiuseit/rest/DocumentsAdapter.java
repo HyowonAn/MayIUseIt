@@ -12,7 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 import net.uprin.mayiuseit.R;
 
 import java.util.List;
@@ -121,7 +125,12 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             rated_count.setText(String.format("%.1f",documentLists.getRated_count()));
             // Glide.with(context).load(R.drawable.visit_background).into(visit);
 
-            Glide.with(context).load(documentLists.getImg_slr())
+            Glide.with(context)
+                    .load(documentLists.getImg_slr())
+                    .apply(new RequestOptions()
+                            //.placeholder(R.drawable.food_background)
+                            .centerCrop()
+                            .error(R.drawable.medical_background))
                     .into(imageView);
 
             cardView.setOnClickListener(new View.OnClickListener() {

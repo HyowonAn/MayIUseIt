@@ -1,5 +1,6 @@
 package net.uprin.mayiuseit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +14,9 @@ import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.rest.DocumentList;
 import net.uprin.mayiuseit.rest.DocumentListResponse;
-import net.uprin.mayiuseit.rest.DocumentsAdater;
+import net.uprin.mayiuseit.rest.DocumentsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,6 +30,11 @@ public class DocumentListActivity extends AppCompatActivity {
 
     private  int pageNum = 1;
     private  int category= 0;
+    RecyclerView recyclerView;
+    List<DocumentList> documentLists;
+    DocumentsAdapter adapter;
+    ApiInterface api;
+    Context context;
 
 
     @Override
@@ -38,32 +45,94 @@ public class DocumentListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         category = intent.getExtras().getInt("category");
+        context = this;
+        recyclerView = (RecyclerView) findViewById(R.id.documents_recycler_view);
+        documentLists = new ArrayList<>();
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.documents_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new DocumentsAdapter(this, documentLists);
+        adapter.setLoadMoreListener(new DocumentsAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
 
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadMore(pageNum);
+                    }
+                });
+                //Calling loadMore function in Runnable to fix the
+                // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
+            }
+        });
+        //recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        //recyclerView.addItemDecoration(new VerticalLineDecorator(2));
+        recyclerView.setAdapter(adapter);
 
-        Call<DocumentListResponse> call = apiService.getDocumentList(pageNum, category);
+        api = ApiClient.getClient().create(ApiInterface.class);
+        load(pageNum);
+    }
+
+    private void load(int index){
+        Call<DocumentListResponse> call = api.getDocumentList(index, category);
         call.enqueue(new Callback<DocumentListResponse>() {
             @Override
             public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
-                int statusCode = response.code();
-                List<DocumentList> movies = response.body().getResults();
-                Log.d(TAG, "Number of documents received: " + movies.size());
-                recyclerView.setAdapter(new DocumentsAdater(movies, R.layout.list_item_document, getApplicationContext()));
-
+                if(response.isSuccessful()){
+                    documentLists.addAll(response.body().getResults());
+                    adapter.notifyDataChanged();
+                    pageNum = pageNum +1;
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                }
             }
 
             @Override
             public void onFailure(Call<DocumentListResponse> call, Throwable t) {
-                // Log error here since request failed
-                Log.e(TAG, t.toString());
+                Log.e(TAG," Response Error "+t.getMessage());
             }
         });
     }
 
+    private void loadMore(int index){
+
+        //add loading progress view
+        documentLists.add(new DocumentList(999));
+        adapter.notifyItemInserted(documentLists.size()-1);
+
+        Call<DocumentListResponse> call = api.getDocumentList(index, category);
+        call.enqueue(new Callback<DocumentListResponse>() {
+            @Override
+            public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
+                if(response.isSuccessful()){
+
+                    //remove loading view
+                    documentLists.remove(documentLists.size()-1);
+
+                    List<DocumentList> result = response.body().getResults();
+                    if(result!=null){
+                        Log.e(TAG,"Result is " + result.size());
+                        //add loaded data
+                        documentLists.addAll(result);
+                        pageNum =response.body().getPage()+1;
+                    }else{//result size 0 means there is no more data available at server
+                        adapter.setMoreDataAvailable(false);
+                        //telling adapter to stop calling load more as no more server data available
+                        Toast.makeText(context,"No More Data Available",Toast.LENGTH_LONG).show();
+                    }
+                    adapter.notifyDataChanged();
+                    //should call the custom method adapter.notifyDataChanged here to get the correct loading status
+                }else{
+                    Log.e(TAG," Load More Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DocumentListResponse> call, Throwable t) {
+                Log.e(TAG," Load More Response Error "+t.getMessage());
+            }
+        });
+    }
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

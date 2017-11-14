@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/documents_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,345 +11,349 @@
     android:paddingTop="24dp">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/cardView"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardUseCompatPadding="false"
+        android:animateLayoutChanges="true"
         android:gravity="center_horizontal"
-        android:animateLayoutChanges="true">
+        card_view:cardCornerRadius="0dp"
+        card_view:cardUseCompatPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/cardimage"
-                android:layout_width="fill_parent"
-                android:layout_height="200dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:scaleType="centerCrop"
-                android:src="@color/colorPrimary" />
-
-
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:background="#73000000"
-                android:paddingLeft="16dp"
-                android:paddingBottom="16dp">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="6dp">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:orientation="vertical"
-                        android:padding="1dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="18dp"
-                            android:gravity="center_horizontal"
-                            android:src="@drawable/star"
-                            android:tint="@color/colorAccent" />
+                <ImageView
+                    android:id="@+id/cardimage"
+                    android:layout_width="fill_parent"
+                    android:layout_height="200dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:scaleType="centerCrop"
+                    android:src="@color/colorPrimary" />
 
 
-                        <TextView
-                            android:id="@+id/rated_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0.0"
-                            android:background="@color/colorAccent"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorWhite"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="4dp"
-                        android:padding="1dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="18dp"
-                            android:gravity="center_horizontal"
-                            android:src="@drawable/counter"
-                            android:tint="@color/colorPrimaryDark" />
-
-
-                        <TextView
-                            android:id="@+id/readed_count"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="0.0"
-                            android:background="@color/colorPrimaryDark"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="12dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="left|bottom"
-                    android:layout_marginRight="16dp"
-                    android:orientation="vertical">
+                    android:layout_height="200dp"
+                    android:background="#73000000"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp"
+                    android:paddingLeft="16dp">
 
-                <TextView
-                android:id="@+id/category_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="category_id"
-                android:maxLines="1"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="title"
-                android:textSize="25dp"
-                android:maxLines="2"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
-            <TextView
-                android:id="@+id/company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="company"
-                android:maxLines="1"
-                android:textSize="12dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="6dp">
 
-                </LinearLayout>
-            </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:orientation="vertical"
+                            android:padding="1dp">
 
-        </RelativeLayout>
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="18dp"
+                                android:gravity="center_horizontal"
+                                android:src="@drawable/star"
+                                android:tint="@color/colorAccent" />
 
 
+                            <TextView
+                                android:id="@+id/rated_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorAccent"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:paddingLeft="6dp"
+                                android:paddingRight="6dp"
+                                android:text="0.0"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:orientation="vertical">
+                        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="8dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:background="@color/colorWhite"
+                            android:orientation="vertical"
+                            android:padding="1dp">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/hashtag"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:maxLines="1"
-                    android:text="회수 사유  #"
-                    android:gravity = "center"
-                    android:textSize="13dp" />
-
-                <TextView
-                    android:id="@+id/reason"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
-                    android:text="reason"
-                    android:textSize="13dp"
-                    android:gravity = "left|center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="8dp">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/hashtag"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:maxLines="1"
-                    android:text="등록 일자  #"
-                    android:gravity = "center"
-                    android:textSize="13dp" />
-
-                <TextView
-                    android:id="@+id/rgsde"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
-                    android:text="20xx-xx-xx"
-                    android:textSize="13dp"
-                    android:gravity = "center" />
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="8dp">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/hashtag"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="6dp"
-                    android:maxLines="1"
-                    android:text="정보제공기관  #"
-                    android:gravity = "center"
-                    android:textSize="13dp" />
-
-                <TextView
-                    android:id="@+id/original_from"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:maxLines="1"
-                    android:text="original_from"
-                    android:textSize="13dp"
-                    android:gravity = "center" />
-
-            </LinearLayout>
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="18dp"
+                                android:gravity="center_horizontal"
+                                android:src="@drawable/counter"
+                                android:tint="@color/colorPrimaryDark" />
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:padding="8dp"
-                android:layout_centerInParent="true"
-                android:background="#D8D8D8"/>
+                            <TextView
+                                android:id="@+id/readed_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorPrimaryDark"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:paddingLeft="6dp"
+                                android:paddingRight="6dp"
+                                android:text="0.0"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp"
-                android:gravity="center">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
-                    <ImageView
-                        android:layout_width="18dp"
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/star"
-                        android:tint="@color/colorGreyLight"
-                        android:gravity="center_horizontal"/>
+                        android:layout_marginRight="16dp"
+                        android:gravity="left|bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/category_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="category_id"
+                            android:textColor="@android:color/white"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:text="title"
+                            android:textColor="@android:color/white"
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/company"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="company"
+                            android:textColor="@android:color/white"
+                            android:textSize="12dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/hashtag" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="6dp"
+                        android:gravity="center"
                         android:maxLines="1"
-                        android:padding="8dp"
-                        android:text="별점 남기기"
-                        android:textSize="11dp" />
+                        android:text="회수 사유  #"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/reason"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="left|center"
+                        android:maxLines="1"
+                        android:text="reason"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
                     <ImageView
-                        android:layout_width="18dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/hashtag" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:src="@drawable/comment"
-                        android:tint="@color/colorGreyLight"
-                        android:gravity="center_horizontal"/>
+                        android:layout_marginLeft="6dp"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="등록 일자  #"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:id="@+id/rgsde"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="20xx-xx-xx"
+                        android:textSize="13dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:gravity="center_horizontal"
+                        android:src="@drawable/hashtag" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
-                        android:maxLines="1"
-                        android:padding="8dp"
-                        android:text="댓글 남기기"
-                        android:textSize="11dp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
-                    <ImageView
-                        android:layout_width="18dp"
                         android:layout_height="match_parent"
-                        android:src="@drawable/social_network_icon"
-                        android:tint="@color/colorGreyLight"
-                        android:gravity="center_horizontal"/>
+                        android:layout_marginLeft="6dp"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="정보제공기관  #"
+                        android:textSize="13dp" />
 
                     <TextView
+                        android:id="@+id/original_from"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
                         android:maxLines="1"
-                        android:padding="8dp"
-                        android:text="공유하기"
-                        android:textSize="11dp" />
+                        android:text="original_from"
+                        android:textSize="13dp" />
 
                 </LinearLayout>
 
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:background="#D8D8D8"
+                    android:padding="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:src="@drawable/star"
+                            android:tint="@color/colorGreyLight" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:padding="8dp"
+                            android:text="별점 남기기"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:src="@drawable/comment"
+                            android:tint="@color/colorGreyLight" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:padding="8dp"
+                            android:text="댓글 남기기"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center_horizontal"
+                            android:src="@drawable/social_network_icon"
+                            android:tint="@color/colorGreyLight" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:maxLines="1"
+                            android:padding="8dp"
+                            android:text="공유하기"
+                            android:textSize="11dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
-
-            </LinearLayout>
-
-
 
 
         </LinearLayout>

@@ -33,17 +33,8 @@ public class DocumentList {
     @SerializedName("rated_count")
     private float rated_count;
 
-    public DocumentList(int document_slr, int category_id, String title, String reason, String company, String img_slr, String original_from, String rgsde, int readed_count, float rated_count) {
-        this.document_slr = document_slr;
-        this.category_id = category_id;
-        this.title = title;
-        this.reason = reason;
-        this.company = company;
-        this.img_slr = img_slr;
-        this.original_from = original_from;
-        this.rgsde = rgsde;
-        this.readed_count = readed_count;
-        this.rated_count = rated_count;
+    public DocumentList(int category_id) {
+        this.category_id=category_id;
     }
 
     public int getDocument_slr() {

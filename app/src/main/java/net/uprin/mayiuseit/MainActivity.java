@@ -10,11 +10,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kakao.usermgmt.UserManagement;
@@ -30,6 +34,9 @@ import static net.uprin.mayiuseit.R.color.colorPrimaryLight;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+
+    TextView textCartItemCount;
+    int mCartItemCount = 10;
 
     private int[] tabIcons = {
             R.drawable.home,
@@ -75,45 +82,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initToolbar() {
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         //setTitle(getString(R.string.app_name));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         mToolbar.setLogo(R.drawable.toolbar_logo);
-        int color = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-        mToolbar.getLogo().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     private void initViewPagerAndTabs() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(HomeFragment.createInstance(), "홈");
         pagerAdapter.addFragment(CategoryFragment.createInstance(), "카테고리");
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_3));
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_4));
         viewPager.setAdapter(pagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        int color = ResourcesCompat.getColor(getResources(), R.color.colorGreyLight, null);
+
+
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(tabIcons[0])
-                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+                .getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(1).setIcon(tabIcons[1])
-                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+                .getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(2).setIcon(tabIcons[2])
-                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+                .getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(3).setIcon(tabIcons[3])
-                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+                .getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
+                int selectedColor = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
+                tab.getIcon().setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN);
 
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tab.getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+                int color = ResourcesCompat.getColor(getResources(), R.color.colorGreyLight, null);
+                tab.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
 
             }
 
@@ -156,8 +166,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            return fragmentTitleList.get(position);
-            //return null; 타이틀을 보여주기 싫은 경우 실행;
+            //return fragmentTitleList.get(position);
+            return null; //타이틀을 보여주기 싫은 경우 실행;
         }
     }
 
@@ -182,7 +192,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        final MenuItem menuItem = menu.findItem(R.id.alarm_history);
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
+
 
     }
 
@@ -211,9 +236,9 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
 
-        }else if (id==R.id.cart_id){
+        }else if (id==R.id.alarm_history){
 
-            Toast.makeText(getApplicationContext(),"cart",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
 
         }else if (id==android.R.id.home){
 
@@ -221,6 +246,22 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 }
 

@@ -22,12 +22,13 @@
         android:title=""
         android:id="@+id/search_id"
         android:icon="@drawable/search_icon"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
-        android:title=""
-        android:id="@+id/cart_id"
-        android:icon="@drawable/alarm"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/alarm_history"
+        android:icon="@drawable/bell_outline"
+        app:actionLayout="@layout/custom_action_item_layout"
+        app:showAsAction="always"
+        android:title=""/>
 
 </menu>

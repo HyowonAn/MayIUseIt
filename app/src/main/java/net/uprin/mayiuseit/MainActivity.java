@@ -1,12 +1,15 @@
 package net.uprin.mayiuseit;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +24,8 @@ import net.uprin.mayiuseit.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.uprin.mayiuseit.R.color.colorPrimaryLight;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -76,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         mToolbar.setLogo(R.drawable.toolbar_logo);
+        int color = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
+        mToolbar.getLogo().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     private void initViewPagerAndTabs() {
@@ -88,10 +95,34 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(0).setIcon(tabIcons[0])
+                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1])
+                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2])
+                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3])
+                .getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.parseColor("#009688"), PorterDuff.Mode.SRC_IN);
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().setColorFilter(Color.parseColor("#B2DFDB"), PorterDuff.Mode.SRC_IN);
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
     private void setupTabIcons() {

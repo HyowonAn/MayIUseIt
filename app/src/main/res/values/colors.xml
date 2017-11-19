@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimaryLight">#B2DFDB</color>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#FF5252</color>
     <color name="colorError">#FF5252</color>
+
+    <color name="colorPrimaryWhite">#fafafa</color>
+    <color name="colorPrimaryDarkWhite">#c7c7c7</color>
+    <color name="colorPrimaryLightWhite">#ffffff</color>
+
+
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

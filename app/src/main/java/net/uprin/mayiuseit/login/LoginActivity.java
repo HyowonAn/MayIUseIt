@@ -7,8 +7,10 @@ package net.uprin.mayiuseit.login;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.androidquery.AQuery;
 import com.kakao.auth.ISessionCallback;
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     AppCompatButton fakeKakaoButton, facebookButton, naverButton ;
 
 
-
+    private VideoView mVideoView;
 
     private PrefManager prefManager;
     TextView welcome_reset_txtbtn, login_txtbtn, email_join_txtbtn;
@@ -71,6 +74,21 @@ public class LoginActivity extends AppCompatActivity {
         changeStatusBarColor();
         //다시 시작화면 보이기
         welcome_reset_txtbtn = (TextView) findViewById(R.id.welcome_reset_txtbtn);
+
+        mVideoView = (VideoView) findViewById(R.id.mVideoView);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.media1);
+        mVideoView.setVideoURI(uri);
+
+        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.setLooping(true);
+                mediaPlayer.start();
+            }
+        });
+
+
+
         prefManager = new PrefManager(this);
         welcome_reset_txtbtn.setOnClickListener(new View.OnClickListener() {
             @Override

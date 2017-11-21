@@ -361,12 +361,13 @@
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/detail_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:gravity="right"
         android:maxLines="1"
+        android:padding="8dp"
         android:text="자세히 알아보기  >"
-        android:gravity = "right"
         android:textSize="10dp" />
 
 

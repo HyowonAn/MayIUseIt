@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.rest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +18,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
+
+import net.uprin.mayiuseit.DocumentActivity;
+import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.ScrollingActivity;
+import net.uprin.mayiuseit.WelcomeActivity;
 
 import java.util.List;
 
@@ -25,7 +31,7 @@ import java.util.List;
  * Created by CJS on 2017-11-08.
  */
 
-public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public final int TYPE_DOCUMENTS = 0;
     public final int TYPE_LOAD = 1;
@@ -42,7 +48,7 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     * */
 
 
-    public DocumentsAdapter(Context context, List<DocumentList> documentLists) {
+    public DocumentListsAdapter(Context context, List<DocumentList> documentLists) {
         this.context = context;
         this.documentLists = documentLists;
     }
@@ -134,9 +140,13 @@ public class DocumentsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .into(imageView);
 
             cardView.setOnClickListener(new View.OnClickListener() {
+                Intent intent;
                 @Override
                 public void onClick(View view) {
+                    intent =  new Intent(context, DocumentActivity.class);
+                    context.startActivity(intent);
                     Snackbar.make(view, "클릭한 slr num : " + documentLists.getDocument_slr(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+
                         @Override
                         public void onClick(View view) {
 

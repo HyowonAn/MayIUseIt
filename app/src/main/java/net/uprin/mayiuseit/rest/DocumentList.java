@@ -2,10 +2,6 @@ package net.uprin.mayiuseit.rest;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by CJS on 2017-11-08.
  */

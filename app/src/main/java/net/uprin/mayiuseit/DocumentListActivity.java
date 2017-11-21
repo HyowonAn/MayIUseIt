@@ -10,13 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.rest.DocumentList;
 import net.uprin.mayiuseit.rest.DocumentListResponse;
-import net.uprin.mayiuseit.rest.DocumentsAdapter;
+import net.uprin.mayiuseit.rest.DocumentListsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +33,7 @@ public class DocumentListActivity extends AppCompatActivity {
     private  int category= 0;
     RecyclerView recyclerView;
     List<DocumentList> documentLists;
-    DocumentsAdapter adapter;
+    DocumentListsAdapter adapter;
     ApiInterface api;
     Context context;
 
@@ -51,8 +50,8 @@ public class DocumentListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.documents_recycler_view);
         documentLists = new ArrayList<>();
 
-        adapter = new DocumentsAdapter(this, documentLists);
-        adapter.setLoadMoreListener(new DocumentsAdapter.OnLoadMoreListener() {
+        adapter = new DocumentListsAdapter(this, documentLists);
+        adapter.setLoadMoreListener(new DocumentListsAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 

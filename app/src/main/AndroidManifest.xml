@@ -37,7 +37,8 @@
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme" />
-        <activity android:name=".DocumentListActivity"></activity>
+        <activity android:name=".DocumentListActivity" />
+        <activity android:name=".DocumentActivity"></activity>
     </application>
 
 </manifest>

@@ -21,5 +21,6 @@ public interface ApiInterface {
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
     @GET("list.php")
     Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category);
-
+    @GET("document.php")
+    Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
 }

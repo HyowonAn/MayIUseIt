@@ -3,8 +3,6 @@ package net.uprin.mayiuseit.login;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
@@ -15,28 +13,15 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.ScrollingActivity;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -15,19 +15,19 @@ public class DocumentResponse {
     @SerializedName("description")
     private String description;
     @SerializedName("results")
-    private Document results;
+    public List<Document> results;
 
-    public DocumentResponse(int state, String description, Document results) {
+    public DocumentResponse(int state, String description, List<Document> results) {
         this.state = state;
         this.description = description;
         this.results = results;
     }
 
-    public Document getResults() {
+    public List<Document> getResults() {
         return results;
     }
 
-    public void setResults(Document results) {
+    public void setResults(List<Document> results) {
         this.results = results;
     }
 

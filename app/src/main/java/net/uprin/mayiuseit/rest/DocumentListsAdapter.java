@@ -144,6 +144,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     intent =  new Intent(context, DocumentActivity.class);
+                    intent.putExtra("document_slr", documentLists.getDocument_slr());
                     context.startActivity(intent);
                     Snackbar.make(view, "클릭한 slr num : " + documentLists.getDocument_slr(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
 

@@ -133,10 +133,11 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             Glide.with(context)
                     .load(documentLists.getImg_slr())
+                    .thumbnail(Glide.with(context).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                     .apply(new RequestOptions()
                             //.placeholder(R.drawable.food_background)
                             .centerCrop()
-                            .error(R.drawable.medical_background))
+                            )
                     .into(imageView);
 
             cardView.setOnClickListener(new View.OnClickListener() {

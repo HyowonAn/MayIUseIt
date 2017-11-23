@@ -3,6 +3,8 @@ package net.uprin.mayiuseit;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.github.florent37.glidepalette.GlidePalette;
 
@@ -28,13 +31,16 @@ import net.uprin.mayiuseit.rest.DocumentResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DocumentActivity extends AppCompatActivity {
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
-    LinearLayout detailsLayout;
+public class DocumentActivity extends AppCompatActivity {
+    CollapsingToolbarLayout toolbarLayout;
     TextView document_slr;
     TextView category_id;
     TextView original_slr;
@@ -43,7 +49,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView company;
     TextView company_slr;
     TextView certification_id;
-    ImageView img_slr;
+    ImageView img_srl_background,img_srl;
     TextView company_contact;
     TextView original_from;
     TextView original_url;
@@ -101,6 +107,7 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
     public void bindData(Document document) {
+        toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_document_toolbar_layout);
         document_slr = (TextView) findViewById(R.id.detail_document_slr);
         category_id = (TextView) findViewById(R.id.detail_category_id);
         original_slr = (TextView) findViewById(R.id.detail_original_slr);
@@ -109,7 +116,8 @@ public class DocumentActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.detail_company);
         company_slr = (TextView)findViewById(R.id.detail_company_slr);
         certification_id = (TextView) findViewById(R.id.detail_certification_id);
-        img_slr = (ImageView) findViewById(R.id.detail_img_slr);
+        img_srl_background = (ImageView) findViewById(R.id.detail_img_srl_background);
+        img_srl = (ImageView) findViewById(R.id.detail_img_srl);
         company_contact = (TextView) findViewById(R.id.detail_company_contact);
         original_from = (TextView) findViewById(R.id.detail_original_from);
         original_url = (TextView) findViewById(R.id.detail_original_url);
@@ -131,14 +139,22 @@ public class DocumentActivity extends AppCompatActivity {
         certification_id.setText(""+ document.getRated_count());
         company_contact.setText(""+ document.getRated_count());
         original_url.setText(""+ document.getRated_count());
-
+        toolbarLayout.setTitle(document.getTitle());
         //img_slr.set
+        Glide.with(this).load(document.getImg_slr())
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        //.placeholder(R.drawable.fancy_loader)
+                        )
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(img_srl);
 
         Glide.with(this).load(document.getImg_slr())
-                        .apply(new RequestOptions()
-                        //.placeholder(R.drawable.food_background)
+                .thumbnail(Glide.with(this).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
+                .apply(new RequestOptions()
                         .centerCrop()
                         .error(R.drawable.medical_background))
+                .apply(bitmapTransform(new BlurTransformation(100)))
                 .listener(GlidePalette.with(document.getImg_slr())
                         .use(GlidePalette.Profile.MUTED_DARK)
                         .intoCallBack(new GlidePalette.CallBack() {
@@ -146,12 +162,18 @@ public class DocumentActivity extends AppCompatActivity {
                             public void onPaletteLoaded(Palette palette) {
                                 //specific
                                 //toolbar.setBackgroundColor(palette.getDarkMutedColor(0x000000));
+
                                 Log.e(TAG,"colour is : " + palette.getDarkMutedColor(0x000000)+"");
                                 changeStatusBarColor(palette.getDarkMutedColor(0x000000));
+                                toolbarLayout.setContentScrimColor(palette.getDarkMutedColor(0x000000));
+                                //toolbarLayout.setExpandedTitleColor(palette.getLightMutedColor(0x000000));
                             }
                         })
                 )
-                .into(img_slr);
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(img_srl_background);
+
+
 
 
     }

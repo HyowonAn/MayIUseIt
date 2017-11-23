@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(HomeFragment.createInstance(), "홈");
         pagerAdapter.addFragment(CategoryFragment.createInstance(), "카테고리");
-        pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_3));
+        pagerAdapter.addFragment(NoticeFragment.createInstance(), getString(R.string.tab_3));
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_4));
         viewPager.setAdapter(pagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabLayout);

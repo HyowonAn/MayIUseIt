@@ -2,11 +2,14 @@ package net.uprin.mayiuseit;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,6 +51,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView readed_count;
     TextView rated_count;
     Toolbar toolbar;
+    Window window;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -62,6 +66,7 @@ public class DocumentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_document);
         toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
         setSupportActionBar(toolbar);
+
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -134,16 +139,29 @@ public class DocumentActivity extends AppCompatActivity {
                         //.placeholder(R.drawable.food_background)
                         .centerCrop()
                         .error(R.drawable.medical_background))
+                .listener(GlidePalette.with(document.getImg_slr())
+                        .use(GlidePalette.Profile.MUTED_DARK)
+                        .intoCallBack(new GlidePalette.CallBack() {
+                            @Override
+                            public void onPaletteLoaded(Palette palette) {
+                                //specific
+                                //toolbar.setBackgroundColor(palette.getDarkMutedColor(0x000000));
+                                Log.e(TAG,"colour is : " + palette.getDarkMutedColor(0x000000)+"");
+                                changeStatusBarColor(palette.getDarkMutedColor(0x000000));
+                            }
+                        })
+                )
                 .into(img_slr);
 
-        GlidePalette.with(document.getImg_slr())
-                .use(GlidePalette.Profile.MUTED_DARK)
-                .intoCallBack(new GlidePalette.CallBack() {
-                    @Override
-                    public void onPaletteLoaded(Palette palette) {
-                        //specific
-                        toolbar.setBackgroundColor(palette.getDarkMutedColor(0x000000));
-                    }
-                });
+
     }
+
+    private void changeStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(color);
+        }
+    }
+
 }

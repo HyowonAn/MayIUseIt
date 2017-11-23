@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "net.uprin.mayiuseit"
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -37,14 +37,12 @@ dependencies {
 
 
 
-    
-
-
     compile 'com.googlecode.android-query:android-query:0.25.9'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
+
     //Kakao API
     compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.
-    KAKAO_SDK_VERSION
+            KAKAO_SDK_VERSION
     compile 'com.googlecode.android-query:android-query:0.25.9'
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
@@ -60,5 +58,5 @@ dependencies {
     compile 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.thoughtbot:expandablerecyclerview:1.3'
+    compile 'com.android.support:support-vector-drawable:26.+'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'}

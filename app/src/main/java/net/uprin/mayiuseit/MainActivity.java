@@ -215,9 +215,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id==R.id.item1_id){
+        if (id==R.id.settings){
 
-            Toast.makeText(getApplicationContext(),"item1 is selected",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
 
         }else if (id==R.id.item2_id){
 

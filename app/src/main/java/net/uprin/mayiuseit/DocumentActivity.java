@@ -3,9 +3,14 @@ package net.uprin.mayiuseit;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import net.uprin.mayiuseit.login.LoginResponse;
 import net.uprin.mayiuseit.rest.ApiClient;
@@ -32,7 +37,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView company;
     TextView company_slr;
     TextView certification_id;
-    TextView img_slr;
+    ImageView img_slr;
     TextView company_contact;
     TextView original_from;
     TextView original_url;
@@ -50,7 +55,12 @@ public class DocumentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_item_detail);
+        setContentView(R.layout.activity_document);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         document = new ArrayList<>();
         api = ApiClient.getClient().create(ApiInterface.class);
         DocumentListsAdapter adapter;
@@ -82,7 +92,6 @@ public class DocumentActivity extends AppCompatActivity {
     }
 
     public void bindData(Document document) {
-        detailsLayout = (LinearLayout) findViewById(R.id.details_layout);
         document_slr = (TextView) findViewById(R.id.detail_document_slr);
         category_id = (TextView) findViewById(R.id.detail_category_id);
         original_slr = (TextView) findViewById(R.id.detail_original_slr);
@@ -91,7 +100,7 @@ public class DocumentActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.detail_company);
         company_slr = (TextView)findViewById(R.id.detail_company_slr);
         certification_id = (TextView) findViewById(R.id.detail_certification_id);
-        img_slr = (TextView) findViewById(R.id.detail_img_slr);
+        img_slr = (ImageView) findViewById(R.id.detail_img_slr);
         company_contact = (TextView) findViewById(R.id.detail_company_contact);
         original_from = (TextView) findViewById(R.id.detail_original_from);
         original_url = (TextView) findViewById(R.id.detail_original_url);
@@ -104,7 +113,6 @@ public class DocumentActivity extends AppCompatActivity {
         reason.setText(document.getReason());
         Title.setText(document.getTitle());
         company.setText(document.getCompany());
-        img_slr.setText(document.getImg_slr());
         original_from.setText(document.getOriginal_from());
         rgsde.setText(document.getRgsde());
         readed_count.setText(""+ document.getReaded_count());
@@ -114,5 +122,15 @@ public class DocumentActivity extends AppCompatActivity {
         certification_id.setText(""+ document.getRated_count());
         company_contact.setText(""+ document.getRated_count());
         original_url.setText(""+ document.getRated_count());
+
+        //img_slr.set
+
+        Glide.with(this)
+                .load(document.getImg_slr())
+                .apply(new RequestOptions()
+                        //.placeholder(R.drawable.food_background)
+                        .centerCrop()
+                        .error(R.drawable.medical_background))
+                .into(img_slr);
     }
 }

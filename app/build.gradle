@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "net.uprin.mayiuseit"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -24,18 +24,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
-    //appcompat
-    //AQuery
-    // CircleImageView
-
-    //glide
-
-// stetho
-    // for OkHttp3, if you're using an older version,
-// check the stetho website
-
-
     compile 'com.googlecode.android-query:android-query:0.25.9'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
 
@@ -60,6 +48,6 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:26.+'
     testCompile 'junit:junit:4.12'
 
+    compile "com.android.support:palette-v7:26.+"
     compile 'com.github.florent37:glidepalette:2.1.1'
-
 }

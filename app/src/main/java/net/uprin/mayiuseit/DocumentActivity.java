@@ -1,8 +1,10 @@
 package net.uprin.mayiuseit;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.florent37.glidepalette.GlidePalette;
 
 import net.uprin.mayiuseit.login.LoginResponse;
 import net.uprin.mayiuseit.rest.ApiClient;
@@ -44,6 +47,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView rgsde;
     TextView readed_count;
     TextView rated_count;
+    Toolbar toolbar;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -56,7 +60,7 @@ public class DocumentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
+        toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -125,12 +129,21 @@ public class DocumentActivity extends AppCompatActivity {
 
         //img_slr.set
 
-        Glide.with(this)
-                .load(document.getImg_slr())
-                .apply(new RequestOptions()
+        Glide.with(this).load(document.getImg_slr())
+                        .apply(new RequestOptions()
                         //.placeholder(R.drawable.food_background)
                         .centerCrop()
                         .error(R.drawable.medical_background))
                 .into(img_slr);
+
+        GlidePalette.with(document.getImg_slr())
+                .use(GlidePalette.Profile.MUTED_DARK)
+                .intoCallBack(new GlidePalette.CallBack() {
+                    @Override
+                    public void onPaletteLoaded(Palette palette) {
+                        //specific
+                        toolbar.setBackgroundColor(palette.getDarkMutedColor(0x000000));
+                    }
+                });
     }
 }

@@ -25,7 +25,6 @@ public class NoticeFragment extends Fragment{
 
     RecyclerView fragment_activity_main;
 
-
     public static NoticeFragment createInstance() {
         NoticeFragment noticecFragmentFragment = new NoticeFragment();
         Bundle bundle = new Bundle();

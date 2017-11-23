@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="test1"
-        android:id="@+id/item1_id" />
+        android:title="설정"
+        android:id="@+id/settings" />
 
     <item
         android:title="test2"

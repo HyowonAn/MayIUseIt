@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView rated_count;
     Toolbar toolbar;
     Window window;
+    FrameLayout detail_under_layout;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -108,6 +110,7 @@ public class DocumentActivity extends AppCompatActivity {
 
     public void bindData(Document document) {
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_document_toolbar_layout);
+        detail_under_layout = (FrameLayout)findViewById(R.id.detail_under_layout);
         document_slr = (TextView) findViewById(R.id.detail_document_slr);
         category_id = (TextView) findViewById(R.id.detail_category_id);
         original_slr = (TextView) findViewById(R.id.detail_original_slr);
@@ -167,6 +170,7 @@ public class DocumentActivity extends AppCompatActivity {
                                 changeStatusBarColor(palette.getDarkMutedColor(0x000000));
                                 toolbarLayout.setContentScrimColor(palette.getDarkMutedColor(0x000000));
                                 //toolbarLayout.setExpandedTitleColor(palette.getLightMutedColor(0x000000));
+                                detail_under_layout.setBackgroundColor(palette.getDarkMutedColor(0x000000));
                             }
                         })
                 )

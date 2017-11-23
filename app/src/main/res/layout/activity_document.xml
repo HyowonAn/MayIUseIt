@@ -15,13 +15,13 @@
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/activity_document_toolbar_layout"
-                android:layout_height="320dp"
+                android:layout_height="280dp"
                 android:layout_width="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleTextAppearance="?android:attr/textAppearanceMedium"
                 android:fitsSystemWindows="true"
-                app:expandedTitleMarginBottom="16dp"
+                app:expandedTitleMarginBottom="20dp"
                 app:expandedTitleMarginStart="24dp">
 
                 <ImageView
@@ -29,7 +29,7 @@
                     android:id="@+id/detail_img_srl_background"
                     android:background="@color/colorGrey"
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
+                    android:layout_height="280dp"
                     android:contentDescription="AndroidCollapsingToolBar"
                     android:scaleType="centerCrop" />
 
@@ -41,9 +41,10 @@
 
                     <ImageView
                         android:id="@+id/detail_img_srl"
-                        android:layout_width="250dp"
+                        android:layout_width="280dp"
                         android:layout_height="200dp"
-                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center|top"
                         android:scaleType="centerInside"
                         app:layout_collapseMode="parallax"
                         app:layout_collapseParallaxMultiplier="0.7" />
@@ -52,8 +53,9 @@
 
 
                 <FrameLayout
+                    android:id="@+id/detail_under_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="56dp"
                     android:layout_gravity="bottom"
                     android:background="#A6000000"></FrameLayout>
 
@@ -255,6 +257,7 @@
         android:layout_height="wrap_content"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp"
+        android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/activity_document_appbar_layout"
         app:layout_anchorGravity="bottom|right|end"
         />

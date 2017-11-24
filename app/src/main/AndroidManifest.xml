@@ -39,7 +39,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".DocumentListActivity" />
         <activity android:name=".DocumentActivity"
-            android:theme="@style/toolbarTheme"/>
+            android:theme="@style/documentTheme"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>

@@ -18,6 +18,8 @@ public class Document {
     private String title;
     @SerializedName("reason")
     private String reason;
+    @SerializedName("detail")
+    private String detail;
     @SerializedName("company")
     private String company;
     @SerializedName("company_slr")
@@ -39,12 +41,13 @@ public class Document {
     @SerializedName("rated_count")
     private int rated_count;
 
-    public Document(int document_slr, int category_id, int original_slr, String title, String reason, String company, String company_slr, String certification_id, String img_slr, String company_contact, String original_from, String original_url, String rgsde, int readed_count, int rated_count) {
+    public Document(int document_slr, int category_id, int original_slr, String title, String reason,String detail, String company, String company_slr, String certification_id, String img_slr, String company_contact, String original_from, String original_url, String rgsde, int readed_count, int rated_count) {
         this.document_slr = document_slr;
         this.category_id = category_id;
         this.original_slr = original_slr;
         this.title = title;
         this.reason = reason;
+        this.detail = detail;
         this.company = company;
         this.company_slr = company_slr;
         this.certification_id = certification_id;
@@ -55,6 +58,14 @@ public class Document {
         this.rgsde = rgsde;
         this.readed_count = readed_count;
         this.rated_count = rated_count;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     public int getDocument_slr() {

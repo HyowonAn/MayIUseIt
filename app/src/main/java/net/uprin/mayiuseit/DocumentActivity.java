@@ -1,15 +1,20 @@
 package net.uprin.mayiuseit;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -20,6 +25,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.github.florent37.glidepalette.GlidePalette;
 
 import net.uprin.mayiuseit.login.LoginResponse;
@@ -42,11 +49,15 @@ import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class DocumentActivity extends AppCompatActivity {
     CollapsingToolbarLayout toolbarLayout;
+    LinearLayout head_layout;
+    CoordinatorLayout root_layout;
+    AppBarLayout app_bar_layout;
+
     TextView document_slr;
     TextView category_id;
     TextView original_slr;
     TextView Title;
-    TextView reason;
+    TextView reason,detail_detail;
     TextView company;
     TextView company_slr;
     TextView certification_id;
@@ -59,7 +70,6 @@ public class DocumentActivity extends AppCompatActivity {
     TextView rated_count;
     Toolbar toolbar;
     Window window;
-    FrameLayout detail_under_layout;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -74,6 +84,13 @@ public class DocumentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_document);
         toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
         setSupportActionBar(toolbar);
+
+        head_layout = (LinearLayout) findViewById(R.id.head_layout);
+        root_layout = (CoordinatorLayout) findViewById(R.id.root_layout);
+
+        app_bar_layout = (AppBarLayout) findViewById(R.id.activity_document_appbar_layout);
+
+
 
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -108,9 +125,8 @@ public class DocumentActivity extends AppCompatActivity {
 
     }
 
-    public void bindData(Document document) {
+    public void bindData(final Document document) {
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_document_toolbar_layout);
-        detail_under_layout = (FrameLayout)findViewById(R.id.detail_under_layout);
         document_slr = (TextView) findViewById(R.id.detail_document_slr);
         category_id = (TextView) findViewById(R.id.detail_category_id);
         original_slr = (TextView) findViewById(R.id.detail_original_slr);
@@ -119,22 +135,23 @@ public class DocumentActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.detail_company);
         company_slr = (TextView)findViewById(R.id.detail_company_slr);
         certification_id = (TextView) findViewById(R.id.detail_certification_id);
-        img_srl_background = (ImageView) findViewById(R.id.detail_img_srl_background);
-        img_srl = (ImageView) findViewById(R.id.detail_img_srl);
         company_contact = (TextView) findViewById(R.id.detail_company_contact);
         original_from = (TextView) findViewById(R.id.detail_original_from);
         original_url = (TextView) findViewById(R.id.detail_original_url);
         rgsde = (TextView) findViewById(R.id.detail_rgsde);
         readed_count = (TextView) findViewById(R.id.detail_readed_count);
         rated_count = (TextView) findViewById(R.id.detail_rated_count);
-
+        img_srl_background = (ImageView) findViewById(R.id.detail_img_srl_background);
+        detail_detail = (TextView) findViewById(R.id.detail_detail);
+        img_srl = (ImageView) findViewById(R.id.head_iv);
         document_slr.setText(""+ document.getDocument_slr());
-        category_id.setText(""+ document.getCategory_id());
+        category_id.setText(new CategorytoString().intToString(document.getCategory_id()));
         reason.setText(document.getReason());
         Title.setText(document.getTitle());
         company.setText(document.getCompany());
         original_from.setText(document.getOriginal_from());
         rgsde.setText(document.getRgsde());
+        detail_detail.setText(""+document.getDetail());
         readed_count.setText(""+ document.getReaded_count());
         rated_count.setText(""+ document.getRated_count());
         original_slr.setText(""+ document.getRated_count());
@@ -142,22 +159,14 @@ public class DocumentActivity extends AppCompatActivity {
         certification_id.setText(""+ document.getRated_count());
         company_contact.setText(""+ document.getRated_count());
         original_url.setText(""+ document.getRated_count());
-        toolbarLayout.setTitle(document.getTitle());
-        //img_slr.set
-        Glide.with(this).load(document.getImg_slr())
-                .apply(new RequestOptions()
-                        .centerCrop()
-                        //.placeholder(R.drawable.fancy_loader)
-                        )
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(img_srl);
+
 
         Glide.with(this).load(document.getImg_slr())
                 .thumbnail(Glide.with(this).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                 .apply(new RequestOptions()
                         .centerCrop()
-                        .error(R.drawable.medical_background))
-                .apply(bitmapTransform(new BlurTransformation(100)))
+                        .error(R.drawable.medical_background).centerCrop())
+                //.apply(bitmapTransform(new BlurTransformation(100)))
                 .listener(GlidePalette.with(document.getImg_slr())
                         .use(GlidePalette.Profile.MUTED_DARK)
                         .intoCallBack(new GlidePalette.CallBack() {
@@ -170,15 +179,30 @@ public class DocumentActivity extends AppCompatActivity {
                                 changeStatusBarColor(palette.getDarkMutedColor(0x000000));
                                 toolbarLayout.setContentScrimColor(palette.getDarkMutedColor(0x000000));
                                 //toolbarLayout.setExpandedTitleColor(palette.getLightMutedColor(0x000000));
-                                detail_under_layout.setBackgroundColor(palette.getDarkMutedColor(0x000000));
                             }
                         })
                 )
                 .transition(DrawableTransitionOptions.withCrossFade())
-                .into(img_srl_background);
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(Drawable drawable, Transition<? super Drawable> transition) {
+                        img_srl_background.setBackground(drawable);
+                        //img_srl.setBackground(drawable);
+
+                    }
+                });
 
 
-
+        app_bar_layout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset <= -head_layout.getHeight() / 2) {
+                    toolbarLayout.setTitle(document.getTitle());
+                } else {
+                    toolbarLayout.setTitle("");
+                }
+            }
+        });
 
     }
 
@@ -188,6 +212,14 @@ public class DocumentActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        final MenuItem menuItem = menu.findItem(R.id.alarm_history);
+        return true;
     }
 
 }

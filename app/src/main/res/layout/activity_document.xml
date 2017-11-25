@@ -368,7 +368,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingLeft="16dp"
-                        android:text="정보제공사이트 :      "
+                        android:text="정보제공링크 :      "
                         android:textSize="12sp" />
 
                     <TextView
@@ -376,7 +376,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:text="http://dev.uprin.net"
                         android:autoLink="web"
                         android:textSize="12sp" />
 
@@ -385,6 +384,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -403,6 +403,7 @@
                         android:textSize="12sp" />
 
                 </LinearLayout>
+
 
             </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -427,12 +428,6 @@
                     android:paddingRight="16dp"
                     android:textColor="@color/colorGreyLight" />
 
-                <TextView
-                    android:id="@+id/detail_company_slr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="16dp"
-                    android:textColor="@color/colorGreyLight" />
 
                 <TextView
                     android:id="@+id/detail_certification_id"
@@ -463,12 +458,23 @@
                     android:textStyle="bold"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/detail_company_slr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:paddingRight="16dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/document_floating_action_button"
         android:src="@drawable/ic_share_black_24dp"
         android:tint="@color/colorPrimaryWhite"
         android:layout_width="wrap_content"

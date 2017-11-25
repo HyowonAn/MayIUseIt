@@ -2,12 +2,15 @@ package net.uprin.mayiuseit;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -74,6 +77,7 @@ public class DocumentActivity extends AppCompatActivity {
     Window window;
     Button detailbutton;
     Boolean detail_all=false;
+    FloatingActionButton floatingActionButton;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -88,7 +92,7 @@ public class DocumentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_document);
         toolbar = (Toolbar)findViewById(R.id.activity_document_toolbar);
         setSupportActionBar(toolbar);
-
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.document_floating_action_button);
         head_layout = (LinearLayout) findViewById(R.id.head_layout);
         root_layout = (CoordinatorLayout) findViewById(R.id.root_layout);
 
@@ -222,6 +226,24 @@ public class DocumentActivity extends AppCompatActivity {
                 } else {
                     toolbarLayout.setTitle("");
                 }
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                // Set default text message
+                // 카톡, 이메일, MMS 다 이걸로 설정 가능
+                intent.setType("text/plain");
+                String subject = "리콜정보 안내";
+                String text = "리콜정보 : " + document.getTitle() + "\n 리콜사유 : " + document.getReason() + "\n 등록일자 : " + document.getRgsde() + "\n" + document.getImg_slr();
+                intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                intent.putExtra(Intent.EXTRA_TEXT, text);
+
+                // Title of intent
+                Intent chooser = Intent.createChooser(intent, "공유하기");
+                startActivity(chooser);
             }
         });
 

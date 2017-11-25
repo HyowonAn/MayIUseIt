@@ -158,11 +158,13 @@ public class DocumentActivity extends AppCompatActivity {
         detail_detail.setText(""+document.getDetail());
         readed_count.setText(""+ document.getReaded_count());
         rated_count.setText(""+ document.getRated_count());
-        original_slr.setText(""+ document.getRated_count());
-        company_slr.setText(""+ document.getRated_count());
-        certification_id.setText(""+ document.getRated_count());
-        company_contact.setText(""+ document.getRated_count());
-        original_url.setText(""+ document.getRated_count());
+        original_slr.setText(""+ document.getOriginal_slr());
+        company_slr.setText(""+ document.getCompany_slr());
+        certification_id.setText(""+ document.getCertification_id());
+        company_contact.setText(""+ document.getCompany_contact());
+        original_url.setText(""+ document.getOriginal_url());
+
+        Log.e(TAG,"original url is : "+ document.getOriginal_url());
 
         detailbutton = (Button) findViewById(R.id.dtail_button);
         detailbutton.setOnClickListener(new View.OnClickListener() {

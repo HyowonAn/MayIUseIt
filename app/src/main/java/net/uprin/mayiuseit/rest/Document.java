@@ -32,7 +32,7 @@ public class Document {
     private String company_contact;
     @SerializedName("original_from")
     private String original_from;
-    @SerializedName("original_url ")
+    @SerializedName("original_url")
     private String original_url;
     @SerializedName("rgsde")
     private String rgsde;

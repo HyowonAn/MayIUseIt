@@ -3,10 +3,13 @@ package net.uprin.mayiuseit;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -41,6 +44,9 @@ import net.uprin.mayiuseit.rest.Document;
 import net.uprin.mayiuseit.rest.DocumentListsAdapter;
 import net.uprin.mayiuseit.rest.DocumentResponse;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -232,6 +238,7 @@ public class DocumentActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(android.content.Intent.ACTION_SEND);
                 // Set default text message
                 // 카톡, 이메일, MMS 다 이걸로 설정 가능
@@ -240,10 +247,10 @@ public class DocumentActivity extends AppCompatActivity {
                 String text = "리콜정보 : " + document.getTitle() + "\n 리콜사유 : " + document.getReason() + "\n 등록일자 : " + document.getRgsde() + "\n" + document.getImg_slr();
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 intent.putExtra(Intent.EXTRA_TEXT, text);
-
                 // Title of intent
                 Intent chooser = Intent.createChooser(intent, "공유하기");
                 startActivity(chooser);
+
             }
         });
 

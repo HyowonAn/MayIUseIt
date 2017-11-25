@@ -74,7 +74,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView certification_id;
     ImageView img_srl_background,img_srl;
     TextView company_contact;
-    TextView original_from;
+    TextView original_from,original_from2;
     TextView original_url;
     TextView rgsde;
     TextView readed_count;
@@ -151,6 +151,7 @@ public class DocumentActivity extends AppCompatActivity {
         certification_id = (TextView) findViewById(R.id.detail_certification_id);
         company_contact = (TextView) findViewById(R.id.detail_company_contact);
         original_from = (TextView) findViewById(R.id.detail_original_from);
+        original_from2 = (TextView) findViewById(R.id.detail_original_from2);
         original_url = (TextView) findViewById(R.id.detail_original_url);
         rgsde = (TextView) findViewById(R.id.detail_rgsde);
         readed_count = (TextView) findViewById(R.id.detail_readed_count);
@@ -164,10 +165,11 @@ public class DocumentActivity extends AppCompatActivity {
         Title.setText(document.getTitle());
         company.setText(document.getCompany());
         original_from.setText(document.getOriginal_from());
+        original_from2.setText(document.getOriginal_from());
         rgsde.setText(document.getRgsde());
         detail_detail.setText(""+document.getDetail());
         readed_count.setText(""+ document.getReaded_count());
-        rated_count.setText(""+ document.getRated_count());
+        rated_count.setText(String.format("%.1f",document.getRated_count()));
         original_slr.setText(""+ document.getOriginal_slr());
         company_slr.setText(""+ document.getCompany_slr());
         certification_id.setText(""+ document.getCertification_id());

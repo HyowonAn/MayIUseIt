@@ -175,7 +175,7 @@
                                 android:id="@+id/detail_readed_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="00건"
+                                android:text="0"
                                 android:textColor="#ffffff"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
@@ -199,6 +199,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/detail_rated_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0.0"
@@ -358,10 +359,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.3dp"
                     android:background="@color/colorPrimaryDarkWhite" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:text="연락처 :                 "
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/detail_company_contact"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="10"
+                        android:autoLink="phone"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="16dp"
+                        android:text="정보제공기관 :      "
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/detail_original_from2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -375,34 +420,12 @@
                         android:id="@+id/detail_original_url"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxLines="1"
                         android:autoLink="web"
                         android:textSize="12sp" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="16dp"
-                        android:text="연락처 :      "
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/detail_company_contact"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="10"
-                        android:autoLink="phone"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
 
 
             </LinearLayout>
@@ -438,16 +461,6 @@
 
 
 
-
-
-
-
-                <TextView
-                    android:id="@+id/detail_rated_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="5.0" />
 
                 <TextView
                     android:id="@+id/detail_document_slr"

@@ -2,9 +2,13 @@ package net.uprin.mayiuseit.rest;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +22,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.github.florent37.glidepalette.GlidePalette;
 
+import net.uprin.mayiuseit.CategorytoString;
 import net.uprin.mayiuseit.DocumentActivity;
 import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
@@ -32,6 +40,7 @@ import java.util.List;
  */
 
 public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String TAG = DocumentActivity.class.getSimpleName();
 
     public final int TYPE_DOCUMENTS = 0;
     public final int TYPE_LOAD = 1;
@@ -121,7 +130,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         void bindData(final DocumentList documentLists){
-            category_id.setText(""+documentLists.getCategory_id());
+            category_id.setText(new CategorytoString().intToString(documentLists.getCategory_id()));
             reason.setText(documentLists.getReason());
             Title.setText(documentLists.getTitle());
             company.setText(documentLists.getCompany());
@@ -131,8 +140,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             rated_count.setText(String.format("%.1f",documentLists.getRated_count()));
             // Glide.with(context).load(R.drawable.visit_background).into(visit);
 
-            Glide.with(context)
-                    .load(documentLists.getImg_slr())
+            Glide.with(context).load(documentLists.getImg_slr())
                     .thumbnail(Glide.with(context).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                     .apply(new RequestOptions()
                             //.placeholder(R.drawable.food_background)
@@ -147,13 +155,6 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
                     intent =  new Intent(context, DocumentActivity.class);
                     intent.putExtra("document_slr", documentLists.getDocument_slr());
                     context.startActivity(intent);
-                    Snackbar.make(view, "클릭한 slr num : " + documentLists.getDocument_slr(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    }).show();
                 }
             });
         }

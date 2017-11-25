@@ -130,7 +130,7 @@
                             android:maxLines="1"
                             android:text="category_id"
                             android:textColor="@android:color/white"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -140,7 +140,7 @@
                             android:maxLines="2"
                             android:text="title"
                             android:textColor="@android:color/white"
-                            android:textSize="25dp"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -150,7 +150,7 @@
                             android:maxLines="1"
                             android:text="company"
                             android:textColor="@android:color/white"
-                            android:textSize="12dp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -173,8 +173,8 @@
                     android:paddingTop="8dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:gravity="center_horizontal"
                         android:src="@drawable/hashtag" />
 
@@ -185,7 +185,8 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="회수 사유  #"
-                        android:textSize="13dp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/reason"
@@ -194,7 +195,7 @@
                         android:gravity="left|center"
                         android:maxLines="1"
                         android:text="reason"
-                        android:textSize="13dp" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -205,8 +206,8 @@
                     android:paddingTop="8dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:gravity="center_horizontal"
                         android:src="@drawable/hashtag" />
 
@@ -218,7 +219,8 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="등록 일자  #"
-                        android:textSize="13dp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/rgsde"
@@ -227,7 +229,7 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="20xx-xx-xx"
-                        android:textSize="13dp" />
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
@@ -238,8 +240,8 @@
                     android:paddingTop="8dp">
 
                     <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:gravity="center_horizontal"
                         android:src="@drawable/hashtag" />
 
@@ -250,7 +252,8 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="정보제공기관  #"
-                        android:textSize="13dp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/original_from"
@@ -259,16 +262,16 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="original_from"
-                        android:textSize="13dp" />
+                        android:textSize="12sp"/>
 
                 </LinearLayout>
 
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.3dp"
                     android:layout_centerInParent="true"
-                    android:background="#D8D8D8"
+                    android:background="@color/colorPrimaryDarkWhite"
                     android:padding="8dp" />
 
                 <LinearLayout
@@ -298,7 +301,7 @@
                             android:maxLines="1"
                             android:padding="8dp"
                             android:text="별점 남기기"
-                            android:textSize="11dp" />
+                            android:textSize="11sp" />
 
                     </LinearLayout>
 
@@ -322,7 +325,7 @@
                             android:maxLines="1"
                             android:padding="8dp"
                             android:text="댓글 남기기"
-                            android:textSize="11dp" />
+                            android:textSize="11sp"  />
 
                     </LinearLayout>
 
@@ -346,7 +349,7 @@
                             android:maxLines="1"
                             android:padding="8dp"
                             android:text="공유하기"
-                            android:textSize="11dp" />
+                            android:textSize="11sp"  />
 
                     </LinearLayout>
 

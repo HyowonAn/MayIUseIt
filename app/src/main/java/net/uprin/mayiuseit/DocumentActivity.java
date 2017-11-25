@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,6 +72,8 @@ public class DocumentActivity extends AppCompatActivity {
     TextView rated_count;
     Toolbar toolbar;
     Window window;
+    Button detailbutton;
+    Boolean detail_all=false;
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
@@ -160,6 +164,21 @@ public class DocumentActivity extends AppCompatActivity {
         company_contact.setText(""+ document.getRated_count());
         original_url.setText(""+ document.getRated_count());
 
+        detailbutton = (Button) findViewById(R.id.dtail_button);
+        detailbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!detail_all){
+                    detail_detail.setMaxLines(Integer.MAX_VALUE);
+                    detailbutton.setText("숨김");
+                    detail_all=true;
+                }else{
+                    detailbutton.setText("전체 보기");
+                    detail_detail.setMaxLines(10);
+                    detail_all=false;
+                }
+            }
+        });
 
         Glide.with(this).load(document.getImg_slr())
                 .thumbnail(Glide.with(this).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))

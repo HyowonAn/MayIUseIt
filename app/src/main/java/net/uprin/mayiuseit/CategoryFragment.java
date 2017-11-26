@@ -76,7 +76,7 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        visit.setOnClickListener(new View.OnClickListener() {
+        comment.setOnClickListener(new View.OnClickListener() {
             Intent intent = new Intent(getActivity(), DocumentListActivity.class);
             @Override
             public void onClick(View view) {
@@ -120,13 +120,6 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        visit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "Custom Toast From Fragment", Toast.LENGTH_LONG).show();
-
-            }
-        });
 
         return v;
     }

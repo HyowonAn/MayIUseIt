@@ -42,7 +42,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimaryText"
                         android:text="제목"
-                        android:maxLines="1"
+                        android:maxLength="25"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content" />
 

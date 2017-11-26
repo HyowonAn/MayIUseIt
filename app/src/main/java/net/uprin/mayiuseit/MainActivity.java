@@ -94,6 +94,23 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter.addFragment(NoticeFragment.createInstance(), getString(R.string.tab_3));
         pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_4));
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         int color = ResourcesCompat.getColor(getResources(), R.color.colorGreyLight, null);
 

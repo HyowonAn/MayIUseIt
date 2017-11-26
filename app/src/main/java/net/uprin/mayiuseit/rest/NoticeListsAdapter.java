@@ -29,7 +29,7 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     static Context context;
     List<NoticeList> noticeLists;
-    NoticeListsAdapter.OnLoadMoreListener loadMoreListener;
+    OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
 
     /*
@@ -48,9 +48,9 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         if(viewType== TYPE_DOCUMENTS){
-            return new NoticeListsHolder(inflater.inflate(R.layout.fragment_notice_list,parent,false));
+            return new NoticeListsHolder(inflater.inflate(R.layout.list_item_notice,parent,false));
         }else{
-            return new NoticeListsAdapter.LoadHolder(inflater.inflate(R.layout.row_load,parent,false));
+            return new LoadHolder(inflater.inflate(R.layout.row_load,parent,false));
         }
     }
 
@@ -100,18 +100,18 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             title = (TextView) v.findViewById(R.id.notice_title);
             content = (TextView) v.findViewById(R.id.notice_content);
             notice_srl = (TextView) v.findViewById(R.id.notice_srl);
-            rgsde = (TextView) v.findViewById(R.id.rgsde);
+            rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
             nickname = (TextView) v.findViewById(R.id.notice_nickname);
 
         }
 
         void bindData(final NoticeList noticeLists){
-            //Log.e(TAG,""+noticeLists.getTitle());
-           // title.setText(""+noticeLists.getTitle());
-//            content.setText(noticeLists.getContent());
-//            notice_srl.setText(noticeLists.getNotice_srl());
-//            rgsde.setText(noticeLists.getRgsde());
-//            nickname.setText(noticeLists.getNickname());
+            Log.e(TAG,""+noticeLists.getTitle());
+            title.setText(noticeLists.getTitle());
+            content.setText(noticeLists.getContent());
+            notice_srl.setText(""+noticeLists.getNotice_srl());
+            rgsde.setText(noticeLists.getRgsde());
+            nickname.setText(""+noticeLists.getNickname());
         }
     }
 

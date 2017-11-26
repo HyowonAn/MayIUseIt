@@ -84,7 +84,7 @@ public class NoticeFragment extends Fragment{
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        //recyclerView.addItemDecoration(new VerticalLineDecorator(2));
+        recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 //
         api = ApiClient.getClient().create(ApiInterface.class);

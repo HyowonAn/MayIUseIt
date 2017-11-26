@@ -23,4 +23,6 @@ public interface ApiInterface {
     Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category);
     @GET("document.php")
     Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
+    @GET("notice.php")
+    Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
 }

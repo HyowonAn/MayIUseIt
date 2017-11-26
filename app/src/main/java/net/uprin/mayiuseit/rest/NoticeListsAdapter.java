@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.rest;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -85,12 +87,11 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     /* VIEW HOLDERS */
 
     static class NoticeListsHolder extends RecyclerView.ViewHolder{
+        Button detailbutton;
         LinearLayout notices_layout;
-        TextView notice_srl;
         TextView title;
         TextView content;
         TextView rgsde;
-        TextView nickname;
         CardView cardView;
 
         public NoticeListsHolder(View v) {
@@ -99,19 +100,29 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             notices_layout = (LinearLayout) v.findViewById(R.id.notices_layout);
             title = (TextView) v.findViewById(R.id.notice_title);
             content = (TextView) v.findViewById(R.id.notice_content);
-            notice_srl = (TextView) v.findViewById(R.id.notice_srl);
             rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
-            nickname = (TextView) v.findViewById(R.id.notice_nickname);
+            detailbutton = (Button) v.findViewById(R.id.notice_detail_button);
+            detailbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(content.getVisibility()== View.GONE){
+                        content.setVisibility(View.VISIBLE);
+                        detailbutton.setText("▲");
+                    }else{
+                        detailbutton.setText("▼");
+                        content.setVisibility(View.GONE);
 
+                    }
+                }
+            });
         }
 
         void bindData(final NoticeList noticeLists){
             Log.e(TAG,""+noticeLists.getTitle());
             title.setText(noticeLists.getTitle());
             content.setText(noticeLists.getContent());
-            notice_srl.setText(""+noticeLists.getNotice_srl());
             rgsde.setText(noticeLists.getRgsde());
-            nickname.setText(""+noticeLists.getNickname());
+
         }
     }
 

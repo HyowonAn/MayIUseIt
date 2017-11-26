@@ -58,10 +58,8 @@ public class NoticeFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_notice_list, container, false);
 
         title= (TextView) v.findViewById(R.id.notice_title);
-        notice_srl = (TextView) v.findViewById(R.id.notice_srl);
         content = (TextView) v.findViewById(R.id.notice_content);
         rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
-        nickname = (TextView) v.findViewById(R.id.notice_nickname);
 
 
 

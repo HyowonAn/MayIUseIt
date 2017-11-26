@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import net.uprin.mayiuseit.rest.ApiClient;
@@ -31,11 +34,13 @@ import retrofit2.Response;
  * Created by CJS on 2017-11-26.
  */
 
-public class NoticeFragment extends Fragment{
+public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = NoticeFragment.class.getSimpleName();
+    private final int TOP_REFRESH = 1;
+    private final int BOTTOM_REFRESH = 2;
 
-
+    private SwipeRefreshLayout refreshLayout;
     private  int pageNum = 1;
     RecyclerView recyclerView;
     List<NoticeList> noticeLists;
@@ -60,8 +65,14 @@ public class NoticeFragment extends Fragment{
         title= (TextView) v.findViewById(R.id.notice_title);
         content = (TextView) v.findViewById(R.id.notice_content);
         rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
-
-
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLo);
+        refreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
+        refreshLayout.setOnRefreshListener(this);
 
         recyclerView = (RecyclerView) v.findViewById(R.id.notices_recycler_view);
         noticeLists = new ArrayList<>();
@@ -104,11 +115,13 @@ public class NoticeFragment extends Fragment{
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
                 }
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<NoticeListResponse> call, Throwable t) {
                 Log.e(TAG," Response Error "+t.getMessage());
+                refreshLayout.setRefreshing(false);
             }
         });
     }
@@ -149,13 +162,36 @@ public class NoticeFragment extends Fragment{
                 }else{
                     Log.e(TAG," Load More Response Error "+String.valueOf(response.code()));
                 }
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<NoticeListResponse> call, Throwable t) {
                 Log.e(TAG," Load More Response Error "+t.getMessage());
+                refreshLayout.setRefreshing(false);
             }
 
         });
     }
+
+    @Override
+    public void onRefresh() {
+        dataOption(TOP_REFRESH);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+        Toast.makeText(getContext(),"로딩완료",Toast.LENGTH_SHORT).show();
+    }
+
+    private void dataOption(int option){
+        switch (option) {
+            case TOP_REFRESH:
+                noticeLists.clear();
+                pageNum=1;
+                //load(pageNum);
+                break;
+        }
+        // adapter.notifyDataSetChanged();
+
+    }
+
 }

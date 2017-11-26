@@ -93,28 +93,15 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView content;
         TextView rgsde;
         CardView cardView;
-
         public NoticeListsHolder(View v) {
             super(v);
+
             cardView = (CardView) v.findViewById(R.id.list_item_notice_cardview);
             notices_layout = (LinearLayout) v.findViewById(R.id.notices_layout);
             title = (TextView) v.findViewById(R.id.notice_title);
             content = (TextView) v.findViewById(R.id.notice_content);
             rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
             detailbutton = (Button) v.findViewById(R.id.notice_detail_button);
-            detailbutton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(content.getVisibility()== View.GONE){
-                        content.setVisibility(View.VISIBLE);
-                        detailbutton.setText("▲");
-                    }else{
-                        detailbutton.setText("▼");
-                        content.setVisibility(View.GONE);
-
-                    }
-                }
-            });
         }
 
         void bindData(final NoticeList noticeLists){
@@ -122,6 +109,27 @@ public class NoticeListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             title.setText(noticeLists.getTitle());
             content.setText(noticeLists.getContent());
             rgsde.setText(noticeLists.getRgsde());
+
+            detailbutton.setText("▼");
+            content.setVisibility(View.GONE);
+            noticeLists.setVisibility(false);
+
+
+            detailbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(!noticeLists.isVisibility()){
+                        content.setVisibility(View.VISIBLE);
+                        detailbutton.setText("▲");
+                        noticeLists.setVisibility(true);
+                    }else{
+                        detailbutton.setText("▼");
+                        content.setVisibility(View.GONE);
+                        noticeLists.setVisibility(false);
+
+                    }
+                }
+            });
 
         }
     }

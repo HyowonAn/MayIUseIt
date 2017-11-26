@@ -21,6 +21,15 @@ public class NoticeList {
 
 
     private boolean isLoad=false;
+    private boolean visibility=false;
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
 
     public NoticeList(boolean isLoad) {
         this.isLoad = isLoad;

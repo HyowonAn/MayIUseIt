@@ -20,7 +20,7 @@ public interface ApiInterface {
     @POST("login.php")
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
     @GET("list.php")
-    Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category);
+    Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category,@Query("rankBy") String rankBy);
     @GET("document.php")
     Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
     @GET("notice.php")

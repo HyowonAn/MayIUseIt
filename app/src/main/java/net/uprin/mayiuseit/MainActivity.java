@@ -1,7 +1,6 @@
 package net.uprin.mayiuseit;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,8 +26,6 @@ import net.uprin.mayiuseit.login.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static net.uprin.mayiuseit.R.color.colorPrimaryLight;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -234,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else if (id==R.id.search_id){
 
-            Toast.makeText(getApplicationContext(),"search",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
 
         }else if (id==R.id.alarm_history){
 

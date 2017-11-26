@@ -31,6 +31,7 @@ public class DocumentListActivity extends AppCompatActivity {
 
     private  int pageNum = 1;
     private  int category= 0;
+    private String rankBy = "rgsde";
     RecyclerView recyclerView;
     List<DocumentList> documentLists;
     DocumentListsAdapter adapter;
@@ -46,6 +47,7 @@ public class DocumentListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         category = intent.getExtras().getInt("category");
+        rankBy = intent.getExtras().getString("rankBy");
         context = this;
         recyclerView = (RecyclerView) findViewById(R.id.documents_recycler_view);
         documentLists = new ArrayList<>();
@@ -75,7 +77,7 @@ public class DocumentListActivity extends AppCompatActivity {
     }
 
     private void load(int index){
-        Call<DocumentListResponse> call = api.getDocumentList(index, category);
+        Call<DocumentListResponse> call = api.getDocumentList(index, category,rankBy);
         call.enqueue(new Callback<DocumentListResponse>() {
             @Override
             public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
@@ -101,7 +103,7 @@ public class DocumentListActivity extends AppCompatActivity {
         documentLists.add(new DocumentList(999));
         adapter.notifyItemInserted(documentLists.size()-1);
 
-        Call<DocumentListResponse> call = api.getDocumentList(index, category);
+        Call<DocumentListResponse> call = api.getDocumentList(index, category,rankBy);
         call.enqueue(new Callback<DocumentListResponse>() {
             @Override
             public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {

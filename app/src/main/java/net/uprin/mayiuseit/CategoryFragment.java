@@ -54,12 +54,46 @@ public class CategoryFragment extends Fragment {
         Glide.with(this).load(R.drawable.vehicle_background).into(vehicle);
         Glide.with(this).load(R.drawable.water_background).into(water);
 
+        rated.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 0);
+                intent.putExtra("rankBy", "rated_count");
+                startActivity(intent);
+            }
+        });
+
+        visit.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 0);
+                intent.putExtra("rankBy", "readed_count");
+                startActivity(intent);
+            }
+        });
+
+        visit.setOnClickListener(new View.OnClickListener() {
+            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            @Override
+            public void onClick(View view) {
+
+                intent.putExtra("category", 0);
+                intent.putExtra("rankBy", "commented_count");
+                startActivity(intent);
+            }
+        });
+
         all.setOnClickListener(new View.OnClickListener() {
             Intent intent = new Intent(getActivity(), DocumentListActivity.class);
             @Override
             public void onClick(View view) {
 
                 intent.putExtra("category", 0);
+                intent.putExtra("rankBy", "rgsde");
                 startActivity(intent);
             }
         });
@@ -70,6 +104,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
 
                 intent.putExtra("category", 216);
+                intent.putExtra("rankBy", "rgsde");
                 startActivity(intent);
             }
         });
@@ -80,6 +115,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
 
                 intent.putExtra("category", 217);
+                intent.putExtra("rankBy", "rgsde");
                 startActivity(intent);
             }
         });

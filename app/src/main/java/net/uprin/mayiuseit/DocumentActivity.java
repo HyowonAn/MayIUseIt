@@ -141,14 +141,10 @@ public class DocumentActivity extends AppCompatActivity {
 
     public void bindData(final Document document) {
         toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.activity_document_toolbar_layout);
-        document_slr = (TextView) findViewById(R.id.detail_document_slr);
         category_id = (TextView) findViewById(R.id.detail_category_id);
-        original_slr = (TextView) findViewById(R.id.detail_original_slr);
         reason = (TextView) findViewById(R.id.detail_reason);
         Title = (TextView) findViewById(R.id.detail_title);
         company = (TextView) findViewById(R.id.detail_company);
-        company_slr = (TextView)findViewById(R.id.detail_company_slr);
-        certification_id = (TextView) findViewById(R.id.detail_certification_id);
         company_contact = (TextView) findViewById(R.id.detail_company_contact);
         original_from = (TextView) findViewById(R.id.detail_original_from);
         original_from2 = (TextView) findViewById(R.id.detail_original_from2);
@@ -159,7 +155,6 @@ public class DocumentActivity extends AppCompatActivity {
         img_srl_background = (ImageView) findViewById(R.id.detail_img_srl_background);
         detail_detail = (TextView) findViewById(R.id.detail_detail);
         img_srl = (ImageView) findViewById(R.id.head_iv);
-        document_slr.setText(""+ document.getDocument_slr());
         category_id.setText(new CategorytoString().intToString(document.getCategory_id()));
         reason.setText(document.getReason());
         Title.setText(document.getTitle());
@@ -170,9 +165,6 @@ public class DocumentActivity extends AppCompatActivity {
         detail_detail.setText(""+document.getDetail());
         readed_count.setText(""+ document.getReaded_count());
         rated_count.setText(String.format("%.1f",document.getRated_count()));
-        original_slr.setText(""+ document.getOriginal_slr());
-        company_slr.setText(""+ document.getCompany_slr());
-        certification_id.setText(""+ document.getCertification_id());
         company_contact.setText(""+ document.getCompany_contact());
         original_url.setText(""+ document.getOriginal_url());
 

@@ -40,6 +40,8 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme" />
         <activity android:name=".DocumentListActivity" />
+        <activity android:name=".SearchListActivity" />
+
         <activity
             android:name=".DocumentActivity"
             android:theme="@style/documentTheme" />

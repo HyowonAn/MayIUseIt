@@ -25,4 +25,6 @@ public interface ApiInterface {
     Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
+    @GET("search.php")
+    Call<SearchListResponse> getSearchList(@Query("pageNum") int pageNum, @Query("keyword") String keyword, @Query("category") int category, @Query("rankBy") String rankBy);
 }

@@ -1,12 +1,16 @@
 package net.uprin.mayiuseit;
 
 import android.app.SearchManager;
+import android.content.Intent;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.TextView;
+
+import net.uprin.mayiuseit.rest.SearchList;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -18,6 +22,30 @@ public class SearchActivity extends AppCompatActivity {
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setQueryHint("Search Keyword");
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Log.e("onQueryTextChange", "called");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(getApplicationContext(), SearchListActivity.class);
+                intent.putExtra("keyword", query);
+                intent.putExtra("rankBy", "rgsde");
+                startActivity(intent);
+
+                return false;
+            }
+
+        });
+
+
         return true;    }
 
     @Override

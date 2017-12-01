@@ -13,14 +13,19 @@ import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import net.uprin.mayiuseit.DocumentActivity;
 import net.uprin.mayiuseit.MainActivity;
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.ScrollingActivity;
+import net.uprin.mayiuseit.Utils;
 import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
 
 import retrofit2.Call;
@@ -30,14 +35,16 @@ import retrofit2.Response;
 
 public class EmailLoginActivity extends AppCompatActivity {
 
+    private static final String TAG = EmailLoginActivity.class.getSimpleName();
     public static final String UPRINKEY = "IMT5G4U9FP1KDOM5S7EPWU08FFNFZMME9JF4AQ99P1";
     String sId, sPw;
+    TokenManager tokenManager;
 
     AppCompatEditText et_id, et_pw;
     RelativeLayout relativeLayout;
     TextInputLayout emailLayout,passLayout;
     Toolbar toolbar;
-    AppCompatButton loginBtn;
+    AppCompatButton loginBtn, tokenLoginBtn;
     TextView findmypassword_button;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
@@ -46,6 +53,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_login);
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         et_id = (AppCompatEditText) findViewById(R.id.email_TextField);
         et_pw = (AppCompatEditText) findViewById(R.id.password_TextField);
@@ -54,6 +62,8 @@ public class EmailLoginActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.email_login_toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_login);
         loginBtn = (AppCompatButton)findViewById(R.id.email_Login_Button);
+        tokenLoginBtn = (AppCompatButton)findViewById(R.id.token_Email_Login_Button);
+
         findmypassword_button = (TextView) findViewById(R.id.findmypassword_button) ;
 
         findmypassword_button.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +123,53 @@ public class EmailLoginActivity extends AppCompatActivity {
             }
         });
 
+        tokenLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sId = et_id.getText().toString();
+                sPw = et_pw.getText().toString();
+
+                ApiInterface apiService = ApiClient.createService(ApiInterface.class);
+                Call<AccessToken> call = apiService.login(sId,sPw);
+
+                call.enqueue(new Callback<AccessToken>() {
+                    @Override
+                    public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
+
+                        Log.w(TAG, "onResponse: " + response);
+
+                        if (response.isSuccessful()) {
+                            tokenManager.saveToken(response.body());
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+                            Toast.makeText(getApplicationContext(),"AccessToken : "+response.body().getAccessToken() + ", RefreshToken :" +response.body().getRefreshToken(),Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            if (response.code() == 422) {
+                                Log.w(TAG, "onResponse: " + "422");
+
+                                //handleErrors(response.errorBody());
+                            }
+                            if (response.code() == 401) {
+                                Log.w(TAG, "onResponse: " + "501");
+
+                                ApiError apiError = Utils.converErrors(response.errorBody());
+                               // Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                            //showForm();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<AccessToken> call, Throwable t) {
+                        Log.w(TAG, "onFailure: " + t.getMessage());
+                        //showForm();
+                    }
+                });
+            }
+        });
+
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +177,7 @@ public class EmailLoginActivity extends AppCompatActivity {
                 sPw = et_pw.getText().toString();
 
                 //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
-                ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                ApiInterface apiService = ApiClient.createService(ApiInterface.class);
                 Call<LoginResponse> call = apiService.postEmailLogin(new JoinRequest(sId,sPw,UPRINKEY));
                 call.enqueue(new Callback<LoginResponse>() {
                     @Override

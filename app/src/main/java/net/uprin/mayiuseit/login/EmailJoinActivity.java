@@ -148,7 +148,7 @@ public class EmailJoinActivity extends AppCompatActivity {
                 {
 
                     //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
-                    ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+                    ApiInterface apiService = ApiClient.createService(ApiInterface.class);
                     Call<JoinResponse> call = apiService.postEmailJoin(new JoinRequest(sId,sPw,UPRINKEY));
                     call.enqueue(new Callback<JoinResponse>() {
                         @Override

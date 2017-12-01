@@ -72,7 +72,7 @@ public class DocumentListActivity extends AppCompatActivity {
         //recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 
-        api = ApiClient.getClient().create(ApiInterface.class);
+        api = ApiClient.createService(ApiInterface.class);
         load(pageNum);
     }
 

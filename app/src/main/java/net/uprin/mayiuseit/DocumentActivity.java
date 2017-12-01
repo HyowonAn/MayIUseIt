@@ -110,7 +110,7 @@ public class DocumentActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         document = new ArrayList<>();
-        api = ApiClient.getClient().create(ApiInterface.class);
+        api = ApiClient.createService(ApiInterface.class);
         DocumentListsAdapter adapter;
        // adapter = new DocumentListsAdapter(this, documentLists);
         Intent intent = getIntent();

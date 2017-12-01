@@ -96,7 +96,7 @@ public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRef
         recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 //
-        api = ApiClient.getClient().create(ApiInterface.class);
+        api = ApiClient.createService(ApiInterface.class);
         load(pageNum);
 
         return v;

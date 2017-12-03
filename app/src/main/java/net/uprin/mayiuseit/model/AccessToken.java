@@ -9,9 +9,9 @@ import com.squareup.moshi.Json;
 
 public class AccessToken {
 
-    @SerializedName("access_token")
+    @SerializedName("ACCESS_TOKEN")
     String accessToken;
-    @SerializedName("refresh_token")
+    @SerializedName("REFRESH_TOKEN")
     String refreshToken;
 
     public String getAccessToken() {

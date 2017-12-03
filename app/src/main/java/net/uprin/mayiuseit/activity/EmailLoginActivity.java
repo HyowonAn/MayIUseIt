@@ -19,7 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.auth0.android.jwt.Claim;
+import com.auth0.android.jwt.JWT;
+
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.model.TokenData;
 import net.uprin.mayiuseit.util.Utils;
 import net.uprin.mayiuseit.model.JoinRequest;
 import net.uprin.mayiuseit.model.LoginResponse;
@@ -28,6 +32,11 @@ import net.uprin.mayiuseit.model.AccessToken;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -143,7 +152,13 @@ public class EmailLoginActivity extends AppCompatActivity {
                             tokenManager.saveToken(response.body());
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                            Toast.makeText(getApplicationContext(),"AccessToken : "+response.body().getAccessToken() + ", RefreshToken :" +response.body().getRefreshToken(),Toast.LENGTH_SHORT).show();
+                            //JWT jwt = new JWT(response.body().getAccessToken());
+
+
+                            TokenData tokenData = new TokenData();
+                            tokenData = tokenManager.getTokenData();
+
+                            Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname(),Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             if (response.code() == 422) {

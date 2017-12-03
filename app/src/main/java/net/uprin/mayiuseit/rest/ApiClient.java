@@ -3,7 +3,7 @@ package net.uprin.mayiuseit.rest;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import net.uprin.mayiuseit.BuildConfig;
-import net.uprin.mayiuseit.login.TokenManager;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.io.IOException;
 

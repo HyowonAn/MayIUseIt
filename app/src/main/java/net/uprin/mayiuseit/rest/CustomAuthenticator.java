@@ -1,7 +1,7 @@
 package net.uprin.mayiuseit.rest;
 
-import net.uprin.mayiuseit.login.AccessToken;
-import net.uprin.mayiuseit.login.TokenManager;
+import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.io.IOException;
 

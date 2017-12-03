@@ -1,9 +1,13 @@
 package net.uprin.mayiuseit.rest;
 
-import net.uprin.mayiuseit.login.AccessToken;
-import net.uprin.mayiuseit.login.JoinRequest;
-import net.uprin.mayiuseit.login.JoinResponse;
-import net.uprin.mayiuseit.login.LoginResponse;
+import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.model.DocumentListResponse;
+import net.uprin.mayiuseit.model.DocumentResponse;
+import net.uprin.mayiuseit.model.JoinRequest;
+import net.uprin.mayiuseit.model.JoinResponse;
+import net.uprin.mayiuseit.model.LoginResponse;
+import net.uprin.mayiuseit.model.NoticeListResponse;
+import net.uprin.mayiuseit.model.SearchListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,7 +27,7 @@ public interface ApiInterface {
     @POST("login.php")
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
     @GET("list.php")
-    Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category,@Query("rankBy") String rankBy);
+    Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category, @Query("rankBy") String rankBy);
     @GET("document.php")
     Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
     @GET("notice.php")

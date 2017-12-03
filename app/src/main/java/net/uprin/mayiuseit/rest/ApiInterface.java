@@ -33,11 +33,11 @@ public interface ApiInterface {
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
 
-    @POST("tokenget.php")
+    @POST("refreshToken.php")
     @FormUrlEncoded
     Call<AccessToken> refresh(@Field("refresh_token") String refreshToken);
 
-    @POST("tokenget.php")
+    @POST("token.php")
     @FormUrlEncoded
     Call<AccessToken> login(@Field("username") String username, @Field("password") String password);
 

@@ -71,9 +71,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         initToolbar();
         historyManager = HistoryManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext()));
+
         deleteButton = (TextView) findViewById(R.id.delete_history_btn);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +89,9 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         histories =  historyManager.getHistory();
-
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext()));
 
     }
 

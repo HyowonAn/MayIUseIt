@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchViewHolder> {
 
-    List<String> histories;
+    ArrayList<String> histories;
     private int rowLayout;
     private Context context;
 
@@ -52,7 +52,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, final int position) {
-        holder.history_keyword.setText(histories.get(position).getKeyword());
+        holder.history_keyword.setText(histories.get(position));
     }
 
     @Override

@@ -15,7 +15,7 @@ public class DevActivity extends AppCompatActivity {
     private static final String TAG = DevActivity.class.getSimpleName();
 
     TokenManager tokenManager;
-    AppCompatButton deleteAccessTokenBtn;
+    AppCompatButton deleteAccessTokenBtn, backToSplash;
 
 
     @Override
@@ -39,5 +39,15 @@ public class DevActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"refreshToken :" + tokenManager.getToken().getRefreshToken().toString(),Toast.LENGTH_SHORT).show();
             }
         });
-    }
+
+    backToSplash = (AppCompatButton) findViewById(R.id.dev_back_to_splash);
+
+        backToSplash.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(),SplashActivity.class));
+            finish();
+        }
+    });
+}
 }

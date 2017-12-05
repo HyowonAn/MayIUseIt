@@ -158,20 +158,18 @@ public class EmailLoginActivity extends AppCompatActivity {
                             TokenData tokenData = new TokenData();
                             tokenData = tokenManager.getTokenData();
 
-                            Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname()
-                                    + "\n refreshToken :" + tokenManager.getToken().getRefreshToken().toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname(),Toast.LENGTH_SHORT).show();
                             finish();
-                        } else  if (response.code() == 422) {
-                                Log.w(TAG, "onResponse: " + "422");
-                                ApiError apiError = Utils.converErrors(response.errorBody());
-                                Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                            } else if (response.code() == 401) {
-                                Log.w(TAG, "onResponse: " + "501");
-                                ApiError apiError = Utils.converErrors(response.errorBody());
-                               Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
-                            } else {
+                        } else {
                             ApiError apiError = Utils.converErrors(response.errorBody());
-                            Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+
+                                }
+                            }).show();
+                           // Toast.makeText(getApplicationContext(), response.errorBody()., Toast.LENGTH_LONG).show();
+
                         }
                             //showForm();
 

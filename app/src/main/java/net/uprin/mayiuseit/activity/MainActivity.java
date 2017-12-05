@@ -27,6 +27,7 @@ import net.uprin.mayiuseit.fragment.HomeFragment;
 import net.uprin.mayiuseit.fragment.MainActivityFragment;
 import net.uprin.mayiuseit.fragment.NoticeFragment;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textCartItemCount;
     int mCartItemCount = 10;
-
+    TokenManager tokenManager;
     private int[] tabIcons = {
             R.drawable.home,
             R.drawable.category,
@@ -190,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void requestLogout() {
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        tokenManager.deleteToken();
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
@@ -246,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"item3 is selected",Toast.LENGTH_SHORT).show();
 
         }else if (id==R.id.logout_menu_item){
-
             requestLogout();
 
         }else if (id==R.id.search_id){

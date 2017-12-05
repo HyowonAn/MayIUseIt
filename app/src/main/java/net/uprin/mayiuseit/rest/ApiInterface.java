@@ -37,6 +37,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<AccessToken> refresh(@Field("REFRESH_TOKEN") String refreshToken);
 
+    @POST("token_validate.php")
+    @FormUrlEncoded
+    Call<ApiError> validToken(@Field("ACCESS_TOKEN") String accessToken);
+
     @POST("token.php")
     @FormUrlEncoded
     Call<AccessToken> login(@Field("username") String username, @Field("password") String password);

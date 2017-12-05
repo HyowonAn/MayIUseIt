@@ -47,7 +47,7 @@ public class TokenManager {
 
     public void deleteAccessToken(){
         editor.remove("ACCESS_TOKEN").commit();
-        editor.putString("ACCESS_TOKEN", "tes").commit();
+        editor.putString("ACCESS_TOKEN", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1MTI0OTYxODEsImp0aSI6IjBieGM0UHpCQTlDYjVqTjE3T0x0SUt3Y1duMnpHYWdRSHBOcXI1cExzc0k9IiwiaXNzIjoiZGV2LnVwcmluLm5ldC9tYXlpdXNlaXQiLCJuYmYiOjExMTI0OTYxODEsImV4cCI6MTExMjQ5OTkwNSwic3ViIjoiQUNDRVNTX1RPS0VOIiwibWVtYmVyX3NybCI6IjExMiIsImVtYWlsX2FkZHJlc3MiOiI1MDMxMDlAbmF2ZXIuY29tIiwibmlja25hbWUiOiLslYjtmqjsm5AiLCJpc0FkbWluIjoiWSJ9.ZP0az47q0_jXLiO4nAIj6K6LYdORmh1KlK-mAUhhJGc").commit();
     }
 //    public Boolean isExpired(){
 //        jwt = new JWT(prefs.getString("ACCESS_TOKEN", null));

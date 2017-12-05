@@ -1,18 +1,24 @@
 package net.uprin.mayiuseit.rest;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 import java.util.Map;
 
 public class ApiError {
+    @SerializedName("code")
+    private int code;
+    @SerializedName("message")
+    private String message;
 
-    String message;
-    Map<String, List<String>> errors;
-
-    public String getMessage() {
-        return message;
+    public ApiError() {
     }
 
-    public Map<String, List<String>> getErrors() {
-        return errors;
+    public int code() {
+        return code;
+    }
+
+    public String message() {
+        return message;
     }
 }

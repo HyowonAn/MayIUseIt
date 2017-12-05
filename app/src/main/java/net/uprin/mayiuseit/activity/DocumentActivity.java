@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -127,6 +128,12 @@ public class DocumentActivity extends AppCompatActivity {
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
                     tokenManager.deleteToken();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "로그인이 만료되었습니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     finish();
                 }

@@ -70,26 +70,32 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         initToolbar();
         historyManager = HistoryManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
+        histories =  historyManager.getHistory();
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final SearchHistoryAdapter searchHistoryAdapter = new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext());
+        recyclerView.setAdapter(searchHistoryAdapter);
 
         deleteButton = (TextView) findViewById(R.id.delete_history_btn);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 histories.clear();
+                searchHistoryAdapter.notifyDataSetChanged();
                 historyManager.deleteHistory();
                 Snackbar.make(getWindow().getDecorView().getRootView(), "검색기록이 삭제되었습니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                     }
                 }).show();
-                getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
 
             }
         });
-        histories =  historyManager.getHistory();
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext()));
+       // histories =  historyManager.getHistory();
+        //final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //SearchHistoryAdapter adapter = new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext());
+        //recyclerView.setAdapter(adapter);
 
     }
 

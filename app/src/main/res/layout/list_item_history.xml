@@ -2,20 +2,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/history_keyword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/setting_bg"
+        android:background="@drawable/history_bg"
         android:paddingBottom="3dp"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
         android:paddingTop="3dp"
         android:text="KEYWORD"
-        android:drawableTint="#000000"
-        android:textSize="12sp" />
+       android:textSize="12sp" />
 
 </LinearLayout>

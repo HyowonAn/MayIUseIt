@@ -11,6 +11,7 @@ import android.widget.TextView;
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.model.History;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.SearchViewHolder> {
 
-    List<History> histories;
+    List<String> histories;
     private int rowLayout;
     private Context context;
 
@@ -35,7 +36,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
         }
     }
 
-    public SearchHistoryAdapter(List<History> histories, int rowLayout, Context context) {
+    public SearchHistoryAdapter(ArrayList<String> histories, int rowLayout, Context context) {
         this.histories = histories;
         this.rowLayout = rowLayout;
         this.context = context;

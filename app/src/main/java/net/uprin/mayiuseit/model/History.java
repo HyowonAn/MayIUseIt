@@ -1,14 +1,13 @@
 package net.uprin.mayiuseit.model;
 
 /**
- * Created by CJS on 2017-12-03.
+ * Created by CJS on 2017-12-05.
  */
 
 public class History {
-
     private String keyword;
 
-    public History(String keyword){
+    public History(String keyword) {
         this.keyword = keyword;
     }
 

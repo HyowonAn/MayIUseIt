@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "net.uprin.mayiuseit"
         minSdkVersion 16
@@ -25,12 +25,10 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     //Kakao API
     compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.
             KAKAO_SDK_VERSION
     compile 'com.googlecode.android-query:android-query:0.25.9'
-
     //glideeffect
     // If you want to use the GPU Filters
     compile 'com.googlecode.android-query:android-query:0.25.9'
@@ -53,11 +51,8 @@ dependencies {
     compile 'com.github.florent37:glidepalette:2.1.1'
     compile 'jp.wasabeef:glide-transformations:3.0.1'
     compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
-
     compile 'com.auth0.android:jwtdecode:1.1.1'
-
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
-
     compile 'com.squareup.moshi:moshi:1.5.0'
 }

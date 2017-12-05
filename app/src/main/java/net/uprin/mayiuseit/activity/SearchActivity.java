@@ -2,6 +2,7 @@ package net.uprin.mayiuseit.activity;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,11 +10,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.style.UpdateLayout;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.adapter.SearchHistoryAdapter;
 import net.uprin.mayiuseit.model.History;
+import net.uprin.mayiuseit.util.HistoryManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +26,9 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    List<History> histories;
-
+    ArrayList<String> histories;
+    HistoryManager historyManager;
+    TextView deleteButton;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -42,7 +48,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
 
-                histories.add(new History(query));
+                histories.add(query);
+                historyManager.saveHistory(histories);
 
                 Intent intent = new Intent(getApplicationContext(), SearchListActivity.class);
                 intent.putExtra("keyword", query);
@@ -63,11 +70,27 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         initToolbar();
-        histories = new ArrayList<>();
-
+        historyManager = HistoryManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext()));
+        deleteButton = (TextView) findViewById(R.id.delete_history_btn);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                histories.clear();
+                historyManager.deleteHistory();
+                Snackbar.make(getWindow().getDecorView().getRootView(), "검색기록이 삭제되었습니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                }).show();
+                getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
+
+
+            }
+        });
+        histories =  historyManager.getHistory();
 
 
     }

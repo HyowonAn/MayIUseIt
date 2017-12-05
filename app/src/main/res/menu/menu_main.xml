@@ -7,8 +7,8 @@
         android:id="@+id/settings" />
 
     <item
-        android:title="test2"
-        android:id="@+id/item2_id" />
+        android:title="dev_tool"
+        android:id="@+id/dev_id" />
 
     <item
         android:title="test3"

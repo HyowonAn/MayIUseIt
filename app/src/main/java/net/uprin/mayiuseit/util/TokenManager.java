@@ -44,6 +44,11 @@ public class TokenManager {
         editor.remove("REFRESH_TOKEN").commit();
     }
 
+
+    public void deleteAccessToken(){
+        editor.remove("ACCESS_TOKEN").commit();
+        editor.putString("ACCESS_TOKEN", "tes").commit();
+    }
 //    public Boolean isExpired(){
 //        jwt = new JWT(prefs.getString("ACCESS_TOKEN", null));
 //        return jwt.isExpired(10);

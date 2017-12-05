@@ -236,9 +236,9 @@ public class MainActivity extends AppCompatActivity {
 
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
 
-        }else if (id==R.id.item2_id){
+        }else if (id==R.id.dev_id){
 
-            Toast.makeText(getApplicationContext(),"item2 is selected",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), DevActivity.class));
 
 
         }else if (id==R.id.item3_id){

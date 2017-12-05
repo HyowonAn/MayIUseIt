@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.adapter.SearchHistoryAdapter;
-import net.uprin.mayiuseit.model.History;
 import net.uprin.mayiuseit.util.HistoryManager;
 
 import java.util.ArrayList;
@@ -84,7 +83,6 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 }).show();
                 getWindow().getDecorView().findViewById(android.R.id.content).invalidate();
-
 
             }
         });

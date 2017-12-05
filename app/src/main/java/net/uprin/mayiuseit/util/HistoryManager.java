@@ -3,8 +3,6 @@ package net.uprin.mayiuseit.util;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import net.uprin.mayiuseit.model.History;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

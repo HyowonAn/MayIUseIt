@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.uprin.mayiuseit.R;
-import net.uprin.mayiuseit.model.History;
 
 import java.util.ArrayList;
 import java.util.List;

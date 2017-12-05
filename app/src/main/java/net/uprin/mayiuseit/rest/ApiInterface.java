@@ -28,14 +28,14 @@ public interface ApiInterface {
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
     @GET("list.php")
     Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category, @Query("rankBy") String rankBy);
-    @GET("document.php")
+    @GET("document_token.php")
     Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
 
     @POST("refreshToken.php")
     @FormUrlEncoded
-    Call<AccessToken> refresh(@Field("refresh_token") String refreshToken);
+    Call<AccessToken> refresh(@Field("REFRESH_TOKEN") String refreshToken);
 
     @POST("token.php")
     @FormUrlEncoded

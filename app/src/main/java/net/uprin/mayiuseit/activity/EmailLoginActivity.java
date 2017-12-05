@@ -158,22 +158,22 @@ public class EmailLoginActivity extends AppCompatActivity {
                             TokenData tokenData = new TokenData();
                             tokenData = tokenManager.getTokenData();
 
-                            Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname()
+                                    + "\n refreshToken :" + tokenManager.getToken().getRefreshToken().toString(),Toast.LENGTH_SHORT).show();
                             finish();
-                        } else {
-                            if (response.code() == 422) {
+                        } else  if (response.code() == 422) {
                                 Log.w(TAG, "onResponse: " + "422");
-
-                                //handleErrors(response.errorBody());
-                            }
-                            if (response.code() == 401) {
-                                Log.w(TAG, "onResponse: " + "501");
-
                                 ApiError apiError = Utils.converErrors(response.errorBody());
-                               // Toast.makeText(LoginActivity.this, apiError.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                            //showForm();
+                                Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            } else if (response.code() == 401) {
+                                Log.w(TAG, "onResponse: " + "501");
+                                ApiError apiError = Utils.converErrors(response.errorBody());
+                               Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
+                            } else {
+                            ApiError apiError = Utils.converErrors(response.errorBody());
+                            Toast.makeText(getApplicationContext(), apiError.getMessage(), Toast.LENGTH_LONG).show();
                         }
+                            //showForm();
 
                     }
 

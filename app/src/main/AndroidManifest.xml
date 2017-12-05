@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.uprin.mayiuseit"
-    >
+    package="net.uprin.mayiuseit">
 
     <!-- permission추가 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -42,14 +41,14 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".activity.DocumentListActivity" />
         <activity android:name=".activity.SearchListActivity" />
-
         <activity
             android:name=".activity.DocumentActivity"
             android:theme="@style/documentTheme" />
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.DevActivity"></activity>
     </application>
 
 </manifest>

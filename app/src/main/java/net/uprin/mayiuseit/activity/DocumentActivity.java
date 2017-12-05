@@ -36,6 +36,7 @@ import net.uprin.mayiuseit.model.Document;
 import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
 import net.uprin.mayiuseit.model.DocumentResponse;
 import net.uprin.mayiuseit.util.CategorytoString;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,9 @@ public class DocumentActivity extends AppCompatActivity {
     Boolean detail_all=false;
     FloatingActionButton floatingActionButton;
 
+    TokenManager tokenManager;
+
+
     private static final String TAG = DocumentActivity.class.getSimpleName();
 
     private  int param = 0;
@@ -96,7 +100,15 @@ public class DocumentActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         document = new ArrayList<>();
-        api = ApiClient.createService(ApiInterface.class);
+
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if(tokenManager.getToken() == null){
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
         DocumentListsAdapter adapter;
        // adapter = new DocumentListsAdapter(this, documentLists);
         Intent intent = getIntent();
@@ -114,6 +126,9 @@ public class DocumentActivity extends AppCompatActivity {
                     bindData(document.get(0));
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                    tokenManager.deleteToken();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    finish();
                 }
             }
 

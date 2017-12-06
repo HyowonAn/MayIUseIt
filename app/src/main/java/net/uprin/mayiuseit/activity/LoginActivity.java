@@ -118,9 +118,10 @@ public class LoginActivity extends AppCompatActivity {
         naverButton = (AppCompatButton)findViewById(R.id.com_naver_login);
         email_join_txtbtn = (TextView)findViewById(R.id.email_join);
         login_txtbtn = (TextView)findViewById(R.id.email_login) ;
+        service = ApiClient.createService(ApiInterface.class);
+
         facebookManager = new FacebookManager(service, tokenManager);
 
-        service = ApiClient.createService(ApiInterface.class);
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

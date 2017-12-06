@@ -45,12 +45,16 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<AccessToken> login(@Field("username") String username, @Field("password") String password);
 
-    @POST("social_auth")
+    @POST("social_auth.php")
     @FormUrlEncoded
     Call<AccessToken> socialAuth(@Field("name") String name,
                                  @Field("email") String email,
                                  @Field("provider") String provider,
                                  @Field("provider_user_id") String providerUserId);
+
+    @POST("facebook_auth.php")
+    @FormUrlEncoded
+    Call<AccessToken> facebook_auth(@Field("ACCESS_TOKEN") String accessToken);
 
     @GET("search.php")
     Call<SearchListResponse> getSearchList(@Query("pageNum") int pageNum, @Query("keyword") String keyword, @Query("category") int category, @Query("rankBy") String rankBy);

@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.activity.SearchActivity;
+import net.uprin.mayiuseit.activity.SearchListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
     ArrayList<String> histories;
     private int rowLayout;
     private Context context;
+    private String param;
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
         LinearLayout historyLayout;
@@ -46,12 +50,24 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
                                                                     int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
         return new SearchViewHolder(view);
+
     }
 
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, final int position) {
         holder.history_keyword.setText(histories.get(position));
+
+        holder.history_keyword.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SearchListActivity.class);
+                intent.putExtra("keyword", histories.get(position));
+                intent.putExtra("rankBy", "rgsde");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

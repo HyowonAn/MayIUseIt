@@ -34,9 +34,6 @@ public class HistoryManager {
     public void saveHistory(ArrayList<String> histories){
         Set<String> set = new HashSet<>(histories);
         editor.putStringSet("History", set).commit();
-
-        Log.e("HISTORY_LOG",prefs.getStringSet("History",null).toString());
-
     }
 
     public void deleteHistory(){

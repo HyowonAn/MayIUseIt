@@ -89,12 +89,16 @@ public class SearchListActivity extends AppCompatActivity {
         call.enqueue(new Callback<SearchListResponse>() {
             @Override
             public void onResponse(Call<SearchListResponse> call, Response<SearchListResponse> response) {
-                if(response.isSuccessful()){
+                if(response.isSuccessful() && response.body().getResults()!=null){
                     searchLists.addAll(response.body().getResults());
                     adapter.notifyDataChanged();
                     pageNum = pageNum +1;
                 }else{
-                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "검색결과가 없습니다.", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    }).show();
                 }
             }
 

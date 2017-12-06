@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -72,7 +73,7 @@ public class SearchActivity extends AppCompatActivity {
         historyManager = HistoryManager.getInstance(getSharedPreferences("prefs",MODE_PRIVATE));
         histories =  historyManager.getHistory();
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.history_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,5));
         final SearchHistoryAdapter searchHistoryAdapter = new SearchHistoryAdapter(histories, R.layout.list_item_history, getApplicationContext());
         recyclerView.setAdapter(searchHistoryAdapter);
 

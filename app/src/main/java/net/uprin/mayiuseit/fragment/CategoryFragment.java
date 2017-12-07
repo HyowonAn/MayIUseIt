@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 
 import net.uprin.mayiuseit.activity.DocumentListActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.activity.EventsSampleActivity;
 
 public class CategoryFragment extends Fragment {
 
@@ -54,12 +55,12 @@ public class CategoryFragment extends Fragment {
         Glide.with(this).load(R.drawable.water_background).into(water);
 
         rated.setOnClickListener(new View.OnClickListener() {
-            Intent intent = new Intent(getActivity(), DocumentListActivity.class);
+            Intent intent = new Intent(getActivity(), EventsSampleActivity.class);
             @Override
             public void onClick(View view) {
 
-                intent.putExtra("category", 0);
-                intent.putExtra("rankBy", "rated_count");
+//                intent.putExtra("category", 0);
+//                intent.putExtra("rankBy", "rated_count");
                 startActivity(intent);
             }
         });

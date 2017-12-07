@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +33,14 @@ import net.uprin.mayiuseit.util.TokenManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
+
 public class MainActivity extends AppCompatActivity {
+
+    public static final String TITLE = "title";
+
+    private String mTitle;
 
     Toolbar toolbar;
 
@@ -51,12 +59,35 @@ public class MainActivity extends AppCompatActivity {
     //LinearLayout success_layout;
     //Button logout_btn;
     //AQuery aQuery;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar();
         initViewPagerAndTabs();
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                Snackbar.make(findViewById(R.id.rootView), getString(R.string.selected_menu_item,
+                        menuItem.getTitle()), Snackbar.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+    }
+
+
 
 
         //aQuery = new AQuery(this);
@@ -80,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
          aQuery.id(user_img).image(intent.getExtras().getString("user_img")); // <- 프로필 작은 이미지 , userProfile.getProfileImagePath() <- 큰 이미지
          **/
 
-    }
+
 
     private void initToolbar() {
         Toolbar mToolbar = findViewById(R.id.toolbar);
@@ -264,6 +295,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
 
         }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

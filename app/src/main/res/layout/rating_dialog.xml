@@ -1,66 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <EditText
-            android:ems="10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:inputType="textMultiLine"
-            android:layout_marginTop="20dp"
-            android:lines="8"
-            android:maxLines="10"
-            android:minLines="6"
-            android:scrollbars="vertical" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:paddingBottom="16dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@color/colorPrimary"
+        />
 
         <ImageView
-            android:layout_marginTop="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_gravity="center|top"
-            android:src="@drawable/search_icon" />
-    </FrameLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@android:color/white"
-        android:weightSum="2">
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/black"
-            android:text="Submit"
-            android:textColor="#FFFFFF" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/lace" />
 
-        <View
-            android:layout_width="4dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent" />
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/black"
-            android:text="Cancel"
-            android:textColor="#FFFFFF" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="내 별점은?"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryLightWhite"
+                android:textSize="25sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/rating_dialog_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:rating="0"
+        android:stepSize="0.5"
+        android:numStars="5"
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/rating_dialog_button"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:textSize="13dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="제출하기"/>
 
     </LinearLayout>
-</LinearLayout>

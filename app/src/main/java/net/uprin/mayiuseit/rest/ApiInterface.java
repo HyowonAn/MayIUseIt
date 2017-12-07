@@ -7,6 +7,7 @@ import net.uprin.mayiuseit.model.JoinRequest;
 import net.uprin.mayiuseit.model.JoinResponse;
 import net.uprin.mayiuseit.model.LoginResponse;
 import net.uprin.mayiuseit.model.NoticeListResponse;
+import net.uprin.mayiuseit.model.Rate;
 import net.uprin.mayiuseit.model.SearchListResponse;
 
 import retrofit2.Call;
@@ -53,6 +54,11 @@ public interface ApiInterface {
                                  @Field("email") String email,
                                  @Field("provider") String provider,
                                  @Field("provider_user_id") String providerUserId);
+    @POST("write_rate.php")
+    @FormUrlEncoded
+    Call<Rate> write_rate(@Field("document_srl") int document_srl,
+                          @Field("rate") float rate);
+
 
     @POST("facebook_auth.php")
     @FormUrlEncoded

@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import net.uprin.mayiuseit.activity.DocumentListActivity;
 import net.uprin.mayiuseit.model.DocumentList;
 import net.uprin.mayiuseit.util.CategorytoString;
 import net.uprin.mayiuseit.activity.DocumentActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.util.RatingDialog;
 
 import java.util.List;
 
@@ -102,7 +105,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView readed_count;
         TextView rated_count,document_rated_textview;
         ImageView imageView, document_rated_imageview;
-        LinearLayout document_rating_btn;
+        LinearLayout document_rating_btn,document_list_share_btn;
         CardView cardView;
         public DocumentListsHolder(View v) {
             super(v);
@@ -119,6 +122,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             imageView = (ImageView) v.findViewById(R.id.cardimage);
             document_rated_imageview = (ImageView) v.findViewById(R.id.document_rated_imageview);
             document_rating_btn = (LinearLayout) v.findViewById(R.id.document_rating_btn);
+            document_list_share_btn = (LinearLayout) v.findViewById(R.id.document_list_share_btn);
             document_rated_textview = (TextView) v.findViewById(R.id.document_rated_textview);
         }
 
@@ -160,6 +164,40 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             document_rating_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    RatingDialog dialog = new RatingDialog(context,documentLists);
+                    dialog.show();
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if(documentLists.getRate()!=0f){
+                                document_rated_textview.setText("내 점수 : " + documentLists.getRate());
+                                document_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorAccent));
+                                document_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorAccent));
+                            } else {
+                                document_rated_textview.setText("별점 남기기");
+                                document_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorGreyLight));
+                                document_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorGreyLight));
+                            }
+                        }
+                    });
+                }
+            });
+
+            document_list_share_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+                    // Set default text message
+                    // 카톡, 이메일, MMS 다 이걸로 설정 가능
+                    intent.setType("text/plain");
+                    String subject = "리콜정보 안내";
+                    String text = "리콜정보 : " + documentLists.getTitle() + "\n 리콜사유 : " + documentLists.getReason() + "\n 등록일자 : " + documentLists.getRgsde() + "\n" + documentLists.getImg_srl();
+                    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                    intent.putExtra(Intent.EXTRA_TEXT, text);
+                    // Title of intent
+                    Intent chooser = Intent.createChooser(intent, "공유하기");
+                    context.startActivity(chooser);
 
                 }
             });

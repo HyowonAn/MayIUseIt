@@ -79,9 +79,12 @@ public class MainActivity extends AppCompatActivity {
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
-                Snackbar.make(findViewById(R.id.rootView), getString(R.string.selected_menu_item,
-                        menuItem.getTitle()), Snackbar.LENGTH_SHORT).show();
+
+                if (menuItem.getTitle().equals("설정")) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "설정을 선택하셨습니다.", Snackbar.LENGTH_SHORT).show();
+                }
                 return false;
+
             }
         });
 

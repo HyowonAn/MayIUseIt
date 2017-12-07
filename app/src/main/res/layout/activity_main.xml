@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         app:fabGravity="bottom_end"
-        app:fabMenu="@menu/menu_main"
+        app:fabMenu="@menu/fab_home"
         app:miniFabBackgroundTint="@android:color/white"
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
         app:miniFabTitleTextColor="?attr/colorPrimaryDark" />

@@ -26,8 +26,10 @@ public interface ApiInterface {
     Call<JoinResponse> postEmailJoin (@Body JoinRequest joinRequest);
     @POST("login.php")
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
-    @GET("list.php")
-    Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category, @Query("rankBy") String rankBy);
+    @POST("list_token.php")
+    @FormUrlEncoded
+    Call<DocumentListResponse> getDocumentList(@Field("pageNum") int pageNum, @Field("category") int category, @Field("rankBy") String rankBy);
+
     @GET("document_token.php")
     Call<DocumentResponse> getDocument(@Query("document_srl") int document_srl);
     @GET("notice.php")

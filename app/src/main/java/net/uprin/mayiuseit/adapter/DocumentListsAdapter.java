@@ -2,6 +2,9 @@ package net.uprin.mayiuseit.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -97,8 +100,9 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView original_from;
         TextView rgsde;
         TextView readed_count;
-        TextView rated_count;
-        ImageView imageView;
+        TextView rated_count,document_rated_textview;
+        ImageView imageView, document_rated_imageview;
+        LinearLayout document_rating_btn;
         CardView cardView;
         public DocumentListsHolder(View v) {
             super(v);
@@ -113,6 +117,9 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             readed_count = (TextView) v.findViewById(R.id.readed_count);
             rated_count = (TextView) v.findViewById(R.id.rated_count);
             imageView = (ImageView) v.findViewById(R.id.cardimage);
+            document_rated_imageview = (ImageView) v.findViewById(R.id.document_rated_imageview);
+            document_rating_btn = (LinearLayout) v.findViewById(R.id.document_rating_btn);
+            document_rated_textview = (TextView) v.findViewById(R.id.document_rated_textview);
         }
 
         void bindData(final DocumentList documentLists){
@@ -125,6 +132,12 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             readed_count.setText(""+documentLists.getReaded_count());
             rated_count.setText(String.format("%.1f",documentLists.getRated_count()));
             // Glide.with(context).load(R.drawable.visit_background).into(visit);
+
+            if(documentLists.getRate()!=0f){
+                document_rated_textview.setText("내 점수 : " + documentLists.getRate());
+                document_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorAccent));
+                document_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorAccent));
+            }
 
             Glide.with(context).load(documentLists.getImg_srl())
                     .thumbnail(Glide.with(context).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
@@ -141,6 +154,13 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
                     intent =  new Intent(context, DocumentActivity.class);
                     intent.putExtra("document_srl", documentLists.getDocument_srl());
                     context.startActivity(intent);
+                }
+            });
+
+            document_rating_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
                 }
             });
         }

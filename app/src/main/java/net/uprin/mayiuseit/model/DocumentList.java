@@ -29,6 +29,17 @@ public class DocumentList {
     @SerializedName("rated_count")
     private float rated_count;
 
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    @SerializedName("rate")
+    private float rate;
+
     public DocumentList(int category_id) {
         this.category_id=category_id;
     }

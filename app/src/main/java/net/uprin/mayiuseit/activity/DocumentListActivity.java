@@ -13,10 +13,13 @@ import android.view.View;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.model.DocumentList;
 import net.uprin.mayiuseit.model.DocumentListResponse;
 import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
+import net.uprin.mayiuseit.util.TokenManager;
+import net.uprin.mayiuseit.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ public class DocumentListActivity extends AppCompatActivity {
     DocumentListsAdapter adapter;
     ApiInterface api;
     Context context;
+    TokenManager tokenManager;
 
 
     @Override
@@ -73,11 +77,19 @@ public class DocumentListActivity extends AppCompatActivity {
         //recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 
-        api = ApiClient.createService(ApiInterface.class);
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if(tokenManager.getToken() == null){
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
         load(pageNum);
     }
 
     private void load(int index){
+
+
         Call<DocumentListResponse> call = api.getDocumentList(index, category,rankBy);
         call.enqueue(new Callback<DocumentListResponse>() {
             @Override
@@ -86,8 +98,16 @@ public class DocumentListActivity extends AppCompatActivity {
                     documentLists.addAll(response.body().getResults());
                     adapter.notifyDataChanged();
                     pageNum = pageNum +1;
-                }else{
-                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                } else {
+                    ApiError apiError = Utils.converErrors(response.errorBody());
+                    Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
+                    // Toast.makeText(getApplicationContext(), response.errorBody()., Toast.LENGTH_LONG).show();
+
                 }
             }
 

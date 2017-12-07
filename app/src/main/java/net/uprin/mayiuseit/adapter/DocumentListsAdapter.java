@@ -126,7 +126,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             rated_count.setText(String.format("%.1f",documentLists.getRated_count()));
             // Glide.with(context).load(R.drawable.visit_background).into(visit);
 
-            Glide.with(context).load(documentLists.getImg_slr())
+            Glide.with(context).load(documentLists.getImg_srl())
                     .thumbnail(Glide.with(context).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                     .apply(new RequestOptions()
                             //.placeholder(R.drawable.food_background)
@@ -139,7 +139,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
                 @Override
                 public void onClick(View view) {
                     intent =  new Intent(context, DocumentActivity.class);
-                    intent.putExtra("document_slr", documentLists.getDocument_slr());
+                    intent.putExtra("document_srl", documentLists.getDocument_srl());
                     context.startActivity(intent);
                 }
             });

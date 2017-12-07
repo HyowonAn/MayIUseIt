@@ -8,12 +8,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Document {
 
-    @SerializedName("document_slr")
-    private int document_slr;
+    @SerializedName("document_srl")
+    private int document_srl;
     @SerializedName("category_id")
     private int category_id;
-    @SerializedName("original_slr")
-    private int original_slr;
+    @SerializedName("original_srl")
+    private int original_srl;
     @SerializedName("title")
     private String title;
     @SerializedName("reason")
@@ -22,12 +22,12 @@ public class Document {
     private String detail;
     @SerializedName("company")
     private String company;
-    @SerializedName("company_slr")
-    private String company_slr;
+    @SerializedName("company_srl")
+    private String company_srl;
     @SerializedName("certification_id")
     private String certification_id;
-    @SerializedName("img_slr")
-    private String img_slr;
+    @SerializedName("img_srl")
+    private String img_srl;
     @SerializedName("company_contact")
     private String company_contact;
     @SerializedName("original_from")
@@ -41,17 +41,17 @@ public class Document {
     @SerializedName("rated_count")
     private float rated_count;
 
-    public Document(int document_slr, int category_id, int original_slr, String title, String reason,String detail, String company, String company_slr, String certification_id, String img_slr, String company_contact, String original_from, String original_url, String rgsde, int readed_count, float rated_count) {
-        this.document_slr = document_slr;
+    public Document(int document_srl, int category_id, int original_srl, String title, String reason,String detail, String company, String company_srl, String certification_id, String img_srl, String company_contact, String original_from, String original_url, String rgsde, int readed_count, float rated_count) {
+        this.document_srl = document_srl;
         this.category_id = category_id;
-        this.original_slr = original_slr;
+        this.original_srl = original_srl;
         this.title = title;
         this.reason = reason;
         this.detail = detail;
         this.company = company;
-        this.company_slr = company_slr;
+        this.company_srl = company_srl;
         this.certification_id = certification_id;
-        this.img_slr = img_slr;
+        this.img_srl = img_srl;
         this.company_contact = company_contact;
         this.original_from = original_from;
         this.original_url = original_url;
@@ -68,12 +68,12 @@ public class Document {
         this.detail = detail;
     }
 
-    public int getDocument_slr() {
-        return document_slr;
+    public int getDocument_srl() {
+        return document_srl;
     }
 
-    public void setDocument_slr(int document_slr) {
-        this.document_slr = document_slr;
+    public void setDocument_srl(int document_srl) {
+        this.document_srl = document_srl;
     }
 
     public int getCategory_id() {
@@ -84,12 +84,12 @@ public class Document {
         this.category_id = category_id;
     }
 
-    public int getOriginal_slr() {
-        return original_slr;
+    public int getOriginal_srl() {
+        return original_srl;
     }
 
-    public void setOriginal_slr(int original_slr) {
-        this.original_slr = original_slr;
+    public void setOriginal_srl(int original_srl) {
+        this.original_srl = original_srl;
     }
 
     public String getTitle() {
@@ -116,12 +116,12 @@ public class Document {
         this.company = company;
     }
 
-    public String getCompany_slr() {
-        return company_slr;
+    public String getCompany_srl() {
+        return company_srl;
     }
 
-    public void setCompany_slr(String company_slr) {
-        this.company_slr = company_slr;
+    public void setCompany_srl(String company_srl) {
+        this.company_srl = company_srl;
     }
 
     public String getCertification_id() {
@@ -132,12 +132,12 @@ public class Document {
         this.certification_id = certification_id;
     }
 
-    public String getImg_slr() {
-        return img_slr;
+    public String getImg_srl() {
+        return img_srl;
     }
 
-    public void setImg_slr(String img_slr) {
-        this.img_slr = img_slr;
+    public void setImg_srl(String img_srl) {
+        this.img_srl = img_srl;
     }
 
     public String getCompany_contact() {

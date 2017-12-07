@@ -52,13 +52,13 @@ public class DocumentActivity extends AppCompatActivity {
     CoordinatorLayout root_layout;
     AppBarLayout app_bar_layout;
 
-    TextView document_slr;
+    TextView document_srl;
     TextView category_id;
-    TextView original_slr;
+    TextView original_srl;
     TextView Title;
     TextView reason,detail_detail;
     TextView company;
-    TextView company_slr;
+    TextView company_srl;
     TextView certification_id;
     ImageView img_srl_background,img_srl;
     TextView company_contact;
@@ -113,7 +113,7 @@ public class DocumentActivity extends AppCompatActivity {
         DocumentListsAdapter adapter;
        // adapter = new DocumentListsAdapter(this, documentLists);
         Intent intent = getIntent();
-        param = intent.getExtras().getInt("document_slr");
+        param = intent.getExtras().getInt("document_srl");
 
         Call<DocumentResponse> call = api.getDocument(param);
         call.enqueue(new Callback<DocumentResponse>() {
@@ -194,13 +194,13 @@ public class DocumentActivity extends AppCompatActivity {
             }
         });
 
-        Glide.with(this).load(document.getImg_slr())
+        Glide.with(this).load(document.getImg_srl())
                 .thumbnail(Glide.with(this).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                 .apply(new RequestOptions()
                         .centerCrop()
                         .error(R.drawable.medical_background).centerCrop())
                 //.apply(bitmapTransform(new BlurTransformation(100)))
-                .listener(GlidePalette.with(document.getImg_slr())
+                .listener(GlidePalette.with(document.getImg_srl())
                         .use(GlidePalette.Profile.MUTED_DARK)
                         .intoCallBack(new GlidePalette.CallBack() {
                             @Override
@@ -246,7 +246,7 @@ public class DocumentActivity extends AppCompatActivity {
                 // 카톡, 이메일, MMS 다 이걸로 설정 가능
                 intent.setType("text/plain");
                 String subject = "리콜정보 안내";
-                String text = "리콜정보 : " + document.getTitle() + "\n 리콜사유 : " + document.getReason() + "\n 등록일자 : " + document.getRgsde() + "\n" + document.getImg_slr();
+                String text = "리콜정보 : " + document.getTitle() + "\n 리콜사유 : " + document.getReason() + "\n 등록일자 : " + document.getRgsde() + "\n" + document.getImg_srl();
                 intent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 intent.putExtra(Intent.EXTRA_TEXT, text);
                 // Title of intent

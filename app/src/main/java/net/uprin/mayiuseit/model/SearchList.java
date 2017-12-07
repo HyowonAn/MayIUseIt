@@ -8,8 +8,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class SearchList {
 
-    @SerializedName("document_slr")
-    private int document_slr;
+    @SerializedName("document_srl")
+    private int document_srl;
     @SerializedName("category_id")
     private int category_id;
     @SerializedName("title")
@@ -18,8 +18,8 @@ public class SearchList {
     private String reason;
     @SerializedName("company")
     private String company;
-    @SerializedName("img_slr")
-    private String img_slr;
+    @SerializedName("img_srl")
+    private String img_srl;
     @SerializedName("original_from")
     private String original_from;
     @SerializedName("rgsde")
@@ -33,12 +33,12 @@ public class SearchList {
         this.category_id=category_id;
     }
 
-    public int getDocument_slr() {
-        return document_slr;
+    public int getDocument_srl() {
+        return document_srl;
     }
 
-    public void setDocument_slr(int document_slr) {
-        this.document_slr = document_slr;
+    public void setDocument_srl(int document_srl) {
+        this.document_srl = document_srl;
     }
 
     public int getCategory_id() {
@@ -73,12 +73,12 @@ public class SearchList {
         this.company = company;
     }
 
-    public String getImg_slr() {
-        return img_slr;
+    public String getImg_srl() {
+        return img_srl;
     }
 
-    public void setImg_slr(String img_slr) {
-        this.img_slr = img_slr;
+    public void setImg_srl(String img_srl) {
+        this.img_srl = img_srl;
     }
 
     public String getOriginal_from() {

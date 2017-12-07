@@ -126,7 +126,7 @@ public class SearchListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             rated_count.setText(String.format("%.1f",searchLists.getRated_count()));
             // Glide.with(context).load(R.drawable.visit_background).into(visit);
 
-            Glide.with(context).load(searchLists.getImg_slr())
+            Glide.with(context).load(searchLists.getImg_srl())
                     .thumbnail(Glide.with(context).load(R.drawable.fancy_loader2).apply(new RequestOptions().centerCrop()))
                     .apply(new RequestOptions()
                             //.placeholder(R.drawable.food_background)
@@ -139,7 +139,7 @@ public class SearchListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 @Override
                 public void onClick(View view) {
                     intent =  new Intent(context, DocumentActivity.class);
-                    intent.putExtra("document_slr", searchLists.getDocument_slr());
+                    intent.putExtra("document_srl", searchLists.getDocument_srl());
                     context.startActivity(intent);
                 }
             });

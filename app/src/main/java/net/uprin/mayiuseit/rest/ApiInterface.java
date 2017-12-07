@@ -29,7 +29,7 @@ public interface ApiInterface {
     @GET("list.php")
     Call<DocumentListResponse> getDocumentList(@Query("pageNum") int pageNum, @Query("category") int category, @Query("rankBy") String rankBy);
     @GET("document_token.php")
-    Call<DocumentResponse> getDocument(@Query("document_slr") int document_slr);
+    Call<DocumentResponse> getDocument(@Query("document_srl") int document_srl);
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
 

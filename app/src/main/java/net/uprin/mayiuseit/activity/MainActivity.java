@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TITLE = "title";
 
-    private String mTitle;
-
-    Toolbar toolbar;
 
     TextView textCartItemCount;
     int mCartItemCount = 10;
@@ -72,17 +69,28 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         initViewPagerAndTabs();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
             @Override
             public boolean onMenuItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
 
-                if (menuItem.getTitle().equals("설정")) {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "설정을 선택하셨습니다.", Snackbar.LENGTH_SHORT).show();
+                if (id==R.id.subscribe_manage){
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "구독 관리 선택", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    }).show();
                 }
+                else if (id==R.id.subscribe_setting){
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "구독 설정 선택", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                        }
+                    }).show();
+                }
+
                 return false;
 
             }

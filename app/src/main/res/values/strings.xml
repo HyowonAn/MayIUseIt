@@ -6,10 +6,6 @@
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
 
-    <!--fab-->
-
-    <string name="sample_activity_title">%1$s Sample</string>
-    <string name="selected_menu_item">Menu item: %1$s</string>
 
     <string name="facebook_app_id">1891785964483772</string>
     <string name="fb_login_protocol_scheme">fb1891785964483772</string>

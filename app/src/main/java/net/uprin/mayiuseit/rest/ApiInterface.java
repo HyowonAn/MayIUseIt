@@ -2,6 +2,8 @@ package net.uprin.mayiuseit.rest;
 
 import net.uprin.mayiuseit.model.AccessToken;
 import net.uprin.mayiuseit.model.Comment;
+import net.uprin.mayiuseit.model.CommentList;
+import net.uprin.mayiuseit.model.CommentListResponse;
 import net.uprin.mayiuseit.model.DocumentListResponse;
 import net.uprin.mayiuseit.model.DocumentResponse;
 import net.uprin.mayiuseit.model.JoinRequest;
@@ -64,6 +66,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<Comment> write_comment(@Field("document_srl") int document_srl,
                              @Field("comment") String comment);
+
+    @POST("comment_list.php")
+    @FormUrlEncoded
+    Call<CommentListResponse> comment_list(@Field("pageNum") int pageNum, @Field("document_srl") int document_srl);
 
     @POST("facebook_auth.php")
     @FormUrlEncoded

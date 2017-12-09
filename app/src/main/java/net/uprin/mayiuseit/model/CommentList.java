@@ -6,17 +6,55 @@ import com.google.gson.annotations.SerializedName;
  * Created by uPrin on 2017. 12. 9..
  */
 
-public class Comment {
-    @SerializedName("comment_srl")
-    private int comment_srl;
-    @SerializedName("member_srl")
-    private int member_srl;
+public class CommentList {
+
     @SerializedName("document_srl")
     private int document_srl;
+    @SerializedName("comment_srl")
+    private int comment_srl;
+
+    @SerializedName("member_srl")
+    private int member_srl;
+
+    @SerializedName("nickname")
+    private String nickname;
+
     @SerializedName("content")
     private String content;
+
     @SerializedName("rgsde")
     private String rgsde;
+
+    private boolean isLoad=false;
+    private boolean visibility=false;
+
+    public boolean isVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+    }
+
+    public CommentList(boolean isLoad) {
+        this.isLoad = isLoad;
+    }
+
+    public boolean isLoad() {
+        return isLoad;
+    }
+
+    public void setLoad(boolean load) {
+        isLoad = load;
+    }
+
+    public int getDocument_srl() {
+        return document_srl;
+    }
+
+    public void setDocument_srl(int document_srl) {
+        this.document_srl = document_srl;
+    }
 
     public int getComment_srl() {
         return comment_srl;
@@ -34,12 +72,12 @@ public class Comment {
         this.member_srl = member_srl;
     }
 
-    public int getDocument_srl() {
-        return document_srl;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setDocument_srl(int document_srl) {
-        this.document_srl = document_srl;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getContent() {

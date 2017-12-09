@@ -1,5 +1,6 @@
 package net.uprin.mayiuseit.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -11,6 +12,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -31,6 +37,12 @@ import com.bumptech.glide.request.transition.Transition;
 import com.github.florent37.glidepalette.GlidePalette;
 
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.adapter.CommentListsAdapter;
+import net.uprin.mayiuseit.adapter.NoticeListsAdapter;
+import net.uprin.mayiuseit.model.Comment;
+import net.uprin.mayiuseit.model.CommentList;
+import net.uprin.mayiuseit.model.CommentListResponse;
+import net.uprin.mayiuseit.model.NoticeList;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.model.Document;
@@ -38,6 +50,7 @@ import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
 import net.uprin.mayiuseit.model.DocumentResponse;
 import net.uprin.mayiuseit.util.CategorytoString;
 import net.uprin.mayiuseit.util.TokenManager;
+import net.uprin.mayiuseit.util.VerticalLineDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +64,7 @@ public class DocumentActivity extends AppCompatActivity {
     LinearLayout head_layout;
     CoordinatorLayout root_layout;
     AppBarLayout app_bar_layout;
-
+    Context context;
     TextView document_srl;
     TextView category_id;
     TextView original_srl;
@@ -67,6 +80,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView rgsde;
     TextView readed_count;
     TextView rated_count;
+    TextView detail_commented_count, detail_commented_count2;
     Toolbar toolbar;
     Window window;
     Button detailbutton;
@@ -74,6 +88,15 @@ public class DocumentActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
 
     TokenManager tokenManager;
+
+    List<CommentList> commentLists;
+    RecyclerView recyclerView;
+    private  int pageNum = 1;
+    CommentListsAdapter adapter;
+
+    Button document_comment_button;
+
+    AppCompatEditText document_comment_editText;
 
 
     private static final String TAG = DocumentActivity.class.getSimpleName();
@@ -109,9 +132,9 @@ public class DocumentActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
+
         api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
-        DocumentListsAdapter adapter;
-       // adapter = new DocumentListsAdapter(this, documentLists);
+       adapter = new CommentListsAdapter(this, commentLists);
         Intent intent = getIntent();
         param = intent.getExtras().getInt("document_srl");
 
@@ -125,6 +148,11 @@ public class DocumentActivity extends AppCompatActivity {
                     document.addAll(documentResponse.getResults());
                     Log.e(TAG," Response Error "+document.get(0).getReason());
                     bindData(document.get(0));
+
+
+
+
+
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
                     tokenManager.deleteToken();
@@ -145,6 +173,166 @@ public class DocumentActivity extends AppCompatActivity {
             }
         });
 
+
+        document_comment_button = (Button) findViewById(R.id.document_comment_button);
+        document_comment_editText = (AppCompatEditText) findViewById(R.id.document_comment_editText);
+
+        document_comment_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
+
+                if ( document_comment_editText.getText().toString().length() == 0 ) {
+
+                    Toast.makeText(getApplicationContext(), "한줄평이 입력되지 않았습니다", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Call<Comment> call = api.write_comment(param, document_comment_editText.getText().toString());
+                    call.enqueue(new Callback<Comment>() {
+                        @Override
+                        public void onResponse(Call<Comment> call, Response<Comment> response) {
+
+                            if(response.isSuccessful()){
+                                Comment comment = response.body();
+                                Toast.makeText(getApplicationContext(), "갱신완료", Toast.LENGTH_SHORT).show();
+                                finish();
+                                startActivity(getIntent());
+
+                            }else{
+                                Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                                tokenManager.deleteToken();
+                                Snackbar.make(getWindow().getDecorView().getRootView(), "에러가 발생했습니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                    }
+                                }).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Comment> call, Throwable t) {
+                            Log.e(TAG," Response Error "+t.getMessage());
+                        }
+                    });
+
+
+                }
+
+            }
+        });
+
+
+        context = this;
+        recyclerView = (RecyclerView) findViewById(R.id.document_comment_recycler_view);
+        commentLists = new ArrayList<>();
+
+        adapter = new CommentListsAdapter(this, commentLists);
+        adapter.setLoadMoreListener(new CommentListsAdapter.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+
+                recyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadMore(pageNum);
+                    }
+                });
+                //Calling loadMore function in Runnable to fix the
+                // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
+            }
+        });
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.addItemDecoration(new VerticalLineDecorator(2));
+        recyclerView.setAdapter(adapter);
+        load(pageNum);
+
+
+    }
+
+    private void load(int index){
+        Call<CommentListResponse> call = api.comment_list(index,param);
+        call.enqueue(new Callback<CommentListResponse>() {
+            @Override
+            public void onResponse(Call<CommentListResponse> call, Response<CommentListResponse> response) {
+                if(response.isSuccessful()){
+                    List<CommentList> result = response.body().getResults();
+
+                    if(result!=null){
+                        Log.e(TAG,"Result is " + result.size());
+                        //add loaded data
+                        commentLists.addAll(result);
+                        pageNum =response.body().getPage()+1;
+                        adapter.notifyDataChanged();
+
+                    }else{//result size 0 means there is no more data available at server
+                        adapter.setMoreDataAvailable(false);
+                        //telling adapter to stop calling load more as no more server data available
+//                        Snackbar.make(findViewById(android.R.id.content), "마지막 페이지입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//
+//                            }
+//                        }).show();
+                    }
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentListResponse> call, Throwable t) {
+                Log.e(TAG," Response Error "+t.getMessage());
+            }
+        });
+    }
+
+    private void loadMore(int index){
+
+        //add loading progress view
+        commentLists.add(new CommentList(true));
+        adapter.notifyItemInserted(commentLists.size()-1);
+
+        Call<CommentListResponse> call = api.comment_list(index,param);
+        call.enqueue(new Callback<CommentListResponse>() {
+            @Override
+            public void onResponse(Call<CommentListResponse> call, Response<CommentListResponse> response) {
+                if(response.isSuccessful()){
+
+                    //remove loading view
+                    commentLists.remove(commentLists.size()-1);
+
+                    List<CommentList> result = response.body().getResults();
+                    if(result!=null){
+                        Log.e(TAG,"Result is " + result.size());
+                        //add loaded data
+                        commentLists.addAll(result);
+                        pageNum =response.body().getPage()+1;
+                    }else{//result size 0 means there is no more data available at server
+                        adapter.setMoreDataAvailable(false);
+                        //telling adapter to stop calling load more as no more server data available
+//                        Snackbar.make(findViewById(android.R.id.content), "마지막 페이지입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//
+//                            }
+//                        }).show();
+                    }
+                    adapter.notifyDataChanged();
+                    //should call the custom method adapter.notifyDataChanged here to get the correct loading status
+                }else{
+                    Log.e(TAG," Load More Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CommentListResponse> call, Throwable t) {
+                Log.e(TAG," Load More Response Error "+t.getMessage());
+            }
+
+        });
     }
 
     public void bindData(final Document document) {
@@ -160,9 +348,14 @@ public class DocumentActivity extends AppCompatActivity {
         rgsde = (TextView) findViewById(R.id.detail_rgsde);
         readed_count = (TextView) findViewById(R.id.detail_readed_count);
         rated_count = (TextView) findViewById(R.id.detail_rated_count);
+        detail_commented_count = (TextView) findViewById(R.id.detail_commented_count);
+        detail_commented_count2 =(TextView) findViewById(R.id.detail_commented_count2);
         img_srl_background = (ImageView) findViewById(R.id.detail_img_srl_background);
         detail_detail = (TextView) findViewById(R.id.detail_detail);
         img_srl = (ImageView) findViewById(R.id.head_iv);
+
+
+
         category_id.setText(new CategorytoString().intToString(document.getCategory_id()));
         reason.setText(document.getReason());
         Title.setText(document.getTitle());
@@ -172,6 +365,9 @@ public class DocumentActivity extends AppCompatActivity {
         rgsde.setText(document.getRgsde());
         detail_detail.setText(""+document.getDetail());
         readed_count.setText(""+ document.getReaded_count());
+        detail_commented_count.setText(""+ document.getCommented_count());
+        detail_commented_count2.setText(""+ document.getCommented_count());
+
         rated_count.setText(String.format("%.1f",document.getRated_count()));
         company_contact.setText(""+ document.getCompany_contact());
         original_url.setText(""+ document.getOriginal_url());

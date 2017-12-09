@@ -41,7 +41,18 @@ public class Document {
     @SerializedName("rated_count")
     private float rated_count;
 
-    public Document(int document_srl, int category_id, int original_srl, String title, String reason,String detail, String company, String company_srl, String certification_id, String img_srl, String company_contact, String original_from, String original_url, String rgsde, int readed_count, float rated_count) {
+    @SerializedName("commented_count")
+    private int commented_count;
+
+    public int getCommented_count() {
+        return commented_count;
+    }
+
+    public void setCommented_count(int commented_count) {
+        this.commented_count = commented_count;
+    }
+
+    public Document(int document_srl, int category_id, int original_srl, String title, String reason, String detail, String company, String company_srl, String certification_id, String img_srl, String company_contact, String original_from, String original_url, String rgsde, int readed_count, float rated_count, int commented_count) {
         this.document_srl = document_srl;
         this.category_id = category_id;
         this.original_srl = original_srl;
@@ -58,6 +69,7 @@ public class Document {
         this.rgsde = rgsde;
         this.readed_count = readed_count;
         this.rated_count = rated_count;
+        this.commented_count = commented_count;
     }
 
     public String getDetail() {

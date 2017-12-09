@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.rest;
 
 import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.model.Comment;
 import net.uprin.mayiuseit.model.DocumentListResponse;
 import net.uprin.mayiuseit.model.DocumentResponse;
 import net.uprin.mayiuseit.model.JoinRequest;
@@ -59,6 +60,10 @@ public interface ApiInterface {
     Call<Rate> write_rate(@Field("document_srl") int document_srl,
                           @Field("rate") float rate);
 
+    @POST("write_comment.php")
+    @FormUrlEncoded
+    Call<Comment> write_comment(@Field("document_srl") int document_srl,
+                             @Field("comment") String comment);
 
     @POST("facebook_auth.php")
     @FormUrlEncoded

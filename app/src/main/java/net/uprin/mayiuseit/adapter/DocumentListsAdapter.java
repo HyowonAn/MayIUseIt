@@ -23,6 +23,7 @@ import net.uprin.mayiuseit.model.DocumentList;
 import net.uprin.mayiuseit.util.CategorytoString;
 import net.uprin.mayiuseit.activity.DocumentActivity;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.util.CommentDialog;
 import net.uprin.mayiuseit.util.RatingDialog;
 
 import java.util.List;
@@ -105,7 +106,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView readed_count;
         TextView rated_count,document_rated_textview;
         ImageView imageView, document_rated_imageview;
-        LinearLayout document_rating_btn,document_list_share_btn;
+        LinearLayout document_rating_btn,document_comment_btn,document_list_share_btn;
         CardView cardView;
         public DocumentListsHolder(View v) {
             super(v);
@@ -122,6 +123,7 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
             imageView = (ImageView) v.findViewById(R.id.cardimage);
             document_rated_imageview = (ImageView) v.findViewById(R.id.document_rated_imageview);
             document_rating_btn = (LinearLayout) v.findViewById(R.id.document_rating_btn);
+            document_comment_btn= (LinearLayout) v.findViewById(R.id.document_comment_btn);
             document_list_share_btn = (LinearLayout) v.findViewById(R.id.document_list_share_btn);
             document_rated_textview = (TextView) v.findViewById(R.id.document_rated_textview);
         }
@@ -180,6 +182,14 @@ public class DocumentListsAdapter extends RecyclerView.Adapter<RecyclerView.View
                             }
                         }
                     });
+                }
+            });
+
+            document_comment_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommentDialog dialog = new CommentDialog(context,documentLists);
+                    dialog.show();
                 }
             });
 

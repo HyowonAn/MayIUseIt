@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:paddingBottom="16dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@color/colorPrimaryDark"
+        />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/lace" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="내 한마디는?"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryLightWhite"
+                android:textSize="25sp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/comment_dialog_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:minLines="3"
+        android:maxLines="3"
+        android:layout_margin="16dp"
+        android:layout_gravity="center"
+        android:scrollbars="vertical"
+        />
+
+    <Button
+        android:id="@+id/comment_dialog_button"
+        android:includeFontPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:textSize="13dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="제출하기"/>
+
+    </LinearLayout>

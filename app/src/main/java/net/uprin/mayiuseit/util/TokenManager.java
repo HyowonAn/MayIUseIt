@@ -81,6 +81,8 @@ public class TokenManager {
         tokenData.setIsAdmin(jwt.getClaim("isAdmin").asString());
         tokenData.setMember_srl(jwt.getClaim("member_srl").asString());
         tokenData.setNickname(jwt.getClaim("nickname").asString());
+        tokenData.setProfile_image(jwt.getClaim("image").asString());
+
 
         return tokenData;
     }

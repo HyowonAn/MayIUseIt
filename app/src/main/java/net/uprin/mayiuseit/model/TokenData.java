@@ -5,10 +5,11 @@ package net.uprin.mayiuseit.model;
  */
 
 public class TokenData {
-    private String member_srl;
-    private String email_address;
-    private String nickname;
+    private String member_srl="";
+    private String email_address="";
+    private String nickname="";
     private String isAdmin;
+    private String profile_image="";
     public String getMember_srl() {
         return member_srl;
     }
@@ -47,5 +48,13 @@ public class TokenData {
         } else {
             return false;
         }
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 }

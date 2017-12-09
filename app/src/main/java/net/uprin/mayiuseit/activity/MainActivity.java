@@ -27,6 +27,7 @@ import net.uprin.mayiuseit.fragment.CategoryFragment;
 import net.uprin.mayiuseit.fragment.HomeFragment;
 import net.uprin.mayiuseit.fragment.MainActivityFragment;
 import net.uprin.mayiuseit.fragment.NoticeFragment;
+import net.uprin.mayiuseit.fragment.ProfileFragment;
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.util.TokenManager;
 
@@ -139,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter.addFragment(HomeFragment.createInstance(), "홈");
         pagerAdapter.addFragment(CategoryFragment.createInstance(), "카테고리");
         pagerAdapter.addFragment(NoticeFragment.createInstance(), getString(R.string.tab_3));
-        pagerAdapter.addFragment(MainActivityFragment.createInstance(10), getString(R.string.tab_4));
+        pagerAdapter.addFragment(ProfileFragment.createInstance(), getString(R.string.tab_4));
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

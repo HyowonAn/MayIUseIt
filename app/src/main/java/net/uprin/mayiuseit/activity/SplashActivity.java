@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import net.uprin.mayiuseit.model.AccessToken;
 import net.uprin.mayiuseit.model.TokenData;
@@ -34,6 +35,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseMessaging.getInstance().subscribeToTopic("allDevices");
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         loginChecker();

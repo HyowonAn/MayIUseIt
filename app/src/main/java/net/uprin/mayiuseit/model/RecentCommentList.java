@@ -30,6 +30,8 @@ public class RecentCommentList {
     private float rate;
     @SerializedName("reason")
     private String reason;
+    @SerializedName("rated_count")
+    private float rated_count;
 
 
     private boolean isLoad=false;
@@ -141,5 +143,13 @@ public class RecentCommentList {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public float getRated_count() {
+        return rated_count;
+    }
+
+    public void setRated_count(float rated_count) {
+        this.rated_count = rated_count;
     }
 }

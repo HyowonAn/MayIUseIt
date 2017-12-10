@@ -19,11 +19,10 @@ import com.bumptech.glide.request.RequestOptions;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.activity.DocumentActivity;
-import net.uprin.mayiuseit.model.CommentList;
 import net.uprin.mayiuseit.model.RecentCommentList;
 import net.uprin.mayiuseit.util.CategorytoString;
-import net.uprin.mayiuseit.util.CommentDialog;
-import net.uprin.mayiuseit.util.RatingDialog;
+import net.uprin.mayiuseit.util.RecentCommentCommentDialog;
+import net.uprin.mayiuseit.util.RecentCommentRatingDialog;
 import net.uprin.mayiuseit.util.TokenManager;
 
 import java.util.List;
@@ -171,30 +170,30 @@ public class RecentCommentListsAdapter extends RecyclerView.Adapter<RecyclerView
             recent_comment_rating_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    RatingDialog dialog = new RatingDialog(context,recentcommentLists);
-//                    dialog.show();
-//                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                        @Override
-//                        public void onDismiss(DialogInterface dialog) {
-//                            if(documentLists.getRate()!=0f){
-//                                document_rated_textview.setText("내 점수 : " + documentLists.getRate());
-//                                document_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorAccent));
-//                                document_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorAccent));
-//                            } else {
-//                                document_rated_textview.setText("별점 남기기");
-//                                document_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorGreyLight));
-//                                document_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorGreyLight));
-//                            }
-//                        }
-//                    });
+                    RecentCommentRatingDialog dialog = new RecentCommentRatingDialog(context,recentcommentLists);
+                    dialog.show();
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            if(recentcommentLists.getRate()!=0f){
+                                recent_comment_rated_textview.setText("내 점수 : " + recentcommentLists.getRate());
+                                recent_comment_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorAccent));
+                                recent_comment_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorAccent));
+                            } else {
+                                recent_comment_rated_textview.setText("별점 남기기");
+                                recent_comment_rated_textview.setTextColor(ContextCompat.getColor(context, R.color .colorGreyLight));
+                                recent_comment_rated_imageview.setColorFilter(ContextCompat.getColor(context, R.color .colorGreyLight));
+                            }
+                        }
+                    });
                 }
             });
 
             recent_comment_comment_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    CommentDialog dialog = new CommentDialog(context,recentcommentLists);
-//                    dialog.show();
+                    RecentCommentCommentDialog dialog = new RecentCommentCommentDialog(context,recentcommentLists);
+                    dialog.show();
                 }
             });
 

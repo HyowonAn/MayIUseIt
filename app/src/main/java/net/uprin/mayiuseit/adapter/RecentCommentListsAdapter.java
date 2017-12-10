@@ -24,6 +24,7 @@ import net.uprin.mayiuseit.model.RecentCommentList;
 import net.uprin.mayiuseit.util.CategorytoString;
 import net.uprin.mayiuseit.util.CommentDialog;
 import net.uprin.mayiuseit.util.RatingDialog;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class RecentCommentListsAdapter extends RecyclerView.Adapter<RecyclerView
     public final int TYPE_LOAD = 1;
 
     static Context context;
+    static TokenManager tokenManager;
     List<RecentCommentList> recentcommentLists;
     RecentCommentListsAdapter.OnLoadMoreListener loadMoreListener;
     boolean isLoading = false, isMoreDataAvailable = true;
@@ -101,6 +103,7 @@ public class RecentCommentListsAdapter extends RecyclerView.Adapter<RecyclerView
         TextView nickname, content, rgsde, title, category_id,recent_comment_rated_textview;
         CardView cardView;
         ImageView recent_comment_cardimage, recent_comment_rated_imageview;
+        de.hdodenhof.circleimageview.CircleImageView recent_comment_profile_image;
         LinearLayout recent_comment_rating_btn,recent_comment_comment_btn,recent_comment_list_share_btn;
 
         public RecentCommentListsHolder(View v) {
@@ -115,6 +118,7 @@ public class RecentCommentListsAdapter extends RecyclerView.Adapter<RecyclerView
             cardView = (CardView) v.findViewById(R.id.list_item_recent_comment_cardview);
             recent_comment_cardimage = (ImageView) v.findViewById(R.id.recent_comment_cardimage);
             recent_comment_rated_imageview = (ImageView) v.findViewById(R.id.recent_comment_rated_imageview);
+            recent_comment_profile_image = (de.hdodenhof.circleimageview.CircleImageView) v.findViewById(R.id.recent_comment_profile_image);
             recent_comment_rating_btn = (LinearLayout) v.findViewById(R.id.recent_comment_rating_btn);
             recent_comment_comment_btn= (LinearLayout) v.findViewById(R.id.recent_comment_comment_btn);
             recent_comment_list_share_btn = (LinearLayout) v.findViewById(R.id.recent_comment_list_share_btn);
@@ -143,6 +147,16 @@ public class RecentCommentListsAdapter extends RecyclerView.Adapter<RecyclerView
                             .centerCrop()
                     )
                     .into(recent_comment_cardimage);
+
+            tokenManager = TokenManager.getInstance(context.getSharedPreferences("prefs", Context.MODE_PRIVATE));
+
+            Glide.with(context).load(tokenManager.getTokenData().getProfile_image())
+                    .thumbnail(Glide.with(context).load(R.drawable.profile_default).apply(new RequestOptions().centerCrop()))
+                    .apply(new RequestOptions()
+                            //.placeholder(R.drawable.food_background)
+                            .centerCrop()
+                    )
+                    .into(recent_comment_profile_image);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 Intent intent;

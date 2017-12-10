@@ -13,10 +13,12 @@ import android.view.View;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.model.SearchList;
 import net.uprin.mayiuseit.model.SearchListResponse;
 import net.uprin.mayiuseit.adapter.SearchListsAdapter;
+import net.uprin.mayiuseit.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +87,7 @@ public class SearchListActivity extends AppCompatActivity {
     }
 
     private void load(int index){
-        Call<SearchListResponse> call = api.getSearchList(index, keyword, category,rankBy);
+        Call<SearchListResponse> call = api.getSearchList(index, keyword, category, rankBy);
         call.enqueue(new Callback<SearchListResponse>() {
             @Override
             public void onResponse(Call<SearchListResponse> call, Response<SearchListResponse> response) {
@@ -94,9 +96,11 @@ public class SearchListActivity extends AppCompatActivity {
                     adapter.notifyDataChanged();
                     pageNum = pageNum +1;
                 }else{
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "검색결과가 없습니다.", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                    ApiError apiError = Utils.converErrors(response.errorBody());
+                    Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
                         }
                     }).show();
                 }

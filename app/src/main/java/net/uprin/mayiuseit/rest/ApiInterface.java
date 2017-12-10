@@ -30,6 +30,7 @@ public interface ApiInterface {
     Call<JoinResponse> postEmailJoin (@Body JoinRequest joinRequest);
     @POST("login.php")
     Call<LoginResponse> postEmailLogin (@Body JoinRequest joinRequest);
+
     @POST("list_token.php")
     @FormUrlEncoded
     Call<DocumentListResponse> getDocumentList(@Field("pageNum") int pageNum, @Field("category") int category, @Field("rankBy") String rankBy);
@@ -38,6 +39,14 @@ public interface ApiInterface {
     Call<DocumentResponse> getDocument(@Query("document_srl") int document_srl);
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
+
+    @POST("search_token.php")
+    @FormUrlEncoded
+    Call<SearchListResponse> getSearchList(@Field("pageNum") int pageNum, @Field("keyword") String keyword, @Field("category") int category, @Field("rankBy") String rankBy);
+
+//    @GET("search.php")
+//    Call<SearchListResponse> getSearchList(@Query("pageNum") int pageNum, @Query("keyword") String keyword, @Query("category") int category, @Query("rankBy") String rankBy);
+
 
     @POST("refreshToken.php")
     @FormUrlEncoded
@@ -75,6 +84,4 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<AccessToken> facebook_auth(@Field("ACCESS_TOKEN") String accessToken);
 
-    @GET("search.php")
-    Call<SearchListResponse> getSearchList(@Query("pageNum") int pageNum, @Query("keyword") String keyword, @Query("category") int category, @Query("rankBy") String rankBy);
-}
+    }

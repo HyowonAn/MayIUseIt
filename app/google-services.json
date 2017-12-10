@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "167598475004",
+    "firebase_url": "https://mayiuseit-5feb3.firebaseio.com",
+    "project_id": "mayiuseit-5feb3",
+    "storage_bucket": "mayiuseit-5feb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167598475004:android:dbcd0c60445e13d3",
+        "android_client_info": {
+          "package_name": "net.uprin.mayiuseit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167598475004-77j7n0gh40vgjal0t7s2p9hl3on2dbfd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.uprin.mayiuseit",
+            "certificate_hash": "93ac58493630f73bc67a560f56a067aea4e2fc13"
+          }
+        },
+        {
+          "client_id": "167598475004-28hc15iiiaqvb0att6catbamtjr8huk1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQfHfpsylgb67Lb6U-GvV3p_4w6bMqzNE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167598475004-28hc15iiiaqvb0att6catbamtjr8huk1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

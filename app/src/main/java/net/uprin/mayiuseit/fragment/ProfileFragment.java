@@ -181,12 +181,6 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                     }else{//result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
                         //telling adapter to stop calling load more as no more server data available
-                        Snackbar.make(getActivity().findViewById(android.R.id.content), "마지막 페이지입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        }).show();
                     }
                     adapter.notifyDataChanged();
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status

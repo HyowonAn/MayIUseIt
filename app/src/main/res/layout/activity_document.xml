@@ -507,6 +507,8 @@
                             android:layout_height="match_parent"
                             android:id="@+id/document_comment_recycler_view"
                             android:layout_marginBottom="16dp"
+                            android:nestedScrollingEnabled="false"
+                            android:isScrollContainer="false"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 

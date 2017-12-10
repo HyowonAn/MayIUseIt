@@ -3,35 +3,38 @@ package net.uprin.mayiuseit;
 import android.content.Context;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.FabSpeedDialBehaviour;
+
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 
 import net.uprin.mayiuseit.util.Utils;
 
-public class ScrollingFABBehavior extends FloatingActionButton.Behavior {
-    private int toolbarHeight;
-
-    public ScrollingFABBehavior(Context context, AttributeSet attrs) {
+public class ScrollingFABBehavior extends FabSpeedDialBehaviour {
+    public ScrollingFABBehavior(Context context, AttributeSet attributeSet){
         super();
-        this.toolbarHeight = Utils.getToolbarHeight(context);
     }
 
-    @Override
-    public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton fab, View dependency) {
-        return super.layoutDependsOn(parent, fab, dependency) || (dependency instanceof AppBarLayout);
-    }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton fab, View dependency) {
-        boolean returnValue = super.onDependentViewChanged(parent, fab, dependency);
-        if (dependency instanceof AppBarLayout) {
-                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-                int fabBottomMargin = lp.bottomMargin;
-                int distanceToScroll = fab.getHeight() + fabBottomMargin;
-                float ratio = (float)dependency.getY()/(float)toolbarHeight;
-                fab.setTranslationY(-distanceToScroll * ratio);
+    public void onNestedScroll(CoordinatorLayout coordinatorLayout, FabSpeedDial child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
+        super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+
+        if (dyConsumed > 0) {
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
+            int fab_bottomMargin = layoutParams.bottomMargin;
+            child.animate().translationY(child.getHeight() + fab_bottomMargin).setInterpolator(new LinearInterpolator()).start();
+        } else if (dyConsumed < 0) {
+            child.animate().translationY(0).setInterpolator(new LinearInterpolator()).start();
         }
-        return returnValue;
+    }
+
+    @Override
+    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, FabSpeedDial child, View directTargetChild, View target, int nestedScrollAxes) {
+        return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 }

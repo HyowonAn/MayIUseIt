@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import net.uprin.mayiuseit.model.AccessToken;
@@ -36,6 +37,8 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseMessaging.getInstance().subscribeToTopic("allDevices");
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.e("FCM Token",token);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         loginChecker();
@@ -62,6 +65,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if(tokenManager.getToken().getAccessToken() == null){ //비어있는 경우 로그인 실패
             startActivity(new Intent(getBaseContext(),LoginActivity.class));
+            finish();
 
         } else{
             JWT jwt = new JWT(tokenManager.getToken().getAccessToken());
@@ -75,15 +79,18 @@ public class SplashActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), response.body().message(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getBaseContext(),MainActivity.class));
+                            finish();
                             Log.e("TOKEN" , "Token Saved success");
                         } else {
                             startActivity(new Intent(getBaseContext(),LoginActivity.class));
+                            finish();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ApiError> call, Throwable t) {
                         startActivity(new Intent(getBaseContext(),LoginActivity.class));
+                        finish();
                     }
                 });
 

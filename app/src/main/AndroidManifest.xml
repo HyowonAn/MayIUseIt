@@ -75,6 +75,7 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
+        
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.DevActivity"></activity>
     </application>

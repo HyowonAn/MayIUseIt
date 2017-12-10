@@ -46,6 +46,7 @@
         app:fabMenu="@menu/fab_home"
         app:miniFabBackgroundTint="@android:color/white"
         app:miniFabDrawableTint="?attr/colorPrimaryDark"
-        app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+        app:miniFabTitleTextColor="?attr/colorPrimaryDark"
+        app:layout_behavior=".ScrollingFABBehavior"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -39,13 +39,13 @@
                 app:civ_border_color="#FFFFFFFF"
 
                 android:id="@+id/recent_comment_profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
                 android:layout_below="@+id/profile_background_image"
                 android:layout_centerHorizontal="true"
                 android:elevation="5dp"
                 android:padding="1dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="12dp"
                 android:scaleType="centerCrop"
                 android:src="@color/colorGrey" />
 
@@ -71,6 +71,7 @@
                     android:maxLines="1"
                     android:text="20xx-xx-xx"
                     android:textSize="12sp"
+                    android:layout_marginBottom="10dp"
                     android:textStyle="bold" />
 
             </LinearLayout>

@@ -19,6 +19,9 @@ public class TokenData {
     }
 
     public String getEmail_address() {
+        if (email_address==null){
+            email_address="이메일이 없습니다";
+        }
         return email_address;
     }
 

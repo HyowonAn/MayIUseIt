@@ -9,6 +9,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -60,6 +61,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DocumentActivity extends AppCompatActivity {
+
+    int mCartItemCount = 10;
+
     CollapsingToolbarLayout toolbarLayout;
     LinearLayout head_layout;
     CoordinatorLayout root_layout;
@@ -86,6 +90,7 @@ public class DocumentActivity extends AppCompatActivity {
     Button detailbutton;
     Boolean detail_all=false;
     FloatingActionButton floatingActionButton;
+    TextView textCartItemCount;
 
     TokenManager tokenManager;
 
@@ -467,7 +472,78 @@ public class DocumentActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         final MenuItem menuItem = menu.findItem(R.id.alarm_history);
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id==R.id.settings){
+
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+
+        }else if (id==R.id.dev_id){
+
+            startActivity(new Intent(getApplicationContext(), DevActivity.class));
+
+
+        }else if (id==R.id.item3_id){
+
+            Toast.makeText(getApplicationContext(),"item3 is selected",Toast.LENGTH_SHORT).show();
+
+        }else if (id==R.id.logout_menu_item){
+
+        }else if (id==R.id.search_id){
+
+            startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+
+        }else if (id==R.id.alarm_history){
+
+            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
+
+        }else if (id==android.R.id.home){
+
+            onBackPressed();
+
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }

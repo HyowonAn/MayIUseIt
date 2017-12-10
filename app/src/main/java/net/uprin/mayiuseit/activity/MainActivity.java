@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);
         fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
-            @Override
-            public boolean onMenuItemSelected(MenuItem menuItem) {
-                int id = menuItem.getItemId();
+                    @Override
+                    public boolean onMenuItemSelected(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
 
                 if (id==R.id.subscribe_manage){
                     Snackbar.make(getWindow().getDecorView().getRootView(), "구독 관리 선택", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {

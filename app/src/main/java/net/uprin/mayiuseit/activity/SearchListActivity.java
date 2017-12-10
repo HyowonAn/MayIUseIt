@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import net.uprin.mayiuseit.R;
@@ -152,15 +153,29 @@ public class SearchListActivity extends AppCompatActivity {
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status
                 }else{
                     Log.e(TAG," Load More Response Error "+String.valueOf(response.code()));
+                    documentLists.remove(documentLists.size()-1);
+                    adapter.setMoreDataAvailable(false);
+                    adapter.notifyDataChanged();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "마지막 페이지입니다", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    }).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<DocumentListResponse> call, Throwable t) {
                 Log.e(TAG," Load More Response Error "+t.getMessage());
+                documentLists.remove(documentLists.size()-1);
+                adapter.setMoreDataAvailable(false);
+                adapter.notifyDataChanged();
             }
         });
     }
+
     private void initToolbar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -170,5 +185,15 @@ public class SearchListActivity extends AppCompatActivity {
         // ↓툴바에 홈버튼을 활성화
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

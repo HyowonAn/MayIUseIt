@@ -50,7 +50,6 @@ public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRef
     ApiInterface api;
     Context context;
 
-    TextView title, content, notice_srl, rgsde, nickname;
 
     public static NoticeFragment createInstance() {
         NoticeFragment noticeFragmentFragment = new NoticeFragment();
@@ -64,9 +63,6 @@ public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRef
         super.onCreate(savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_notice_list, container, false);
 
-        title= (TextView) v.findViewById(R.id.notice_title);
-        content = (TextView) v.findViewById(R.id.notice_content);
-        rgsde = (TextView) v.findViewById(R.id.notice_rgsde);
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeRefreshLo);
         refreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
@@ -97,7 +93,7 @@ public class NoticeFragment extends Fragment implements SwipeRefreshLayout.OnRef
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
-//
+
         api = ApiClient.createService(ApiInterface.class);
         load(pageNum);
 

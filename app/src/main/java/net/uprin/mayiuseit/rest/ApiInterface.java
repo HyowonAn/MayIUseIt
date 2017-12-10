@@ -2,7 +2,6 @@ package net.uprin.mayiuseit.rest;
 
 import net.uprin.mayiuseit.model.AccessToken;
 import net.uprin.mayiuseit.model.Comment;
-import net.uprin.mayiuseit.model.CommentList;
 import net.uprin.mayiuseit.model.CommentListResponse;
 import net.uprin.mayiuseit.model.DocumentListResponse;
 import net.uprin.mayiuseit.model.DocumentResponse;
@@ -11,7 +10,7 @@ import net.uprin.mayiuseit.model.JoinResponse;
 import net.uprin.mayiuseit.model.LoginResponse;
 import net.uprin.mayiuseit.model.NoticeListResponse;
 import net.uprin.mayiuseit.model.Rate;
-import net.uprin.mayiuseit.model.SearchListResponse;
+import net.uprin.mayiuseit.model.RecentCommentListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,16 +36,13 @@ public interface ApiInterface {
 
     @GET("document_token.php")
     Call<DocumentResponse> getDocument(@Query("document_srl") int document_srl);
+
     @GET("notice.php")
     Call<NoticeListResponse> getNotice(@Query("pageNum") int pageNum);
 
     @POST("search_token.php")
     @FormUrlEncoded
-    Call<SearchListResponse> getSearchList(@Field("pageNum") int pageNum, @Field("keyword") String keyword, @Field("category") int category, @Field("rankBy") String rankBy);
-
-//    @GET("search.php")
-//    Call<SearchListResponse> getSearchList(@Query("pageNum") int pageNum, @Query("keyword") String keyword, @Query("category") int category, @Query("rankBy") String rankBy);
-
+    Call<DocumentListResponse> getSearchList(@Field("pageNum") int pageNum, @Field("keyword") String keyword, @Field("category") int category, @Field("rankBy") String rankBy);
 
     @POST("refreshToken.php")
     @FormUrlEncoded
@@ -79,6 +75,10 @@ public interface ApiInterface {
     @POST("comment_list.php")
     @FormUrlEncoded
     Call<CommentListResponse> comment_list(@Field("pageNum") int pageNum, @Field("document_srl") int document_srl);
+
+    @POST("recent_comment_list.php")
+    @FormUrlEncoded
+    Call<RecentCommentListResponse> recent_comment_list(@Field("pageNum") int pageNum);
 
     @POST("facebook_auth.php")
     @FormUrlEncoded

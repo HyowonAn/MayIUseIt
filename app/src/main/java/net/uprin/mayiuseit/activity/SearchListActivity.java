@@ -12,12 +12,13 @@ import android.util.Log;
 import android.view.View;
 
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
+import net.uprin.mayiuseit.model.DocumentList;
+import net.uprin.mayiuseit.model.DocumentListResponse;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
-import net.uprin.mayiuseit.model.SearchList;
-import net.uprin.mayiuseit.model.SearchListResponse;
-import net.uprin.mayiuseit.adapter.SearchListsAdapter;
+import net.uprin.mayiuseit.util.TokenManager;
 import net.uprin.mayiuseit.util.Utils;
 
 import java.util.ArrayList;
@@ -42,10 +43,11 @@ public class SearchListActivity extends AppCompatActivity {
     private String keyword = "";
     private String rankBy = "rgsde";
     RecyclerView recyclerView;
-    List<SearchList> searchLists;
-    SearchListsAdapter adapter;
+    List<DocumentList> documentLists;
+    DocumentListsAdapter adapter;
     ApiInterface api;
     Context context;
+    TokenManager tokenManager;
 
 
     @Override
@@ -60,10 +62,10 @@ public class SearchListActivity extends AppCompatActivity {
         keyword = intent.getExtras().getString("keyword");
         context = this;
         recyclerView = (RecyclerView) findViewById(R.id.search_recycler_view);
-        searchLists = new ArrayList<>();
+        documentLists = new ArrayList<>();
 
-        adapter = new SearchListsAdapter(this, searchLists);
-        adapter.setLoadMoreListener(new SearchListsAdapter.OnLoadMoreListener() {
+        adapter = new DocumentListsAdapter(this, documentLists);
+        adapter.setLoadMoreListener(new DocumentListsAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
 
@@ -82,17 +84,19 @@ public class SearchListActivity extends AppCompatActivity {
         //recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 
-        api = ApiClient.createService(ApiInterface.class);
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
         load(pageNum);
     }
 
     private void load(int index){
-        Call<SearchListResponse> call = api.getSearchList(index, keyword, category, rankBy);
-        call.enqueue(new Callback<SearchListResponse>() {
+        Call<DocumentListResponse> call = api.getSearchList(index, keyword, category, rankBy);
+        call.enqueue(new Callback<DocumentListResponse>() {
             @Override
-            public void onResponse(Call<SearchListResponse> call, Response<SearchListResponse> response) {
+            public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
                 if(response.isSuccessful() && response.body().getResults()!=null){
-                    searchLists.addAll(response.body().getResults());
+                    documentLists.addAll(response.body().getResults());
                     adapter.notifyDataChanged();
                     pageNum = pageNum +1;
                 }else{
@@ -107,7 +111,7 @@ public class SearchListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SearchListResponse> call, Throwable t) {
+            public void onFailure(Call<DocumentListResponse> call, Throwable t) {
                 Log.e(TAG," Response Error "+t.getMessage());
             }
         });
@@ -116,23 +120,23 @@ public class SearchListActivity extends AppCompatActivity {
     private void loadMore(int index){
 
         //add loading progress view
-        searchLists.add(new SearchList(999));
-        adapter.notifyItemInserted(searchLists.size()-1);
+        documentLists.add(new DocumentList(999));
+        adapter.notifyItemInserted(documentLists.size()-1);
 
-        Call<SearchListResponse> call = api.getSearchList(index, keyword, category,rankBy);
-        call.enqueue(new Callback<SearchListResponse>() {
+        Call<DocumentListResponse> call = api.getSearchList(index, keyword, category,rankBy);
+        call.enqueue(new Callback<DocumentListResponse>() {
             @Override
-            public void onResponse(Call<SearchListResponse> call, Response<SearchListResponse> response) {
+            public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
                 if(response.isSuccessful()){
 
                     //remove loading view
-                    searchLists.remove(searchLists.size()-1);
+                    documentLists.remove(documentLists.size()-1);
 
-                    List<SearchList> result = response.body().getResults();
+                    List<DocumentList> result = response.body().getResults();
                     if(result!=null){
                         Log.e(TAG,"Result is " + result.size());
                         //add loaded data
-                        searchLists.addAll(result);
+                        documentLists.addAll(result);
                         pageNum =response.body().getPage()+1;
                     }else{//result size 0 means there is no more data available at server
                         adapter.setMoreDataAvailable(false);
@@ -152,7 +156,7 @@ public class SearchListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<SearchListResponse> call, Throwable t) {
+            public void onFailure(Call<DocumentListResponse> call, Throwable t) {
                 Log.e(TAG," Load More Response Error "+t.getMessage());
             }
         });

@@ -8,6 +8,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
@@ -23,6 +25,7 @@ import net.uprin.mayiuseit.activity.MainActivity;
 import java.io.BufferedInputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
@@ -33,6 +36,25 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         sendPushNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
+        Intent badgeIntent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+        badgeIntent.putExtra("badge_count", remoteMessage.getData().get("badge"));
+        badgeIntent.putExtra("badge_count_package_name", getPackageName());
+        badgeIntent.putExtra("badge_count_class_name", getLauncherClassName());
+        sendBroadcast(badgeIntent);
+    }
+
+    private String getLauncherClassName() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        PackageManager pm = getApplicationContext().getPackageManager();
+        List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
+        for (ResolveInfo resolveInfo : resolveInfos) {
+            String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
+            if (pkgName.equalsIgnoreCase(getPackageName())) {
+                return resolveInfo.activityInfo.name;
+            }
+        }
+        return null;
     }
 
     private void sendPushNotification(String title, String message) {
@@ -48,7 +70,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri).setLights(000000255,500,2000)
+                .setSound(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.noti_sound)).setLights(000000255,500,2000)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

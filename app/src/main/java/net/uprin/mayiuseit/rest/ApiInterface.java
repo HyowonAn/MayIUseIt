@@ -1,6 +1,7 @@
 package net.uprin.mayiuseit.rest;
 
 import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.model.CallResponse;
 import net.uprin.mayiuseit.model.Comment;
 import net.uprin.mayiuseit.model.CommentListResponse;
 import net.uprin.mayiuseit.model.DocumentListResponse;
@@ -84,4 +85,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<AccessToken> facebook_auth(@Field("ACCESS_TOKEN") String accessToken);
 
-    }
+
+    @POST("fcm_token.php")
+    @FormUrlEncoded
+    Call<CallResponse> fcm_token(@Field("fcm_token") String fcm_token);
+
+
+}

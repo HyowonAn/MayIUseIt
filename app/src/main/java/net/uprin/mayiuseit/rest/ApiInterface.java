@@ -88,7 +88,7 @@ public interface ApiInterface {
 
     @POST("fcm_token.php")
     @FormUrlEncoded
-    Call<CallResponse> fcm_token(@Field("fcm_token") String fcm_token);
+    Call<CallResponse> write_fcm_token(@Field("fcm_token") String fcm_token);
 
 
 }

@@ -40,6 +40,11 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
     private void sendRegistrationToServer(String token) {
 
 

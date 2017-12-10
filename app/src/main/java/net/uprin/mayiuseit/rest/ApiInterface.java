@@ -86,7 +86,7 @@ public interface ApiInterface {
     Call<AccessToken> facebook_auth(@Field("ACCESS_TOKEN") String accessToken);
 
 
-    @POST("fcm_token.php")
+    @POST("write_fcm_token.php")
     @FormUrlEncoded
     Call<CallResponse> write_fcm_token(@Field("fcm_token") String fcm_token);
 

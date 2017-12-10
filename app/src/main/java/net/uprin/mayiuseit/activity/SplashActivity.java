@@ -16,9 +16,12 @@ import android.widget.Toast;
 
 import com.auth0.android.jwt.JWT;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import net.uprin.mayiuseit.firebase.FirebaseInstanceIDService;
 import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.model.CallResponse;
 import net.uprin.mayiuseit.model.TokenData;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiError;
@@ -31,12 +34,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
+    private static final String TAG = "MyFirebaseIIDService";
     TokenManager tokenManager;
-
+    ApiInterface api;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        sendRegistrationToServer(token);
+        Log.e("FCM-TOKEN",token);
 
         loginChecker();
 
@@ -92,5 +100,39 @@ public class SplashActivity extends AppCompatActivity {
                 });
 
         }
+    }
+
+
+    private void sendRegistrationToServer(String token) {
+
+
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+
+        if(tokenManager.getToken() == null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
+
+        Call<CallResponse> call = api.write_fcm_token(token);
+        call.enqueue(new Callback<CallResponse>() {
+            @Override
+            public void onResponse(Call<CallResponse> call, Response<CallResponse> response) {
+
+                if(response.isSuccessful()){
+                    CallResponse callResponse = response.body();
+                    Log.e(TAG,"token updated");
+
+
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CallResponse> call, Throwable t) {
+                Log.e(TAG," Response Error "+t.getMessage());
+            }
+        });
     }
 }

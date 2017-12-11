@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.activity.DocumentListActivity;
@@ -22,6 +25,7 @@ import net.uprin.mayiuseit.activity.LoginActivity;
 import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
 import net.uprin.mayiuseit.model.DocumentList;
 import net.uprin.mayiuseit.model.DocumentListResponse;
+import net.uprin.mayiuseit.model.NoticeList;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiError;
 import net.uprin.mayiuseit.rest.ApiInterface;
@@ -35,11 +39,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private static final String TAG = DocumentListActivity.class.getSimpleName();
+    private final int TOP_REFRESH = 1;
 
-
+    private SwipeRefreshLayout refreshLayout;
     private  int pageNum = 1;
     private  int category= 0;
     private String rankBy = "rgsde";
@@ -65,6 +70,16 @@ public class HomeFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.home_swipeRefreshLo);
+        refreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light
+        );
+        refreshLayout.setOnRefreshListener(this);
+
         context = getContext();
         recyclerView = (RecyclerView) v.findViewById(R.id.subscribe_recycler_view);
         documentLists = new ArrayList<>();
@@ -123,11 +138,13 @@ public class HomeFragment extends Fragment {
                     // Toast.makeText(getApplicationContext(), response.errorBody()., Toast.LENGTH_LONG).show();
 
                 }
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<DocumentListResponse> call, Throwable t) {
                 Log.e(TAG," Response Error "+t.getMessage());
+                refreshLayout.setRefreshing(false);
             }
         });
     }
@@ -138,7 +155,9 @@ public class HomeFragment extends Fragment {
         documentLists.add(new DocumentList(999));
         adapter.notifyItemInserted(documentLists.size()-1);
 
-        Call<DocumentListResponse> call = api.getDocumentList(index, category,rankBy);
+
+
+        Call<DocumentListResponse> call = api.getSubcribeList(index);
         call.enqueue(new Callback<DocumentListResponse>() {
             @Override
             public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
@@ -163,6 +182,7 @@ public class HomeFragment extends Fragment {
 //                            }
 //                        }).show();
                     }
+
                     adapter.notifyDataChanged();
                     //should call the custom method adapter.notifyDataChanged here to get the correct loading status
                 }else{
@@ -177,6 +197,7 @@ public class HomeFragment extends Fragment {
 //                        }
 //                    }).show();
                 }
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -185,7 +206,29 @@ public class HomeFragment extends Fragment {
                 documentLists.remove(documentLists.size()-1);
                 adapter.setMoreDataAvailable(false);
                 adapter.notifyDataChanged();
+                refreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        dataOption(TOP_REFRESH);
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+        Toast.makeText(getContext(),"로딩완료",Toast.LENGTH_SHORT).show();
+
+    }
+
+    private void dataOption(int option){
+        switch (option) {
+            case TOP_REFRESH:
+                documentLists.clear();
+                pageNum=1;
+                //load(pageNum);
+                break;
+        }
+        // adapter.notifyDataSetChanged();
+
     }
 }

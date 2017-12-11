@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
         initViewPagerAndTabs();
+
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.e("FCM-TOKEN",token);
+
 
         badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         mCartItemCount = badgeManager.getBadgeCount();

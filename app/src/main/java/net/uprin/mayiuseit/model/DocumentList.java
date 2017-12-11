@@ -29,6 +29,20 @@ public class DocumentList {
     @SerializedName("rated_count")
     private float rated_count;
 
+    private boolean isLoad=false;
+
+    public DocumentList(boolean isLoad) {
+        this.isLoad = isLoad;
+    }
+
+    public boolean isLoad() {
+        return isLoad;
+    }
+
+    public void setLoad(boolean load) {
+        isLoad = load;
+    }
+
     public float getRate() {
         return rate;
     }

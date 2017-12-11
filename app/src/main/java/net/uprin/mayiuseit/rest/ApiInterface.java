@@ -12,6 +12,7 @@ import net.uprin.mayiuseit.model.LoginResponse;
 import net.uprin.mayiuseit.model.NoticeListResponse;
 import net.uprin.mayiuseit.model.Rate;
 import net.uprin.mayiuseit.model.RecentCommentListResponse;
+import net.uprin.mayiuseit.model.SubscribeListConfigResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -63,6 +64,15 @@ public interface ApiInterface {
                                  @Field("email") String email,
                                  @Field("provider") String provider,
                                  @Field("provider_user_id") String providerUserId);
+
+
+    @POST("subscribe_list_config.php")
+    Call<SubscribeListConfigResponse> subscribe_list_config();
+
+
+    @POST("write_subscribe_list_config.php")
+    Call<SubscribeListConfigResponse> write_subscribe_list_config(@Body SubscribeListConfigResponse subscribeListConfigResponse);
+
     @POST("write_rate.php")
     @FormUrlEncoded
     Call<Rate> write_rate(@Field("document_srl") int document_srl,

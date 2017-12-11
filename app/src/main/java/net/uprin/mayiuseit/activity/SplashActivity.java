@@ -43,7 +43,6 @@ public class SplashActivity extends AppCompatActivity {
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
 
         String token = FirebaseInstanceId.getInstance().getToken();
-        sendRegistrationToServer(token);
         Log.e("FCM-TOKEN",token);
 
         loginChecker();
@@ -103,36 +102,4 @@ public class SplashActivity extends AppCompatActivity {
     }
 
 
-    private void sendRegistrationToServer(String token) {
-
-
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
-        if(tokenManager.getToken() == null){
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-
-        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
-
-        Call<CallResponse> call = api.write_fcm_token(token);
-        call.enqueue(new Callback<CallResponse>() {
-            @Override
-            public void onResponse(Call<CallResponse> call, Response<CallResponse> response) {
-
-                if(response.isSuccessful()){
-                    CallResponse callResponse = response.body();
-                    Log.e(TAG,"token updated");
-
-
-                }else{
-                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CallResponse> call, Throwable t) {
-                Log.e(TAG," Response Error "+t.getMessage());
-            }
-        });
-    }
 }

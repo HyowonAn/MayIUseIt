@@ -78,11 +78,8 @@ public class MainActivity extends AppCompatActivity {
                         int id = menuItem.getItemId();
 
                 if (id==R.id.subscribe_manage){
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "구독 관리 선택", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                        }
-                    }).show();
+                    startActivity(new Intent(getApplicationContext(), SubscribeActivity.class));
+
                 }
                 else if (id==R.id.subscribe_setting){
                     Snackbar.make(getWindow().getDecorView().getRootView(), "구독 설정 선택", Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {

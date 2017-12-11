@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/subscribe_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:layout_scrollFlags="scroll|enterAlways" />
+    </android.support.design.widget.AppBarLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/subscribe_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="left"
+                android:text="구독 관리"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_centerInParent="true"
+                android:background="@color/colorPrimaryDarkWhite"
+                android:padding="8dp" />
+
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_foods"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="식품 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_machines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="공산품 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+        android:id="@+id/subscribe_cosmetics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:checked="false"
+        android:text="화장품 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_waters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="먹는물 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_livestocks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="축산물 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_aborads"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="해외 리콜 카테고리 구독하기" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_centerInParent="true"
+            android:background="@color/colorPrimaryDarkWhite"
+            android:padding="8dp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_medicals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="의료기기 카테고리 구독하기" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/subscribe_vehicles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="자동차 카테고리 구독하기" />
+
+        <Button
+            android:id="@+id/comment_dialog_button"
+            android:includeFontPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:textSize="13dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="제출하기"/>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

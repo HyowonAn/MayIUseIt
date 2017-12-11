@@ -27,15 +27,16 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     private static final String TAG = "MyFirebaseIIDService";
     TokenManager tokenManager;
     ApiInterface api;
+    String token = FirebaseInstanceId.getInstance().getToken();
 
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
         // Get updated InstanceID token.
-        String token = FirebaseInstanceId.getInstance().getToken();
+
         Log.e(TAG,token);
 
-        sendRegistrationToServer(token);
+        sendRegistrationToServer();
 
 
     }
@@ -45,7 +46,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         super.onCreate();
     }
 
-    private void sendRegistrationToServer(String token) {
+    public void sendRegistrationToServer() {
 
 
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));

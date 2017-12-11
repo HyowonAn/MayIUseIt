@@ -139,6 +139,7 @@ public class FacebookManager {
                 if(response.isSuccessful()){
                     tokenManager.saveToken(response.body());
                     listener.onSuccess();
+
                 }else{
                     listener.onError("An error occured");
                 }

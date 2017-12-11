@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
+import com.google.firebase.iid.FirebaseInstanceId;
 
+import net.uprin.mayiuseit.firebase.FirebaseInstanceIDService;
 import net.uprin.mayiuseit.model.AccessToken;
 import net.uprin.mayiuseit.model.TokenData;
 
@@ -37,6 +39,7 @@ public class TokenManager {
     public void saveToken(AccessToken token){
         editor.putString("ACCESS_TOKEN", token.getAccessToken()).commit();
         editor.putString("REFRESH_TOKEN", token.getRefreshToken()).commit();
+
     }
 
     public void deleteToken(){

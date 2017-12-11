@@ -41,10 +41,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.e("FCM-TOKEN",token);
-
         loginChecker();
 
         //startLoading();

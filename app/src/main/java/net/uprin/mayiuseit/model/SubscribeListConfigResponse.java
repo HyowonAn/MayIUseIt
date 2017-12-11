@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SubscribeListConfigResponse {
 
-    public SubscribeListConfigResponse(Boolean foods, Boolean machines, Boolean cosmetics, Boolean waters, Boolean livestocks, Boolean aborads, Boolean medicals, Boolean vehicles, String rgsde) {
+    public SubscribeListConfigResponse(Boolean foods, Boolean machines, Boolean cosmetics, Boolean waters, Boolean livestocks, Boolean aborads, Boolean medicals, Boolean vehicles,Boolean medicines, String rgsde) {
         this.foods = foods;
         this.machines = machines;
         this.cosmetics = cosmetics;
@@ -19,6 +19,7 @@ public class SubscribeListConfigResponse {
         this.aborads = aborads;
         this.medicals = medicals;
         this.vehicles = vehicles;
+        this.medicines =medicines;
         this.rgsde = rgsde;
     }
 
@@ -38,9 +39,18 @@ public class SubscribeListConfigResponse {
     private Boolean medicals;
     @SerializedName("vehicles")
     private Boolean vehicles;
+    @SerializedName("medicines")
+    private Boolean medicines;
     @SerializedName("rgsde")
     private String rgsde;
 
+    public Boolean getMedicines() {
+        return medicines;
+    }
+
+    public void setMedicines(Boolean medicines) {
+        this.medicines = medicines;
+    }
 
     public Boolean getFoods() {
         return foods;

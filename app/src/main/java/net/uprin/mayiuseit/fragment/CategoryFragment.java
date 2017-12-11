@@ -16,7 +16,7 @@ import net.uprin.mayiuseit.R;
 
 public class CategoryFragment extends Fragment {
 
-    ImageView visit,comment,rated,all,food,machine,cosmetic,water,livestock,aborad,medical,vehicle;
+    ImageView visit,comment,rated,all,food,machine,cosmetic,water,livestock,aborad,medical,vehicle,medicine;
     public static CategoryFragment createInstance() {
         CategoryFragment categoryFragmentFragment = new CategoryFragment();
         Bundle bundle = new Bundle();
@@ -37,6 +37,7 @@ public class CategoryFragment extends Fragment {
         livestock = (ImageView) v.findViewById(R.id.category_livestock);
         aborad = (ImageView) v.findViewById(R.id.category_aboard);
         medical = (ImageView) v.findViewById(R.id.category_medical);
+        medicine= (ImageView) v.findViewById(R.id.category_medicine);
         vehicle = (ImageView) v.findViewById(R.id.category_vehicle);
         water = (ImageView) v.findViewById(R.id.category_water);
         Glide.with(this).load(R.drawable.visit_background).into(visit);
@@ -50,6 +51,7 @@ public class CategoryFragment extends Fragment {
         Glide.with(this).load(R.drawable.livestock_background).into(livestock);
         Glide.with(this).load(R.drawable.aboard_background).into(aborad);
         Glide.with(this).load(R.drawable.medical_background).into(medical);
+        Glide.with(this).load(R.drawable.medicine_background).into(medicine);
         Glide.with(this).load(R.drawable.vehicle_background).into(vehicle);
         Glide.with(this).load(R.drawable.water_background).into(water);
 

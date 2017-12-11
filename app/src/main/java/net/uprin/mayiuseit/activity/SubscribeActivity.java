@@ -33,7 +33,7 @@ public class SubscribeActivity extends AppCompatActivity {
     TokenManager tokenManager;
     SubscribeListConfigResponse subscribeListConfigResponse;
 
-    SwitchCompat subscribe_foods,subscribe_machines,subscribe_cosmetics,subscribe_waters,subscribe_livestocks,subscribe_aborads,subscribe_medicals,subscribe_vehicles;
+    SwitchCompat subscribe_foods,subscribe_machines,subscribe_cosmetics,subscribe_waters,subscribe_livestocks,subscribe_aborads,subscribe_medicals,subscribe_vehicles,subscribe_medicines;
     Button comment_dialog_button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,7 @@ public class SubscribeActivity extends AppCompatActivity {
 
                         }
                     }).show();
-                    subscribeListConfigResponse = new SubscribeListConfigResponse(false,false,false,false,false,false,false,false,"아직 추가하지 않았음");
+                    subscribeListConfigResponse = new SubscribeListConfigResponse(false,false,false,false,false,false,false,false,false,"아직 추가하지 않았음");
                     // Toast.makeText(getApplicationContext(), response.errorBody()., Toast.LENGTH_LONG).show();
                     bindData();
                 }
@@ -142,6 +142,14 @@ public class SubscribeActivity extends AppCompatActivity {
             }
         });
 
+        subscribe_medicines = (SwitchCompat) findViewById(R.id.subscribe_medicines);
+        subscribe_medicines.setChecked(subscribeListConfigResponse.getMedicines());
+        subscribe_medicines.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                subscribeListConfigResponse.setMedicines(isChecked);
+            }
+        });
         subscribe_vehicles = (SwitchCompat) findViewById(R.id.subscribe_vehicles);
         subscribe_vehicles.setChecked(subscribeListConfigResponse.getVehicles());
         subscribe_vehicles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -174,7 +182,7 @@ public class SubscribeActivity extends AppCompatActivity {
 
                                 }
                             }).show();
-                            subscribeListConfigResponse = new SubscribeListConfigResponse(false,false,false,false,false,false,false,false,"아직 추가하지 않았음");
+                            subscribeListConfigResponse = new SubscribeListConfigResponse(false,false,false,false,false,false,false,false,false,"아직 추가하지 않았음");
                             // Toast.makeText(getApplicationContext(), response.errorBody()., Toast.LENGTH_LONG).show();
                             bindData();
                         }

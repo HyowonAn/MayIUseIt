@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.model.DocumentListResponse;
@@ -162,6 +163,8 @@ public class SubscribeActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             subscribeListConfigResponse = response.body();
                             bindData();
+                            Toast.makeText(getApplicationContext(), "업데이트 완료 \n 업데이트 일시  :" + subscribeListConfigResponse.getRgsde(), Toast.LENGTH_LONG).show();
+                            finish();
                         } else {
                             ApiError apiError = Utils.converErrors(response.errorBody());
                             Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {

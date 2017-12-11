@@ -21,6 +21,8 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.activity.MainActivity;
+import net.uprin.mayiuseit.util.BadgeManager;
+import net.uprin.mayiuseit.util.TokenManager;
 
 import java.io.BufferedInputStream;
 import java.net.URL;
@@ -30,17 +32,24 @@ import java.util.List;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     private static final String TAG = "FirebaseMsgService";
+    BadgeManager badgeManager;
 
     // [START receive_message]
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         sendPushNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
-        Intent badgeIntent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-        badgeIntent.putExtra("badge_count", remoteMessage.getData().get("badge"));
-        badgeIntent.putExtra("badge_count_package_name", getPackageName());
-        badgeIntent.putExtra("badge_count_class_name", getLauncherClassName());
-        sendBroadcast(badgeIntent);
+
+//        Intent badgeIntent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
+//        badgeIntent.putExtra("badge_count", remoteMessage.getData().get("badge"));
+//        badgeIntent.putExtra("badge_count_package_name", getPackageName());
+//        badgeIntent.putExtra("badge_count_class_name", getLauncherClassName());
+//        sendBroadcast(badgeIntent);
+
+        badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE), getApplicationContext());
+
+        badgeManager.setBadgeCount(Integer.parseInt(remoteMessage.getData().get("badge"))) ;
+
     }
 
     private String getLauncherClassName() {

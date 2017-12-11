@@ -49,6 +49,7 @@ import net.uprin.mayiuseit.rest.ApiInterface;
 import net.uprin.mayiuseit.model.Document;
 import net.uprin.mayiuseit.adapter.DocumentListsAdapter;
 import net.uprin.mayiuseit.model.DocumentResponse;
+import net.uprin.mayiuseit.util.BadgeManager;
 import net.uprin.mayiuseit.util.CategorytoString;
 import net.uprin.mayiuseit.util.TokenManager;
 import net.uprin.mayiuseit.util.VerticalLineDecorator;
@@ -62,7 +63,7 @@ import retrofit2.Response;
 
 public class DocumentActivity extends AppCompatActivity {
 
-    int mCartItemCount = 10;
+    int mCartItemCount = 0;
 
     CollapsingToolbarLayout toolbarLayout;
     LinearLayout head_layout;
@@ -93,6 +94,7 @@ public class DocumentActivity extends AppCompatActivity {
     TextView textCartItemCount;
 
     TokenManager tokenManager;
+    BadgeManager badgeManager;
 
     List<CommentList> commentLists;
     RecyclerView recyclerView;
@@ -122,6 +124,9 @@ public class DocumentActivity extends AppCompatActivity {
         root_layout = (CoordinatorLayout) findViewById(R.id.root_layout);
 
         app_bar_layout = (AppBarLayout) findViewById(R.id.activity_document_appbar_layout);
+
+        badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        mCartItemCount = badgeManager.getBadgeCount();
 
 
 

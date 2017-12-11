@@ -30,6 +30,7 @@ import static com.kakao.util.helper.Utility.getPackageInfo;
  */
 
 public class App extends Application {
+    private static Context context;
 
     private class KakaoSDKAdapter extends KakaoAdapter {
 
@@ -77,6 +78,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        App.context = getApplicationContext();
         Stetho.initializeWithDefaults(this);
         KakaoSDK.init(new KakaoSDKAdapter());
         Log.e("Key Hash : ", getKeyHash(this));
@@ -97,6 +99,10 @@ public class App extends Application {
             }
         }
         return null;
+    }
+
+    public static Context getAppContext() {
+        return App.context;
     }
 }
 

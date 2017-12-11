@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     TextView textCartItemCount;
-    int mCartItemCount = 10;
+    int mCartItemCount;
     TokenManager tokenManager;
     BadgeManager badgeManager;
     private int[] tabIcons = {
@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initToolbar();
         initViewPagerAndTabs();
+
+        badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        mCartItemCount = badgeManager.getBadgeCount();
+
 
 
         FabSpeedDial fabSpeedDial = (FabSpeedDial) findViewById(R.id.fab_speed_dial);

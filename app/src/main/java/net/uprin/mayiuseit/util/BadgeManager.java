@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
+
+import net.uprin.mayiuseit.service.App;
 
 import java.util.List;
 
@@ -17,31 +20,29 @@ public class BadgeManager {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
     private int badgeCount;
-    private static Context context;
-
 
     private static BadgeManager INSTANCE = null;
 
-    private BadgeManager(SharedPreferences prefs, Context context){
+    private BadgeManager(SharedPreferences prefs){
         this.prefs = prefs;
         this.editor = prefs.edit();
-        this.context = context.getApplicationContext();
     }
 
-    public static synchronized BadgeManager getInstance(SharedPreferences prefs, Context context){
+    public static synchronized BadgeManager getInstance(SharedPreferences prefs){
         if(INSTANCE == null){
-            INSTANCE = new BadgeManager(prefs,context);
+            INSTANCE = new BadgeManager(prefs);
         }
         return INSTANCE;
     }
 
     public int getBadgeCount(){
-        badgeCount = prefs.getInt("BADGE_COUNT", 0);
+        badgeCount = prefs.getInt("BADGE_COUNT",0);
         return badgeCount;
     }
 
-    public void setBadgeCount(int badgeCount){
-        editor.putInt("BADGE_COUNT", this.badgeCount).commit();
+    public void setBadgeCount(int data){
+        editor.putInt("BADGE_COUNT", data).commit();
+        Log.e("BadgeManager","Success");
         refreshBadge();
 
     }
@@ -53,19 +54,19 @@ public class BadgeManager {
     public void refreshBadge() {
         Intent badgeIntent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
         badgeIntent.putExtra("badge_count", getBadgeCount());
-        badgeIntent.putExtra("badge_count_package_name", context.getPackageName());
+        badgeIntent.putExtra("badge_count_package_name", App.getAppContext().getPackageName());
         badgeIntent.putExtra("badge_count_class_name", getLauncherClassName());
-        context.sendBroadcast(badgeIntent);
+        App.getAppContext().sendBroadcast(badgeIntent);
     }
 
     private String getLauncherClassName() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-        PackageManager pm = context.getApplicationContext().getPackageManager();
+        PackageManager pm = App.getAppContext().getPackageManager();
         List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent, 0);
         for (ResolveInfo resolveInfo : resolveInfos) {
             String pkgName = resolveInfo.activityInfo.applicationInfo.packageName;
-            if (pkgName.equalsIgnoreCase(context.getPackageName())) {
+            if (pkgName.equalsIgnoreCase(App.getAppContext().getPackageName())) {
                 return resolveInfo.activityInfo.name;
             }
         }

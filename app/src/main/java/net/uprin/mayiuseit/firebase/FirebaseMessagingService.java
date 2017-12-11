@@ -16,6 +16,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -40,15 +41,17 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         sendPushNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"));
 
+
+
+        badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        Log.e("getBadge",Integer.parseInt(remoteMessage.getData().get("badge")) +"");
+        badgeManager.setBadgeCount(Integer.parseInt(remoteMessage.getData().get("badge"))) ;
+
 //        Intent badgeIntent = new Intent("android.intent.action.BADGE_COUNT_UPDATE");
-//        badgeIntent.putExtra("badge_count", remoteMessage.getData().get("badge"));
+//        badgeIntent.putExtra("badge_count", Integer.parseInt(remoteMessage.getData().get("badge")));
 //        badgeIntent.putExtra("badge_count_package_name", getPackageName());
 //        badgeIntent.putExtra("badge_count_class_name", getLauncherClassName());
 //        sendBroadcast(badgeIntent);
-
-        badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE), getApplicationContext());
-
-        badgeManager.setBadgeCount(Integer.parseInt(remoteMessage.getData().get("badge"))) ;
 
     }
 

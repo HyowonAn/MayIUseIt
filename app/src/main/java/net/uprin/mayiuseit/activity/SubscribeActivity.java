@@ -165,6 +165,7 @@ public class SubscribeActivity extends AppCompatActivity {
                             bindData();
                             Toast.makeText(getApplicationContext(), "업데이트 완료 \n 업데이트 일시  :" + subscribeListConfigResponse.getRgsde(), Toast.LENGTH_LONG).show();
                             finish();
+
                         } else {
                             ApiError apiError = Utils.converErrors(response.errorBody());
                             Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {

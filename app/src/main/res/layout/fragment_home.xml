@@ -11,7 +11,9 @@
         android:layout_centerInParent="true"
         android:gravity="center_horizontal"
         android:layout_marginTop="120dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/oops_layout"
+        >
 
         <ImageView
             android:layout_width="@dimen/img_width_height"
@@ -35,6 +37,15 @@
             android:text="@string/ohsorry"
             android:textAlignment="center"
             android:textSize="12dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subscribe_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:nestedScrollingEnabled="false"
+            android:isScrollContainer="false"
+            />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

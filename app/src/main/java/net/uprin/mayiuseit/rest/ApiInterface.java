@@ -91,6 +91,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<RecentCommentListResponse> recent_comment_list(@Field("pageNum") int pageNum);
 
+    @POST("subscribe_list.php")
+    @FormUrlEncoded
+    Call<DocumentListResponse> getSubcribeList(@Field("pageNum") int pageNum);
+
     @POST("facebook_auth.php")
     @FormUrlEncoded
     Call<AccessToken> facebook_auth(@Field("ACCESS_TOKEN") String accessToken);

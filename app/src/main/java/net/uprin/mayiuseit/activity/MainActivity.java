@@ -29,6 +29,7 @@ import net.uprin.mayiuseit.fragment.MainActivityFragment;
 import net.uprin.mayiuseit.fragment.NoticeFragment;
 import net.uprin.mayiuseit.fragment.ProfileFragment;
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.util.BadgeManager;
 import net.uprin.mayiuseit.util.TokenManager;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textCartItemCount;
     int mCartItemCount = 10;
     TokenManager tokenManager;
+    BadgeManager badgeManager;
     private int[] tabIcons = {
             R.drawable.home,
             R.drawable.category,

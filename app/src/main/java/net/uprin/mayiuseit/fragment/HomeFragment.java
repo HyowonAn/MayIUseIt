@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import net.uprin.mayiuseit.R;
@@ -45,6 +46,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private final int TOP_REFRESH = 1;
 
     private SwipeRefreshLayout refreshLayout;
+    private LinearLayout oops_layout;
     private  int pageNum = 1;
     private  int category= 0;
     private String rankBy = "rgsde";
@@ -72,6 +74,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
         refreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.home_swipeRefreshLo);
+        oops_layout = (LinearLayout) v.findViewById(R.id.oops_layout);
+
         refreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -124,10 +128,12 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onResponse(Call<DocumentListResponse> call, Response<DocumentListResponse> response) {
                 if(response.isSuccessful()){
+                    oops_layout.setVisibility(View.GONE);
                     documentLists.addAll(response.body().getResults());
                     adapter.notifyDataChanged();
                     pageNum = pageNum +1;
                 } else {
+//                    oops_layout.setVisibility(View.VISIBLE);
                     ApiError apiError = Utils.converErrors(response.errorBody());
 //                    Snackbar.make(getWindow().getDecorView().getRootView(), apiError.message(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
 //                        @Override

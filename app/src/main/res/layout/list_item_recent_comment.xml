@@ -38,6 +38,7 @@
                 android:clickable="true"
                 app:civ_border_width="1dp"
                 app:civ_border_color="#FFFFFFFF"
+                android:layout_margin="5dp"
 
                 android:id="@+id/recent_comment_profile_image"
                 android:layout_width="33dp"
@@ -61,6 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="nickname"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="3dp"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -69,6 +72,7 @@
                     android:id="@+id/recent_comment_rgsde"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
                     android:maxLines="1"
                     android:text="20xx-xx-xx"
                     android:textSize="12sp"

@@ -104,7 +104,9 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 // java.lang.IllegalStateException: Cannot call this method while RecyclerView is computing a layout or scrolling error
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setAutoMeasureEnabled(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 

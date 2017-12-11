@@ -128,7 +128,15 @@ public class DocumentActivity extends AppCompatActivity {
         badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         mCartItemCount = badgeManager.getBadgeCount();
 
+        badgeManager.setOnBadgeEvent(new BadgeManager.BadgeEventListener() {
+            @Override
+            public void onReceivedEvent() {
+                mCartItemCount = badgeManager.getBadgeCount();
+                Log.e("BadgeEvent","Badge Changed");
+                invalidateOptionsMenu();
 
+            }
+        });
 
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

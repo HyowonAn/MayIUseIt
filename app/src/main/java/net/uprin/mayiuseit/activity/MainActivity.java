@@ -1,5 +1,6 @@
 package net.uprin.mayiuseit.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.notice,
             R.drawable.account
     };
+    Context context;
 
     //TextView user_nickname,user_email;
     //CircleImageView user_img;
@@ -74,6 +77,16 @@ public class MainActivity extends AppCompatActivity {
 
         badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         mCartItemCount = badgeManager.getBadgeCount();
+
+        badgeManager.setOnBadgeEvent(new BadgeManager.BadgeEventListener() {
+            @Override
+            public void onReceivedEvent() {
+                mCartItemCount = badgeManager.getBadgeCount();
+                Log.e("BadgeEvent","Badge Changed");
+                invalidateOptionsMenu();
+
+            }
+        });
 
 
 
@@ -302,8 +315,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SearchActivity.class));
 
         }else if (id==R.id.alarm_history){
-
-            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
+            badgeManager.deleteBadgeCount();
+            mCartItemCount = badgeManager.getBadgeCount();
+            invalidateOptionsMenu();
+//            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
 
         }else if (id==android.R.id.home){
 

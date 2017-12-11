@@ -43,6 +43,7 @@ public class BadgeManager {
     public void setBadgeCount(int data){
         editor.putInt("BADGE_COUNT", data).commit();
         Log.e("BadgeManager","Success");
+        mBadgeEventListener.onReceivedEvent();
         refreshBadge();
 
     }
@@ -72,5 +73,20 @@ public class BadgeManager {
         }
         return null;
     }
+
+    public interface BadgeEventListener{
+
+        void onReceivedEvent();
+
+    }
+
+    private BadgeEventListener mBadgeEventListener;
+
+    public void setOnBadgeEvent(BadgeEventListener listener){
+
+        mBadgeEventListener = listener;
+
+    }
+
 
 }

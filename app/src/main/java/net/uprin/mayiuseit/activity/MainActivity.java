@@ -77,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
         initViewPagerAndTabs();
 
 
-        String token = FirebaseInstanceId.getInstance().getToken();
-        Log.e("FCM-TOKEN",token);
-
 
         badgeManager = BadgeManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
         mCartItemCount = badgeManager.getBadgeCount();

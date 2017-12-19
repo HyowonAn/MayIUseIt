@@ -1,5 +1,6 @@
 package net.uprin.mayiuseit.util;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -7,16 +8,26 @@ import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import net.uprin.mayiuseit.activity.LoginActivity;
 import net.uprin.mayiuseit.firebase.FirebaseInstanceIDService;
 import net.uprin.mayiuseit.model.AccessToken;
+import net.uprin.mayiuseit.model.CallResponse;
 import net.uprin.mayiuseit.model.TokenData;
+import net.uprin.mayiuseit.rest.ApiClient;
+import net.uprin.mayiuseit.rest.ApiInterface;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by uPrin on 2017. 12. 1..
  */
 
 public class TokenManager {
+    private static final String TAG = "TokenManager";
 
+    ApiInterface api;
 
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
@@ -95,5 +106,32 @@ public class TokenManager {
         token.setAccessToken(prefs.getString("ACCESS_TOKEN", null));
         token.setRefreshToken(prefs.getString("REFRESH_TOKEN", null));
         return token;
+    }
+
+    public void sendRegistrationToServer() {
+
+
+        api = ApiClient.createServiceWithAuth(ApiInterface.class, this);
+
+        Call<CallResponse> call = api.write_fcm_token(FirebaseInstanceId.getInstance().getToken());
+        call.enqueue(new Callback<CallResponse>() {
+            @Override
+            public void onResponse(Call<CallResponse> call, Response<CallResponse> response) {
+
+                if(response.isSuccessful()){
+                    CallResponse callResponse = response.body();
+                    Log.e(TAG,"token updated");
+
+
+                }else{
+                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CallResponse> call, Throwable t) {
+                Log.e(TAG," Response Error "+t.getMessage());
+            }
+        });
     }
 }

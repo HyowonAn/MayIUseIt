@@ -23,6 +23,7 @@ import com.auth0.android.jwt.Claim;
 import com.auth0.android.jwt.JWT;
 
 import net.uprin.mayiuseit.R;
+import net.uprin.mayiuseit.firebase.FirebaseInstanceIDService;
 import net.uprin.mayiuseit.model.TokenData;
 import net.uprin.mayiuseit.util.Utils;
 import net.uprin.mayiuseit.model.JoinRequest;
@@ -54,7 +55,7 @@ public class EmailLoginActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     TextInputLayout emailLayout,passLayout;
     Toolbar toolbar;
-    AppCompatButton loginBtn, tokenLoginBtn;
+    AppCompatButton tokenLoginBtn;
     TextView findmypassword_button;
 
     final Context context = this; //이거 onPostExecute부분에서 필요한 것이었음
@@ -71,7 +72,6 @@ public class EmailLoginActivity extends AppCompatActivity {
         passLayout = (TextInputLayout) findViewById(R.id.password_TextInputLayout);
         toolbar = (Toolbar) findViewById(R.id.email_login_toolbar);
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_email_login);
-        loginBtn = (AppCompatButton)findViewById(R.id.email_Login_Button);
         tokenLoginBtn = (AppCompatButton)findViewById(R.id.token_Email_Login_Button);
 
         findmypassword_button = (TextView) findViewById(R.id.findmypassword_button) ;
@@ -150,6 +150,7 @@ public class EmailLoginActivity extends AppCompatActivity {
 
                         if (response.isSuccessful()) {
                             tokenManager.saveToken(response.body());
+                            tokenManager.sendRegistrationToServer();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                             //JWT jwt = new JWT(response.body().getAccessToken());
@@ -157,7 +158,6 @@ public class EmailLoginActivity extends AppCompatActivity {
 
                             TokenData tokenData = new TokenData();
                             tokenData = tokenManager.getTokenData();
-
                             Toast.makeText(getApplicationContext(),"member_srl : " + tokenData.getMember_srl() + "\n email_address :" + tokenData.getEmail_address() + "\n nickname :" + tokenData.getNickname(),Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
@@ -184,52 +184,5 @@ public class EmailLoginActivity extends AppCompatActivity {
             }
         });
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sId = et_id.getText().toString();
-                sPw = et_pw.getText().toString();
-
-                //Async가 아닌 Retrofit을 이용해서 간단하게 연결하기 17.11.1 안효원
-                ApiInterface apiService = ApiClient.createService(ApiInterface.class);
-                Call<LoginResponse> call = apiService.postEmailLogin(new JoinRequest(sId,sPw,UPRINKEY));
-                call.enqueue(new Callback<LoginResponse>() {
-                    @Override
-                    public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                        LoginResponse loginResponse = response.body();
-                        if (loginResponse.getState()==1){
-                            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
-                            alertBuilder
-                                    .setTitle("환영합니다")
-                                    .setMessage(loginResponse.getDescription())
-                                    .setCancelable(true)
-                                    .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                                finish();
-                                            }
-                                        });
-                            AlertDialog dialog = alertBuilder.create();
-                            dialog.show();
-                        }
-                        else
-                        {
-                            Snackbar.make(getWindow().getDecorView().getRootView(), loginResponse.getDescription(), Snackbar.LENGTH_SHORT).setAction("확인", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-
-                                }
-                            }).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    }
-                });
-
-            }
-        });
     }
 }

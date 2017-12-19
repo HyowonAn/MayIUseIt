@@ -107,6 +107,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.addItemDecoration(new VerticalLineDecorator(2));
         recyclerView.setAdapter(adapter);
 
@@ -142,9 +143,19 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onResponse(Call<RecentCommentListResponse> call, Response<RecentCommentListResponse> response) {
                 if(response.isSuccessful()){
-                    recentcommentLists.addAll(response.body().getResults());
+
+                    List<RecentCommentList> result = response.body().getResults();
+
+                    if(result !=null) {
+                        recentcommentLists.addAll(response.body().getResults());
+                        pageNum = pageNum +1;
+
+                    } else {
+                        adapter.setMoreDataAvailable(false);
+
+                    }
+
                     adapter.notifyDataChanged();
-                    pageNum = pageNum +1;
                 }else{
                     Log.e(TAG," Response Error "+String.valueOf(response.code()));
                 }

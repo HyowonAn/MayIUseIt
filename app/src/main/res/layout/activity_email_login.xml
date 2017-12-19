@@ -60,19 +60,13 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/email_Login_Button"
-            style="@style/defaultButtonTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="로그인하기" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/token_Email_Login_Button"
             style="@style/defaultButtonTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="(Dev)Token 로그인하기" />
+            android:text="로그인하기" />
 
 
 

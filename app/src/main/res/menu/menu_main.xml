@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="설정"
+        android:title="(Dev)설정"
         android:id="@+id/settings" />
 
     <item
-        android:title="dev_tool"
+        android:title="개발자도구"
         android:id="@+id/dev_id" />
 
     <item
-        android:title="test3"
+        android:title="제보하기"
         android:id="@+id/item3_id" />
 
     <item
-        android:title="logout"
+        android:title="로그아웃"
         android:id="@+id/logout_menu_item" />
 
     <item

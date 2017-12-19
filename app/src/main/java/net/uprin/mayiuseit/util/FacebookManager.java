@@ -15,6 +15,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
+import net.uprin.mayiuseit.firebase.FirebaseInstanceIDService;
 import net.uprin.mayiuseit.rest.ApiClient;
 import net.uprin.mayiuseit.rest.ApiInterface;
 
@@ -139,6 +140,8 @@ public class FacebookManager {
                 if(response.isSuccessful()){
                     tokenManager.saveToken(response.body());
                     listener.onSuccess();
+                    tokenManager.sendRegistrationToServer();
+
 
                 }else{
                     listener.onError("An error occured");
@@ -151,7 +154,6 @@ public class FacebookManager {
             }
         });
     }
-
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }

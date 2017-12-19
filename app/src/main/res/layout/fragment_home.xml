@@ -5,7 +5,13 @@
     android:orientation="vertical"
     tools:context="net.uprin.mayiuseit.fragment.HomeFragment">
 
-
+    <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context="net.uprin.mayiuseit.fragment.ProfileFragment"
+        android:id="@+id/home_swipeRefreshLo"
+        xmlns:tools="http://schemas.android.com/tools">
 
 
     <LinearLayout
@@ -62,13 +68,7 @@
 
     </LinearLayout>
     </LinearLayout>
-        <android.support.v4.widget.SwipeRefreshLayout android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            tools:context="net.uprin.mayiuseit.fragment.ProfileFragment"
-            android:id="@+id/home_swipeRefreshLo"
-            xmlns:tools="http://schemas.android.com/tools">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/subscribe_recycler_view"
@@ -78,7 +78,8 @@
             android:nestedScrollingEnabled="false"
             android:isScrollContainer="false"
             />
-    </android.support.v4.widget.SwipeRefreshLayout>
+
 
     </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

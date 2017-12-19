@@ -36,6 +36,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.github.florent37.glidepalette.GlidePalette;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import net.uprin.mayiuseit.R;
 import net.uprin.mayiuseit.adapter.CommentListsAdapter;
@@ -521,18 +523,21 @@ public class DocumentActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"item3 is selected",Toast.LENGTH_SHORT).show();
 
         }else if (id==R.id.logout_menu_item){
+            requestLogout();
 
         }else if (id==R.id.search_id){
 
             startActivity(new Intent(getApplicationContext(), SearchActivity.class));
 
         }else if (id==R.id.alarm_history){
-
-            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
+            badgeManager.deleteBadgeCount();
+            mCartItemCount = badgeManager.getBadgeCount();
+            invalidateOptionsMenu();
+//            Toast.makeText(getApplicationContext(),"alarm_history",Toast.LENGTH_SHORT).show();
 
         }else if (id==android.R.id.home){
 
-            onBackPressed();
+            finish();
 
         }
         if (item.getItemId() == android.R.id.home) {
@@ -541,6 +546,24 @@ public class DocumentActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void requestLogout() {
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        tokenManager.deleteToken();
+        UserManagement.requestLogout(new LogoutResponseCallback() {
+            @Override
+            public void onCompleteLogout() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        finish();
+                    }
+                });
+            }
+        });
     }
 
     private void setupBadge() {

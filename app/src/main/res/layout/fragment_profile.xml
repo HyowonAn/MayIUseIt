@@ -4,18 +4,20 @@
     tools:context="net.uprin.mayiuseit.fragment.ProfileFragment"
     android:layout_width="match_parent"
     android:id="@+id/swipeRefreshLo"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     >
-<android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:descendantFocusability="blocksDescendants">
-
+                android:focusableInTouchMode="true"
+                android:focusable="true"
+                android:descendantFocusability="blocksDescendants"
+                android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -125,9 +127,8 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recent_comment_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         android:isScrollContainer="false"
                         />
 

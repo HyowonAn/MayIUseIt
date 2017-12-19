@@ -28,6 +28,7 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     TokenManager tokenManager;
     ApiInterface api;
     String token = FirebaseInstanceId.getInstance().getToken();
+    private static FirebaseInstanceIDService INSTANCE = null;
 
     // [START refresh_token]
     @Override
@@ -36,48 +37,30 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
 
         Log.e(TAG,token);
 
-        sendRegistrationToServer();
-
+        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
+        tokenManager.sendRegistrationToServer();
 
     }
+
+    private FirebaseInstanceIDService(){
+
+    }
+
+
+    public static synchronized FirebaseInstanceIDService getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new FirebaseInstanceIDService();
+        }
+        return INSTANCE;
+    }
+
 
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
-    public void sendRegistrationToServer() {
 
-
-        tokenManager = TokenManager.getInstance(getSharedPreferences("prefs", MODE_PRIVATE));
-
-        if(tokenManager.getToken() == null){
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-
-        api = ApiClient.createServiceWithAuth(ApiInterface.class, tokenManager);
-
-        Call<CallResponse> call = api.write_fcm_token(token);
-        call.enqueue(new Callback<CallResponse>() {
-            @Override
-            public void onResponse(Call<CallResponse> call, Response<CallResponse> response) {
-
-                if(response.isSuccessful()){
-                    CallResponse callResponse = response.body();
-                    Log.e(TAG,"token updated");
-
-
-                }else{
-                    Log.e(TAG," Response Error "+String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CallResponse> call, Throwable t) {
-                Log.e(TAG," Response Error "+t.getMessage());
-            }
-        });
-    }
 
 
 }
